@@ -1,7 +1,6 @@
 <div align="center"  style="margin-bottom: 40px">
- <img src="https://raw.githubusercontent.com/Memoyu/Memoyu/main/logo.png" alt="memoyu" width="128" />
+ <img src="https://raw.githubusercontent.com/Memoyu/Memo.Blog/main/docs/images/logo.png" alt="memo blog" />
 </div>
-<h1 align="center">Memoyu's Blog</h1>
 <div align="center">
  <h3>基于.NET8开发的Blog系统移动管理端</h3>
  <a href="https://dotnet.microsoft.com/zh-cn/download"><img src="https://img.shields.io/badge/.net8.0.0-3963bc.svg"/></a>
@@ -11,9 +10,11 @@
 
 
 ## 简介
-
 本项目为自用Blog系统的移动管理端，主要初衷在于实现简单版的系统管理，方便管理员维护博客站点;
+
 目前仍在技术选型：[Maui](https://github.com/dotnet/maui) or [Avalonia](https://github.com/AvaloniaUI/Avalonia)
+
+
 
 **线上地址：**
 
@@ -38,7 +39,6 @@
 
 
 ## 功能实现
-
 - [ ] 数据监控、统计等；
 - [ ] 文章及标签、分类编辑、统计等；
 - [ ] 评论回复、编辑等；
@@ -62,6 +62,10 @@
 
 
 
-## 开源协议
+## 感谢授权
+🙏🏻 感谢JetBrains对本项目授予的开发工具开源许可 [JetBrains Open Source  Support](https://www.jetbrains.com/community/opensource/#support)
 
+
+
+## 开源协议
 MIT License. See [License here](./LICENSE) for details.
