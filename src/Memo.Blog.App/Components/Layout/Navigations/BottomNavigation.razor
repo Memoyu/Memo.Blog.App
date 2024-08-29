@@ -1,0 +1,9 @@
+﻿<MBottomNavigation InputValue="Show"
+                   Mandatory="true"
+                   App="true">
+    @foreach (var item in navigationItems)
+    {
+        <BottomNavigationItem @key="item.Path" Value="item"/>
+    }
+</MBottomNavigation>
+
