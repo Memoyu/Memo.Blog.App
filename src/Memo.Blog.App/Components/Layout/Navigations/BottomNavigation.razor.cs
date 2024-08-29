@@ -6,24 +6,16 @@ namespace Memo.Blog.App.Components.Layout.Navigations;
 
 public partial class BottomNavigation
 {
-    protected readonly List<NavigationItem> navigationItems = [
-        new("首页", "mdi-notebook-outline", "mdi-notebook", ""),
-        new("文章", "mdi-clock-outline", "mdi-clock", "article"),
-        new("动态", "mdi-file-outline", "mdi-file", "moment"),
-        new("我的",  "mdi-account-outline", "mdi-account", "mine"),
-    ];
+    [Parameter]
+    public List<NavigationItem> Items { get; set; } = [];
 
     [Inject]
     protected NavigationManager NavigationManager { get; set; } = default!;
 
-    protected bool IsPermanentPath
-            => navigationItems.Any(it => NavigationManager.ToAbsoluteUri(it.Path).AbsolutePath == NavigationManager.GetAbsolutePath());
+
+    [Parameter]
+    public bool IsPermanentPath { get; set; }
 
     protected bool Show => IsPermanentPath;
 
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-    }
 }
