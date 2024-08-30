@@ -2,7 +2,7 @@
  <img src="https://raw.githubusercontent.com/Memoyu/Memo.Blog/main/docs/images/logo.png" alt="memo blog" />
 </div>
 <div align="center">
- <h3>基于.NET8开发的Blog系统移动管理端</h3>
+ <h3>基于.NET8 MAUI开发的Blog系统移动管理端</h3>
  <a href="https://dotnet.microsoft.com/zh-cn/download"><img src="https://img.shields.io/badge/.net8.0.0-3963bc.svg"/></a>
  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-3963bc.svg"/></a>
  <a href="https://github.com/Memoyu"><img src="https://img.shields.io/badge/developer-memoyu-blue"/></a>
@@ -10,9 +10,7 @@
 
 
 ## 简介
-本项目为自用Blog系统的移动管理端，主要初衷在于实现简单版的系统管理，方便管理员维护博客站点;
-
-目前仍在技术选型：[Maui](https://github.com/dotnet/maui) or [Avalonia](https://github.com/AvaloniaUI/Avalonia)
+本项目为自用Blog系统的移动管理端，主要初衷在于实现简单版的系统管理，方便管理员维护博客站点，使用[MAUI Blazor](https://github.com/dotnet/maui) 开发；
 
 
 
@@ -22,7 +20,7 @@
 
 移动管理端：Coming soon
 
-客户端：<a href="http://blog.memoyu.com/" target="_blank">管理端</a>
+客户端：<a href="http://blog.memoyu.com/" target="_blank">客户端</a>
 
 > Tips：小霸王，稍微等一下，轻点！
 
@@ -52,8 +50,7 @@
 
 
 ## 相关技术
-> Maybe it's maui, maybe it's avalonia
-> Coming soon
+> MAUI Blazor
 
 
 
@@ -64,7 +61,6 @@
 
 ## 感谢授权
 🙏🏻 感谢JetBrains对本项目授予的开发工具开源许可 [JetBrains Open Source  Support](https://www.jetbrains.com/community/opensource/#support)
-
 
 
 
