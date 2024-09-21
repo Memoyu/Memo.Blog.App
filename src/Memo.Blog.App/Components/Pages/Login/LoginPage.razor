@@ -1,0 +1,43 @@
+﻿@page "/login"
+@attribute [AllowAnonymous]
+@layout LoginLayout
+
+<div class="login">
+    <div class="text-right">
+        <MButton Text Class="text-capitalize" Href="/sign-up" data-page-stack-strategy>Sign Up</MButton>
+    </div>
+
+    <MAvatar Size="72"
+             Color="white">
+        <MImage Src="_content/Masa.Blazor.MauiDemo.Rcl/img/masastack.png"
+                Contain
+                MaxWidth="64"
+                alt="masastack">
+        </MImage>
+    </MAvatar>
+
+    <MTextField @bind-Value="@_username"
+                HideDetails="true"
+                Placeholder="Username (test)"
+                Clearable>
+    </MTextField>
+
+    <MTextField @bind-Value="@_password"
+                HideDetails="true"
+                Placeholder="Password (test)"
+                Clearable
+                Type="password"
+                OnEnter="@LogInAsync">
+    </MTextField>
+
+    <MButton Block
+             Class="text-capitalize"
+             Rounded
+             Large
+             Color="primary"
+             Disabled="@LoginBtnDisabled"
+             OnClick="@LogInAsync"
+             Loading="@_loggingIn">
+        Login
+    </MButton>
+</div>

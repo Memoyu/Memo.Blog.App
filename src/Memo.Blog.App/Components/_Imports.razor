@@ -1,5 +1,7 @@
 ﻿@using System.Net.Http
 @using System.Net.Http.Json
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.AspNetCore.Components.Routing
 @using Microsoft.AspNetCore.Components.Web
@@ -9,4 +11,9 @@
 @using Memo.Blog.App.Components
 @using Masa.Blazor
 
+@using Memo.Blog.App.Components.Layout
 @using Memo.Blog.App.Components.Layout.Navigations
+
+@using Memo.Blog.App.Services.App
+
+@attribute [Authorize]

@@ -1,5 +1,8 @@
 ﻿@inherits LayoutComponentBase
 
+<link href="css/status-bar-and-navigation-bar.css" rel="stylesheet" />
+
+@*
 <MApp>
     <ErrorBoundary>
         <ChildContent>
@@ -14,5 +17,23 @@
             <div>cuowu </div>
         </ErrorContent>
     </ErrorBoundary>
+</MApp> *@
+
+
+<MApp>
+    <MMain>
+        <MErrorHandler>
+            <AuthorizeView>
+                <Authorized>
+                    @Body
+                </Authorized>
+                <NotAuthorized>
+                    @Body
+                </NotAuthorized>
+            </AuthorizeView>
+        </MErrorHandler>
+    </MMain>
+
+    <BottomNavigation Items="NavigationItems" IsPermanentPath="IsPermanentPath" />
 </MApp>
 

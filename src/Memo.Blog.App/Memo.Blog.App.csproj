@@ -22,7 +22,7 @@
         <Nullable>enable</Nullable>
 
         <!-- Display name -->
-        <ApplicationTitle>Memo.Blog.App</ApplicationTitle>
+        <ApplicationTitle>Memo Blog</ApplicationTitle>
 
         <!-- App Identifier -->
         <ApplicationId>com.companyname.memo.blog.app</ApplicationId>
@@ -40,10 +40,10 @@
 
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.png" ForegroundScale="0.75" Color="#6441a5" />
 
         <!-- Splash Screen -->
-        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.png" Color="#6441a5" BaseSize="128,128" />
 
         <!-- Images -->
         <MauiImage Include="Resources\Images\*" />
@@ -59,12 +59,14 @@
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Maui" Version="9.0.3" />
         <PackageReference Include="Masa.Blazor" Version="1.6.8" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.82" />
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.82" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.82" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
         <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
         <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.2" />
     </ItemGroup>
 
     <ItemGroup>

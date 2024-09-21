@@ -1,5 +1,6 @@
 ﻿using Masa.Blazor;
 using Memo.Blog.App.Models.App;
+using Memo.Blog.App.Services.App;
 using Microsoft.AspNetCore.Components;
 
 namespace Memo.Blog.App.Components.Layout
@@ -16,9 +17,20 @@ namespace Memo.Blog.App.Components.Layout
         [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
 
+        [Inject]
+        protected AppIntegrationService AppIntegrationService { get; set; } = default!;
+
         protected IEnumerable<string> permanentPaths = [];
 
         protected bool IsPermanentPath => permanentPaths.Any(it => it == NavigationManager.GetAbsolutePath());
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await AppIntegrationService.InitThemeAsync();
+            }
+        }
 
         protected override void OnInitialized()
         {
