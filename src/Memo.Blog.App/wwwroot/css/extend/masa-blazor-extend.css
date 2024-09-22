@@ -1,0 +1,45 @@
+﻿/*解决移动端悬停问题*/
+@media (hover: none) {
+    .theme--light.m-btn:hover::before {
+        opacity: 0;
+    }
+
+    .theme--light.m-btn:focus::before {
+        opacity: 0;
+    }
+
+    .theme--light.m-btn--active:hover::before, .theme--light.m-btn--active::before {
+        opacity: 0;
+    }
+
+    .theme--light.m-btn--active:focus::before {
+        opacity: 0;
+    }
+
+    .theme--dark.m-btn:hover::before {
+        opacity: 0;
+    }
+
+    .theme--dark.m-btn:focus::before {
+        opacity: 0;
+    }
+
+    .theme--dark.m-btn--active:hover::before, .theme--dark.m-btn--active::before {
+        opacity: 0;
+    }
+
+    .theme--dark.m-btn--active:focus::before {
+        opacity: 0;
+    }
+
+    .m-input--selection-controls .m-radio--is-focused .m-input--selection-controls__ripple:before, .m-input--selection-controls.m-input--is-focused .m-input--selection-controls__ripple:before {
+        background: transparent;
+        transform: scale(1.2)
+    }
+
+    .m-input--selection-controls__input:hover .m-input--selection-controls__ripple:before {
+        background: transparent;
+        transform: scale(1.2);
+        transition: none;
+    }
+}

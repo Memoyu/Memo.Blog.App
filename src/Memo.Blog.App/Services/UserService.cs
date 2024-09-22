@@ -32,7 +32,7 @@ public class UserService(IPopupService popupService, AppIntegrationService appIn
 
     public Task LogoutAsync()
     {
-        return appIntegrationService.RemoveCacheAsync("jwt_token");
+        return appIntegrationService.RemoveCacheAsync(TOKEN_CACHE_KEY);
     }
 
     public async Task<ClaimsPrincipal?> GetAuthenticatedUserAsync()
