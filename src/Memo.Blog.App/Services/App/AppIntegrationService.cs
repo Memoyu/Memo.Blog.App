@@ -1,6 +1,5 @@
 ﻿using Masa.Blazor;
 using Memo.Blog.App.Extensions;
-using System.Text.Json;
 
 namespace Memo.Blog.App.Services.App
 {
@@ -38,6 +37,12 @@ namespace Memo.Blog.App.Services.App
                 Preferences.Default.Set(key, value);
             }
 
+            return Task.CompletedTask;
+        }
+
+        public Task RemoveCacheAsync(string key)
+        {
+            Preferences.Default.Remove(key);
             return Task.CompletedTask;
         }
 

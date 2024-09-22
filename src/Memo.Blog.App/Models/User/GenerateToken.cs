@@ -7,7 +7,7 @@ public record TokenGenerateRequest(
 
 
 public record TokenGenerateResult(
-    long UserId,
+    string UserId,
     string Username,
     string AccessToken,
     string RefreshToken,

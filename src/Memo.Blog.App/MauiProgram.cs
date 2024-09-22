@@ -1,8 +1,7 @@
 ﻿using CommunityToolkit.Maui;
+using Memo.Blog.App.Common;
 using Memo.Blog.App.Extensions;
-using Memo.Blog.App.Models.App;
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui.Controls;
 
 namespace Memo.Blog.App
 {
@@ -19,9 +18,6 @@ namespace Memo.Blog.App
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
 
-
-            builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
-
             builder.Services.AddMauiBlazorWebView();
 
 #if DEBUG
@@ -36,7 +32,8 @@ namespace Memo.Blog.App
             // builder.Services.AddCascadingAuthenticationState();
             builder.Services.AddAuthorization();
 
-            builder.Services.AddServices(builder.Configuration);
+            builder.Services.AddAppServices();
+            builder.Services.AddServices();
 
             return builder.Build();
         }

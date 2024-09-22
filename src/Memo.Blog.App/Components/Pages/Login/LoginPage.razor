@@ -27,7 +27,7 @@
                 Placeholder="Password (test)"
                 Clearable
                 Type="password"
-                OnEnter="@LogInAsync">
+                OnEnter="@LoginAsync">
     </MTextField>
 
     <MButton Block
@@ -36,7 +36,7 @@
              Large
              Color="primary"
              Disabled="@LoginBtnDisabled"
-             OnClick="@LogInAsync"
+             OnClick="@LoginAsync"
              Loading="@_loggingIn">
         Login
     </MButton>

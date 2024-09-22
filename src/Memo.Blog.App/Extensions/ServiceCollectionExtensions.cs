@@ -6,7 +6,6 @@ using Masa.Blazor.Presets;
 using Microsoft.AspNetCore.Components.Authorization;
 using Memo.Blog.App.Services.App;
 using Memo.Blog.App.Services;
-using Microsoft.Extensions.Configuration;
 
 namespace Memo.Blog.App.Extensions;
 
@@ -79,7 +78,7 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddServices(this IServiceCollection services)
     {
         services.AddHttpClient<AppHttpClient>();
 

@@ -21,7 +21,7 @@ public partial class LoginPage
     [Inject]
     protected AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
 
-    private async Task LogInAsync()
+    private async Task LoginAsync()
     {
         if (LoginBtnDisabled)
         {

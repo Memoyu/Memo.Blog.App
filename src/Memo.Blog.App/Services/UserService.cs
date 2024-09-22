@@ -12,13 +12,27 @@ public class UserService(IPopupService popupService, AppIntegrationService appIn
 
     public async Task<ClaimsPrincipal> LoginAsync(string username, string password)
     {
-        var token = await appHttpClient.GetAsync<TokenGenerateResult>("tokens/generate", new TokenGenerateRequest(username, password));
+        ClaimsPrincipal claimPrincipal = new ClaimsPrincipal();
 
-        await appIntegrationService.SetCacheAsync(TOKEN_CACHE_KEY, token);
-         
-        var claimPrincipal = CreateClaimsPrincipalFromToken(token.AccessToken);
+        try
+        {
+            var token = await appHttpClient.PostAsync<TokenGenerateResult>("api/admin/Tokens/generate", new TokenGenerateRequest(username, password)) ?? throw new ApplicationException("登录出现错误");
+            
+            await appIntegrationService.SetCacheAsync(TOKEN_CACHE_KEY, token);
+
+            claimPrincipal = CreateClaimsPrincipalFromToken(token.AccessToken);
+        }
+        catch (Exception ex)
+        {
+            await popupService.EnqueueSnackbarAsync("登录失败", ex.Message, AlertTypes.Error);
+        }
 
         return claimPrincipal;
+    }
+
+    public Task LogoutAsync()
+    {
+        return appIntegrationService.RemoveCacheAsync("jwt_token");
     }
 
     public async Task<ClaimsPrincipal?> GetAuthenticatedUserAsync()
