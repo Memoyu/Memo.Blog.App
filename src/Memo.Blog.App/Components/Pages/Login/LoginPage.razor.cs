@@ -21,6 +21,13 @@ public partial class LoginPage
     [Inject]
     protected AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
 
+    private async Task VisitorLoginAsync()
+    {
+        var username = "memoyu";
+        var password = "memoyu";
+        await LoginAndNavigateToAsync(username, password);
+    }
+
     private async Task LoginAsync()
     {
         if (LoginBtnDisabled)
@@ -28,10 +35,15 @@ public partial class LoginPage
             return;
         }
 
+        await LoginAndNavigateToAsync(_username, _password);
+    }
+
+    private async Task LoginAndNavigateToAsync(string username, string password)
+    {
         _loggingIn = true;
         StateHasChanged();
 
-        var authenticationState = await ((AppAuthenticationStateProvider)AuthenticationStateProvider).LoginAsync(_username, _password);
+        var authenticationState = await ((AppAuthenticationStateProvider)AuthenticationStateProvider).LoginAsync(username, password);
         if (authenticationState.User.Identity?.IsAuthenticated is true)
         {
             NavigationManager.NavigateTo("/");

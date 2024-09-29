@@ -15,27 +15,71 @@ public static class ServiceCollectionExtensions
     {
         static void optionsAction(MasaBlazorOptions options)
         {
+            // 全局默认配置
             options.Defaults = new Dictionary<string, IDictionary<string, object?>?>()
             {
+                [nameof(MButton)] = new Dictionary<string, object?>()
                 {
-                    PopupComponents.SNACKBAR, new Dictionary<string, object?>()
-                    {
-                        { nameof(PEnqueuedSnackbars.Text), true },
-                        { nameof(PEnqueuedSnackbars.Elevation), new StringNumber(2) },
-                        { nameof(PEnqueuedSnackbars.Position), SnackPosition.TopCenter }
-                    }
+                    [nameof(MButton.Depressed)] = true
                 },
+
+                [nameof(MSheet)] = new Dictionary<string, object?>()
                 {
-                    nameof(MBottomSheet), new Dictionary<string, object?>()
-                    {
-                        { nameof(MBottomSheet.Eager), true }
-                    }
+                    ["Rounded"] = (StringBoolean)true,
+                },
+                ["MTextField"] = new Dictionary<string, object?>()
+                {
+                    ["Filled"] = true,
+                    ["Rounded"] = true,
+                    ["PersistentPlaceholder"] = true
+                },
+                [nameof(MTextarea)] = new Dictionary<string, object?>()
+                {
+                    ["Filled"] = true,
+                    ["Rounded"] = true,
+                    ["PersistentPlaceholder"] = true
+                },
+                [PopupComponents.SNACKBAR] = new Dictionary<string, object?>()
+                {
+                    { nameof(PEnqueuedSnackbars.Text), true },
+                    { nameof(PEnqueuedSnackbars.Elevation), new StringNumber(2) },
+                    { nameof(PEnqueuedSnackbars.Position), SnackPosition.TopCenter }
+                },
+                [nameof(MImage)] = new Dictionary<string, object?>()
+                {
+                    // https://github.com/masastack/MASA.Blazor/issues/1624
+                    [nameof(MImage.Eager)] = OperatingSystem.IsAndroid() || OperatingSystem.IsIOS()
+                },
+                [nameof(MBottomSheet)] = new Dictionary<string, object?>()
+                {
+                    { nameof(MBottomSheet.Eager), true }
                 }
             };
+
             options.ConfigureTheme(theme =>
             {
-                theme.Themes.Light.Surface = "#f7f8f9";
-                theme.Themes.Dark.Surface = "#121212";
+                theme.Themes.Light.Primary = "#4f33ff";
+                theme.Themes.Light.Secondary = "#5e5c71";
+                // theme.Themes.Light.Accent = "#006C4F";
+                theme.Themes.Light.Error = "#BA1A1A";
+                theme.Themes.Light.Surface = "#f0f3fa";
+                theme.Themes.Light.OnSurface = "#1C1B1F";
+                theme.Themes.Light.InverseSurface = "#131316";
+                theme.Themes.Light.InverseOnSurface = "#C9C5CA";
+                theme.Themes.Light.InversePrimary = "#C5C0FF";
+
+                theme.Themes.Dark.Primary = "#C5C0FF";
+                // theme.Themes.Dark.OnPrimary = "#090029";
+                theme.Themes.Dark.Secondary = "#C7C4DC";
+                theme.Themes.Dark.OnSecondary = "#302E42";
+                theme.Themes.Dark.Accent = "#67DBAF";
+                theme.Themes.Dark.OnAccent = "#003827";
+                theme.Themes.Dark.Error = "#FFB4AB";
+                theme.Themes.Dark.OnError = "#690005";
+                theme.Themes.Dark.Surface = "#131316";
+                theme.Themes.Dark.OnSurface = "#C9C5CA";
+                theme.Themes.Dark.InverseOnSurface = "#1C1B1F";
+                theme.Themes.Dark.InversePrimary = "#4f33ff";
             });
         }
 

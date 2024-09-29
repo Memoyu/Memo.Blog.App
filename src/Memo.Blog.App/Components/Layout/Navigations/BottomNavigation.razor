@@ -1,7 +1,10 @@
-﻿<MBottomNavigation InputValue="Show"
+﻿<MBottomNavigation App
+                   Routable
+                   Grow
+                   Shift
+                   InputValue="Show"
                    Class="@($"justify-space-around {(Show ? "" : "m-bottom-navigation-hidden")}")"
-                   Mandatory="true"
-                   App="true">
+                   Color="primary">
     @foreach (var item in Items)
     {
         <BottomNavigationItem @key="item.Path" Value="item"/>

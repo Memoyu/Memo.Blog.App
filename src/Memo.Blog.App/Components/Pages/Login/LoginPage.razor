@@ -3,11 +3,7 @@
 @layout LoginLayout
 
 <div class="login">
-    <div class="text-right">
-        <MButton Text Class="text-capitalize" Href="/sign-up" data-page-stack-strategy>Sign Up</MButton>
-    </div>
-
-    <MAvatar Size="72"
+    <MAvatar Size="72" Class="mt-16"
              Color="white">
         <MImage Src="_content/Masa.Blazor.MauiDemo.Rcl/img/masastack.png"
                 Contain
@@ -18,21 +14,20 @@
 
     <MTextField @bind-Value="@_username"
                 HideDetails="true"
-                Placeholder="Username (test)"
+                Placeholder="用户名"
                 Clearable>
     </MTextField>
 
     <MTextField @bind-Value="@_password"
                 HideDetails="true"
-                Placeholder="Password (test)"
+                Placeholder="密码"
                 Clearable
                 Type="password"
                 OnEnter="@LoginAsync">
     </MTextField>
 
-    <MButton Block
+    <MButton Block Rounded
              Class="text-capitalize"
-             Rounded
              Large
              Color="primary"
              Disabled="@LoginBtnDisabled"
@@ -40,4 +35,14 @@
              Loading="@_loggingIn">
         登录
     </MButton>
+
+    <div class="d-flex justify-end">
+        <MButton Text
+                 Color="primary"
+                 Small
+                 OnClick="@VisitorLoginAsync"
+                 Class="text-none">
+            游客登录
+        </MButton>
+    </div>
 </div>
