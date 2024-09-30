@@ -1,4 +1,17 @@
-﻿/*解决移动端悬停问题*/
+﻿.theme--light.m-app-bar.m-toolbar.m-sheet {
+    background: #FFFFFF;
+}
+
+.theme--dark.m-app-bar.m-toolbar.m-sheet {
+    background: #000000;
+}
+
+.m-sheet > .m-list {
+    background: inherit;
+    border-radius: inherit;
+}
+
+/*解决移动端悬停问题*/
 @media (hover: none) {
     .theme--light.m-btn:hover::before {
         opacity: 0;

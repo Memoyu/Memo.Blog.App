@@ -1,13 +1,15 @@
 ﻿<MBottomNavigation App
                    Routable
                    Grow
-                   Shift
-                   InputValue="Show"
-                   Class="@($"justify-space-around {(Show ? "" : "m-bottom-navigation-hidden")}")"
+                   @bind-Value="_current"
                    Color="primary">
     @foreach (var item in Items)
     {
-        <BottomNavigationItem @key="item.Path" Value="item"/>
+        <MButton Href="@item.Path">
+            <MIcon>
+                @(item.Index == _current ? item.SelectedIcon : item.Icon)
+            </MIcon>
+        </MButton>
     }
 </MBottomNavigation>
 

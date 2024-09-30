@@ -2,30 +2,15 @@
 
 <link href="css/status-bar-and-navigation-bar.css" rel="stylesheet" />
 
-@*
-<MApp>
-    <ErrorBoundary>
-        <ChildContent>
-            <MMain>
-                @Body
-            </MMain>
-
-            <BottomNavigation Items="NavigationItems" IsPermanentPath="IsPermanentPath" />
-        </ChildContent>
-
-        <ErrorContent>
-            <div>cuowu </div>
-        </ErrorContent>
-    </ErrorBoundary>
-</MApp> *@
-
-
 <MApp>
     <MMain>
         <MErrorHandler>
             <AuthorizeView>
                 <Authorized>
-                    @Body
+                    <PPageStack TabbedPatterns="@( ["^/$", "/article", "/moment", "/user"])"
+                                SelfPatterns="@( ["/article"])">
+                        @Body
+                    </PPageStack>
                 </Authorized>
                 <NotAuthorized>
                     @Body
@@ -34,6 +19,6 @@
         </MErrorHandler>
     </MMain>
 
-    <BottomNavigation Items="NavigationItems" IsPermanentPath="IsPermanentPath" />
+    <BottomNavigation Items="NavigationItems" />
 </MApp>
 

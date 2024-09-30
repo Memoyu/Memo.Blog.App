@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Memo.Blog.App.Components.Pages.Login;
 
-public partial class LoginPage
+public partial class Login
 {
     private string? _username;
     private string? _password;

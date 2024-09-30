@@ -1,4 +1,5 @@
-﻿using Masa.Blazor;
+﻿using CommunityToolkit.Maui.Core;
+using Masa.Blazor;
 using Memo.Blog.App.Extensions;
 
 namespace Memo.Blog.App.Services.App
@@ -61,6 +62,15 @@ namespace Memo.Blog.App.Services.App
             }
 
             return Task.FromResult(Preferences.Default.Get(key, defaultValue));
+        }
+
+        public void SetStatusBar(string argb, int style)
+        {
+            if (OperatingSystem.IsAndroidVersionAtLeast(23) || OperatingSystem.IsIOS())
+            {
+                CommunityToolkit.Maui.Core.Platform.StatusBar.SetColor(Color.FromArgb(argb));
+                CommunityToolkit.Maui.Core.Platform.StatusBar.SetStyle((StatusBarStyle)style);
+            }
         }
     }
 }

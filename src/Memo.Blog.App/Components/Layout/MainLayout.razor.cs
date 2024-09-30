@@ -8,10 +8,10 @@ namespace Memo.Blog.App.Components.Layout
     public partial class MainLayout
     {
         protected readonly List<NavigationItem> NavigationItems = [
-            new("首页", "mdi-notebook-outline", "mdi-notebook", ""),
-            new("文章", "mdi-clock-outline", "mdi-clock", "article"),
-            new("动态", "mdi-file-outline", "mdi-file", "moment"),
-            new("我的",  "mdi-account-outline", "mdi-account", "mine"),
+            new(0, "首页", "mdi-notebook-outline", "mdi-notebook", ""),
+            new(1, "文章", "mdi-clock-outline", "mdi-clock", "article"),
+            new(2, "动态", "mdi-file-outline", "mdi-file", "moment"),
+            new(3, "我的",  "mdi-account-outline", "mdi-account", "user"),
         ];
 
         [Inject]

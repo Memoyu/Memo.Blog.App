@@ -18,12 +18,12 @@ public static class ServiceCollectionExtensions
             // 全局默认配置
             options.Defaults = new Dictionary<string, IDictionary<string, object?>?>()
             {
-                [nameof(MButton)] = new Dictionary<string, object?>()
+                ["MButton"] = new Dictionary<string, object?>()
                 {
                     [nameof(MButton.Depressed)] = true
                 },
 
-                [nameof(MSheet)] = new Dictionary<string, object?>()
+                ["MSheet"] = new Dictionary<string, object?>()
                 {
                     ["Rounded"] = (StringBoolean)true,
                 },
@@ -33,7 +33,7 @@ public static class ServiceCollectionExtensions
                     ["Rounded"] = true,
                     ["PersistentPlaceholder"] = true
                 },
-                [nameof(MTextarea)] = new Dictionary<string, object?>()
+                ["MTextarea"] = new Dictionary<string, object?>()
                 {
                     ["Filled"] = true,
                     ["Rounded"] = true,
@@ -45,14 +45,19 @@ public static class ServiceCollectionExtensions
                     { nameof(PEnqueuedSnackbars.Elevation), new StringNumber(2) },
                     { nameof(PEnqueuedSnackbars.Position), SnackPosition.TopCenter }
                 },
-                [nameof(MImage)] = new Dictionary<string, object?>()
+                ["MImage"] = new Dictionary<string, object?>()
                 {
                     // https://github.com/masastack/MASA.Blazor/issues/1624
                     [nameof(MImage.Eager)] = OperatingSystem.IsAndroid() || OperatingSystem.IsIOS()
                 },
-                [nameof(MBottomSheet)] = new Dictionary<string, object?>()
+                ["MBottomSheet"] = new Dictionary<string, object?>()
                 {
-                    { nameof(MBottomSheet.Eager), true }
+                    ["ContentClass"] = "pa-4"
+                },
+                ["PStackPageBarInit"] = new Dictionary<string, object?>()
+                {
+                    { nameof(PStackPageBarInit.CenterTitle), true },
+                    { nameof(PStackPageBarInit.Flat), true }
                 }
             };
 
