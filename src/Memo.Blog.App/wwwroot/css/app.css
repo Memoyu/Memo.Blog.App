@@ -59,6 +59,15 @@ h1:focus {
     text-align: center;
 }
 
-.login > * {
-    margin-bottom: 24px !important;
+    .login > * {
+        margin-bottom: 24px !important;
+    }
+
+
+.app-tab {
+    text-transform: none !important;
 }
+
+    .app-tab::before {
+        opacity: 0 !important;
+    }
