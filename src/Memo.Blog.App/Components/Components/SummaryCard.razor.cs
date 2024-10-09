@@ -14,13 +14,18 @@ public partial class SummaryCard
 
     [Parameter] public StringNumber? Columns { get; set; } = defaultColumns;
 
-    [Parameter] public List<SummaryCardItem> Items { get; set; } = [];
+    private List<SummaryCardItem> _items = [];
+    [Parameter]
+    public List<SummaryCardItem> Items
+    {
+        get => _items;
+        set
+        {
+            if (_items == value) return;
+            _items = value;
+            ItemsChanged.InvokeAsync(value);
+        }
+    }
 
     [Parameter] public EventCallback<List<SummaryCardItem>> ItemsChanged { get; set; }
-
-    protected override async Task OnParametersSetAsync()
-    {
-        await base.OnParametersSetAsync();
-        StateHasChanged();
-    }
 }

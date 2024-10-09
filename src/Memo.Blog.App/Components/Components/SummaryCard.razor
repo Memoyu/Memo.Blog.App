@@ -1,24 +1,40 @@
-﻿<MCard Elevation="0"
-       Rounded="@("lg")">
-    <MList>
-        @for (int i = 0; i < rows; i++)
+﻿﻿<MCard Elevation="0"
+        Rounded="@("lg")">
+    <MRow NoGutters Justify="JustifyTypes.SpaceAround">
+        @foreach (var item in Items)
         {
-            <MListItem>
-                <MListItemContent Class="text-center"
-                                  Style="@($"display: grid;grid-template-columns: repeat({columns}, 1fr);")">
-                    @foreach (var item in Items.Skip((i - 1) * columns).Take(columns))
-                    {
-                        <div>
-                            <MListItemSubtitle>
-                                @item.Title
-                            </MListItemSubtitle>
-                            <MListItemTitle Class="mt-2 font-weight-bold text-h6">
-                                @item.Value
-                            </MListItemTitle>
-                        </div>
-                    }
-                </MListItemContent>
-            </MListItem>
+            <MCol Cols="4">
+                <div @key=item class="ml-4 mr-4 mt-4 text-center">
+                    <MListItemSubtitle>
+                        @item.Title
+                    </MListItemSubtitle>
+                    <MListItemTitle Class="mt-2 font-weight-bold text-h6">
+                        @item.Value
+                    </MListItemTitle>
+                </div>
+            </MCol>
         }
-    </MList>
+    </MRow>
+
+    @*  <MList>
+    @for (int i = 0; i < rows; i++)
+    {
+    <MListItem>
+    <MListItemContent Class="text-center"
+    Style="@($"display: grid;grid-template-columns: repeat({columns}, 1fr);")">
+    @foreach (var item in Items.Skip((i - 1) * columns).Take(columns))
+    {
+    <div @key=item>
+    <MListItemSubtitle>
+    @item.Title
+    </MListItemSubtitle>
+    <MListItemTitle Class="mt-2 font-weight-bold text-h6">
+    @item.Value
+    </MListItemTitle>
+    </div>
+    }
+    </MListItemContent>
+    </MListItem>
+    }
+    </MList> *@
 </MCard>

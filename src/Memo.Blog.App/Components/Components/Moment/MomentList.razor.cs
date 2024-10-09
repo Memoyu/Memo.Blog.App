@@ -9,7 +9,10 @@ public partial class MomentList
     [
         new SummaryCardItem ("动态数", "0"),
         new SummaryCardItem ("评论数", "0"),
-        new SummaryCardItem ("浏览数", "0")
+        new SummaryCardItem ("浏览数", "0"),
+        new SummaryCardItem ("浏览数", "0"),
+        new SummaryCardItem ("浏览数", "0"),
+        // new SummaryCardItem ("浏览数", "0")
     ];
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -17,14 +20,25 @@ public partial class MomentList
         if (firstRender)
         {
             Trace.WriteLine("动态第一次加载");
-            await Task.Delay(1000);
-            momentSummaries =
-            [
-                new SummaryCardItem ("动态数", "10"),
-                new SummaryCardItem ("评论数", "20"),
-                new SummaryCardItem ("浏览数", "30")
-            ];
-            // StateHasChanged();
         }
+    }
+
+    private void ItemsChanged(List<SummaryCardItem> items)
+    {
+        
+    }
+
+    private void LoadMore()
+    {
+        //momentSummaries =
+        //   [
+        //       new SummaryCardItem ("动态数", "10"),
+        //        new SummaryCardItem ("评论数", "20"),
+        //        new SummaryCardItem ("浏览数", "30"),
+        //         new SummaryCardItem ("测试", "30")
+        //   ];
+        momentSummaries[0].Value = "100";
+        momentSummaries[1].Value = "30";
+        momentSummaries[2].Value = "80";
     }
 }
