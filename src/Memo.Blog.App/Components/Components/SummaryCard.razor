@@ -1,0 +1,24 @@
+﻿<MCard Elevation="0"
+       Rounded="@("lg")">
+    <MList>
+        @for (int i = 0; i < rows; i++)
+        {
+            <MListItem>
+                <MListItemContent Class="text-center"
+                                  Style="@($"display: grid;grid-template-columns: repeat({columns}, 1fr);")">
+                    @foreach (var item in Items.Skip((i - 1) * columns).Take(columns))
+                    {
+                        <div>
+                            <MListItemSubtitle>
+                                @item.Title
+                            </MListItemSubtitle>
+                            <MListItemTitle Class="mt-2 font-weight-bold text-h6">
+                                @item.Value
+                            </MListItemTitle>
+                        </div>
+                    }
+                </MListItemContent>
+            </MListItem>
+        }
+    </MList>
+</MCard>

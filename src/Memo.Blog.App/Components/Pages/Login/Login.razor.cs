@@ -15,11 +15,9 @@ public partial class Login
     [MemberNotNullWhen(false, nameof(_username), nameof(_password))]
     private bool LoginBtnDisabled => string.IsNullOrWhiteSpace(_username) || string.IsNullOrWhiteSpace(_password);
 
-    [Inject]
-    protected NavigationManager NavigationManager { get; set; } = default!;
+    [Inject] protected NavigationManager NavigationManager { get; set; } = default!;
 
-    [Inject]
-    protected AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
+    [Inject] protected AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
 
     private async Task VisitorLoginAsync()
     {
