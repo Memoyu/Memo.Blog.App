@@ -132,6 +132,8 @@ public static class ServiceCollectionExtensions
         services.AddHttpClient<AppHttpClient>();
 
         services.AddScoped<UserService>();
+        services.AddScoped<MomentService>();
+        services.AddScoped<ArticleService>();
 
         return services;
     }

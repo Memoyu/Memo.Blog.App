@@ -6,16 +6,20 @@ namespace Memo.Blog.App.Components.Layout.Navigations;
 
 public partial class BottomNavigation
 {
-    private StringNumber? _current = 0;
+    private StringNumber current = "";
+    private string selected = string.Empty;
 
-    private readonly List<NavigationItem> navItems = [
-            new(0, "首页", "mdi-notebook-outline", "mdi-notebook", ""),
-            new(1, "文章", "mdi-clock-outline", "mdi-clock", "article"),
-            new(2, "动态", "mdi-file-outline", "mdi-file", "moment"),
-            new(3, "我的",  "mdi-account-outline", "mdi-account", "user"),
+    private List<NavigationItem> navItems = [
+            new( "首页", "mdi-view-dashboard-outline", "mdi-view-dashboard", ""),
+            new( "Todo", "mdi-check", "mdi-check-bold", "todo"),
+            new( "我的",  "mdi-account-outline", "mdi-account", "user"),
     ];
 
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
 
+    private void ValueChanged(StringNumber value)
+    {
+        selected = value.ToString() ?? string.Empty;
+    }
 }

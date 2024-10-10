@@ -1,26 +1,24 @@
 ﻿@page "/"
-@using Memo.Blog.App.Components.Components.Article
-@using Memo.Blog.App.Components.Components.Dashboard
-@using Memo.Blog.App.Components.Components.Moment
+@using Memo.Blog.App.Components.Pages.Home.Components.Article
+@using Memo.Blog.App.Components.Pages.Home.Components.Dashboard
+@using Memo.Blog.App.Components.Pages.Home.Components.Moment
 
-<Tabs @bind-Value="tab"
-      Items="tabItems">
-</Tabs>
+<TopTabs @bind-Value="tab" Items="tabItems" />
 
 <MSwiper Index=@tab.ToInt32() IndexChanged="SwiperIndexChanged">
     <MSwiperSlide>
-        <MLazy Class="ml-3 mr-3" Options="intersectionObserverInit">
-            <DashboardList />
-        </MLazy>
+        <div class="ma-2">
+            <Dashboard />
+        </div>
     </MSwiperSlide>
     <MSwiperSlide>
-        <MLazy Class="ml-3 mr-3" Options="intersectionObserverInit">
-            <ArticleList />
-        </MLazy>
+        <div class="ma-2">
+            <Article />
+        </div>
     </MSwiperSlide>
     <MSwiperSlide>
-        <MLazy Class="ml-3 mr-3" Options="intersectionObserverInit">
-            <MomentList />
-        </MLazy>
+        <div class="ma-2">
+            <Moment />
+        </div>
     </MSwiperSlide>
 </MSwiper>

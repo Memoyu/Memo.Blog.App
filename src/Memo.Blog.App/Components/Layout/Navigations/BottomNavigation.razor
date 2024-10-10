@@ -1,13 +1,14 @@
 ﻿<MBottomNavigation App
                    Routable
                    Grow
-                   @bind-Value="_current"
+                   Value="current"
+                   ValueChanged="ValueChanged"
                    Color="primary">
     @foreach (var item in navItems)
     {
-        <MButton Href="@item.Path">
+        <MButton Href="@item.Path" Value="@item.Path">
             <MIcon>
-                @(item.Index == _current ? item.SelectedIcon : item.Icon)
+                @(selected == item.Path ? item.SelectedIcon : item.Icon)
             </MIcon>
         </MButton>
     }

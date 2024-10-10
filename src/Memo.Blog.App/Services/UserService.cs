@@ -1,4 +1,5 @@
 ﻿using Masa.Blazor;
+using Memo.Blog.App.Common;
 using Memo.Blog.App.Models.User;
 using Memo.Blog.App.Services.App;
 using System.IdentityModel.Tokens.Jwt;
@@ -8,17 +9,15 @@ namespace Memo.Blog.App.Services;
 
 public class UserService(IPopupService popupService, AppIntegrationService appIntegrationService, AppHttpClient appHttpClient)
 {
-    private const string TOKEN_CACHE_KEY = "user_token";
-
     public async Task<ClaimsPrincipal> LoginAsync(string username, string password)
     {
-        ClaimsPrincipal claimPrincipal = new ClaimsPrincipal();
+        var claimPrincipal = new ClaimsPrincipal();
 
         try
         {
-            var token = await appHttpClient.PostAsync<TokenGenerateResult>("api/admin/Tokens/generate", new TokenGenerateRequest(username, password)) ?? throw new ApplicationException("登录出现错误");
+            var token = await appHttpClient.PostAnonymousAsync<TokenGenerateResult>("admin/Tokens/generate", new TokenGenerateRequest(username, password)) ?? throw new ApplicationException("登录出现错误");
             
-            await appIntegrationService.SetCacheAsync(TOKEN_CACHE_KEY, token);
+            await appIntegrationService.SetCacheAsync(Const.TOKEN_CACHE_KEY, token);
 
             claimPrincipal = CreateClaimsPrincipalFromToken(token.AccessToken);
         }
@@ -32,12 +31,12 @@ public class UserService(IPopupService popupService, AppIntegrationService appIn
 
     public Task LogoutAsync()
     {
-        return appIntegrationService.RemoveCacheAsync(TOKEN_CACHE_KEY);
+        return appIntegrationService.RemoveCacheAsync(Const.TOKEN_CACHE_KEY);
     }
 
     public async Task<ClaimsPrincipal?> GetAuthenticatedUserAsync()
     {
-        var jwtToken = await appIntegrationService.GetCacheAsync<TokenGenerateResult?>(TOKEN_CACHE_KEY, null);
+        var jwtToken = await appIntegrationService.GetCacheAsync<TokenGenerateResult?>(Const.TOKEN_CACHE_KEY, null);
         if (jwtToken is not null)
         {
             if (jwtToken.ExpiredAt > DateTime.UtcNow)

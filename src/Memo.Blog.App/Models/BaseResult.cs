@@ -8,12 +8,19 @@ public record BaseResult
 
     public ResultCode Code { get; set; }
 
-    public string Message { get; set; }
+    public string Message { get; set; } = string.Empty;
 }
 
 public record BaseResult<T> : BaseResult
 {
     public T? Data { get; set; }
+}
+
+public record PaginationResult<T>
+{
+    public List<T> Items { get; set; } = [];
+
+    public int Total { get; set; }
 }
 
 /// <summary>

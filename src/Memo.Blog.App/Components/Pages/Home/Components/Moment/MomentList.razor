@@ -1,0 +1,26 @@
+﻿<MRow Dense Justify="JustifyTypes.Center">
+    @foreach (var moment in Moments)
+    {
+        <MCol Cols="12">
+            <MCard Flat
+                   Class="pa-4"
+                   Href="@($"/moment/detail/{moment.MomentId}")"
+                   data-page-stack-strategy>
+                <div class="subtitle-2 d-flex align-center">
+                    <div class="text-truncate">
+                        @moment.Content
+                    </div>
+                </div>
+                <div class="caption d-flex align-center">
+                    @foreach (var tag in moment.Tags)
+                    {
+                        <MChip Label Color="black" Dark XSmall Class="mr-1 px-2"
+                               Style="min-width: min-content;">
+                            @tag
+                        </MChip>
+                    }
+                </div>
+            </MCard>
+        </MCol>
+    }
+</MRow>

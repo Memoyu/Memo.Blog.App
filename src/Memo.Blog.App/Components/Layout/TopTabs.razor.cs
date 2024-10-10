@@ -3,9 +3,9 @@ using Memo.Blog.App.Models.App;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace Memo.Blog.App.Components.Components;
+namespace Memo.Blog.App.Components.Layout;
 
-public partial class Tabs
+public partial class TopTabs
 {
     const string defaultQueryParameterKey = "tabs";
 
@@ -14,17 +14,13 @@ public partial class Tabs
     [Inject]
     private NavigationManager NavigationManager { get; set; } = default!;
 
-    [Parameter]
-    public StringNumber? Value { get; set; }
+    [Parameter] public StringNumber? Value { get; set; }
 
-    [Parameter]
-    public EventCallback<StringNumber?> ValueChanged { get; set; }
+    [Parameter] public EventCallback<StringNumber?> ValueChanged { get; set; }
 
-    [Parameter]
-    public List<TabItem> Items { get; set; } = [];
+    [Parameter] public List<TabItem> Items { get; set; } = [];
 
-    [Parameter]
-    public string? QueryParameterKey { get; set; }
+    [Parameter] public string? QueryParameterKey { get; set; }
 
     protected override async Task OnInitializedAsync()
     {

@@ -1,0 +1,14 @@
+﻿
+<MPullRefresh Style="margin-top: 20px;"
+              OnRefresh="@HandleOnRefreshAsync">
+    <div>
+        <SummaryCard Items="@_summaries" />
+        <div class="mt-4">
+            <ArticleList Articles="@_articles" />
+        </div>
+    </div>
+    <MInfiniteScroll Parent="@("window")"
+                     OnLoad="@HandleOnLoadAsync"
+                     @ref="_infiniteScroll">
+    </MInfiniteScroll>
+</MPullRefresh>
