@@ -3,22 +3,19 @@
 @using Memo.Blog.App.Components.Pages.Home.Components.Dashboard
 @using Memo.Blog.App.Components.Pages.Home.Components.Moment
 
-<TopTabs @bind-Value="tab" Items="tabItems" />
+<MAppBar Fixed ElevateOnScroll>
+    <TopTabs @bind-Value="tab" Items="tabItems" />
+</MAppBar>
 
-<MSwiper Index=@tab.ToInt32() IndexChanged="SwiperIndexChanged">
+<MSwiper AutoHeight Style="margin-top: 56px;" Index=@tab.ToInt32() IndexChanged="SwiperIndexChanged">
     <MSwiperSlide>
-        <div class="ma-2">
-            <Dashboard />
-        </div>
+        <Dashboard />
     </MSwiperSlide>
     <MSwiperSlide>
-        <div class="ma-2">
-            <Article />
-        </div>
+        <Article />
     </MSwiperSlide>
     <MSwiperSlide>
-        <div class="ma-2">
-            <Moment />
-        </div>
+        <Moment />
     </MSwiperSlide>
 </MSwiper>
+

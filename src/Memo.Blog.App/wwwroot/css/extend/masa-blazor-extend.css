@@ -6,129 +6,27 @@
     background: #000000;
 }
 
+.m-expansion-panel::before {
+    box-shadow: none;
+}
+
+.m-expansion-panel:not(:first-child)::after {
+    border-top: none;
+}
+
+.m-expansion-panel-content__wrap {
+    padding: 0 8px 8px;
+}
+
+.m-expansion-panel--active > .m-expansion-panel-header {
+    min-height: inherit;
+}
+
+.m-application--is-ltr .m-list-item__action:first-child, .m-application--is-ltr .m-list-item__icon:first-child {
+    margin-right: 16px;
+}
+
 .m-sheet > .m-list {
     background: inherit;
     border-radius: inherit;
-}
-
-/*解决移动端悬停问题*/
-@media (hover: none) {
-    .theme--light.m-btn:hover::before {
-        opacity: 0;
-    }
-
-    .theme--light.m-btn:focus::before {
-        opacity: 0;
-    }
-
-    .theme--light.m-btn--active:hover::before, .theme--light.m-btn--active::before {
-        opacity: 0;
-    }
-
-    .theme--light.m-btn--active:focus::before {
-        opacity: 0;
-    }
-
-    .theme--dark.m-btn:hover::before {
-        opacity: 0;
-    }
-
-    .theme--dark.m-btn:focus::before {
-        opacity: 0;
-    }
-
-    .theme--dark.m-btn--active:hover::before, .theme--dark.m-btn--active::before {
-        opacity: 0;
-    }
-
-    .theme--dark.m-btn--active:focus::before {
-        opacity: 0;
-    }
-
-    .m-input--selection-controls .m-radio--is-focused .m-input--selection-controls__ripple:before, .m-input--selection-controls.m-input--is-focused .m-input--selection-controls__ripple:before {
-        background: transparent;
-        transform: scale(1.2)
-    }
-
-    .m-input--selection-controls__input:hover .m-input--selection-controls__ripple:before {
-        background: transparent;
-        transform: scale(1.2);
-        transition: none;
-    }
-}
-
-/* status-bar-and-navigation-bar */
-body {
-    padding-top: var(--safe-area-inset-top, env(safe-area-inset-top));
-    padding-bottom: var(--safe-area-inset-bottom, env(safe-area-inset-bottom));
-    padding-left: var(--safe-area-inset-left, env(safe-area-inset-left));
-    padding-right: var(--safe-area-inset-right, env(safe-area-inset-right));
-}
-
-.m-application__wrap {
-    min-height: calc(100vh - var(--safe-area-inset-top, env(safe-area-inset-top)) - var(--safe-area-inset-bottom, env(safe-area-inset-bottom)));
-}
-
-.m-main {
-    transform: scale(1);
-}
-
-.m-item-group.m-bottom-navigation {
-    margin-bottom: var(--safe-area-inset-bottom, env(safe-area-inset-bottom));
-}
-
-    .m-item-group.m-bottom-navigation::after {
-        content: '';
-        display: block;
-        height: var(--safe-area-inset-bottom, env(safe-area-inset-bottom));
-        width: 100%;
-        bottom: calc(0px - var(--safe-area-inset-bottom, env(safe-area-inset-bottom)));
-        position: absolute;
-        background-color: var( --m-theme-surface);
-    }
-
-.m-bottom-navigation-hidden {
-    transform: translateY(calc(100% + var(--safe-area-inset-bottom, env(safe-area-inset-bottom)))) !important;
-}
-
-.m-navigation-drawer {
-    left: var(--safe-area-inset-left, env(safe-area-inset-left));
-}
-
-.m-bottom-sheet.m-dialog .m-card::after {
-    content: '';
-    display: block;
-    height: var(--safe-area-inset-bottom, env(safe-area-inset-bottom));
-}
-
-.m-bottom-sheet.m-dialog.p-mobile-date-picker__content {
-    padding-bottom: var(--safe-area-inset-bottom, env(safe-area-inset-bottom));
-}
-
-.m-enqueued-snackbars.m-enqueued-snackbars--top::before {
-    content: '';
-    display: block;
-    height: var(--safe-area-inset-top, env(safe-area-inset-top));
-}
-
-.m-enqueued-snackbars.m-enqueued-snackbars--bottom::after {
-    content: '';
-    display: block;
-    height: var(--safe-area-inset-bottom, env(safe-area-inset-bottom));
-}
-
-.m-snack:not(.m-enqueued-snackbar, .m-snack--absolute) {
-    height: calc(100vh - var(--safe-area-inset-top, env(safe-area-inset-top)) - var(--safe-area-inset-bottom, env(safe-area-inset-bottom)));
-    top: var(--safe-area-inset-top, env(safe-area-inset-top));
-    bottom: var(--safe-area-inset-bottom, env(safe-area-inset-bottom));
-}
-
-.m-dialog.m-dialog--active.m-dialog--fullscreen .m-card {
-    padding-top: var(--safe-area-inset-top, env(safe-area-inset-top)) !important;
-    padding-left: var(--safe-area-inset-left, env(safe-area-inset-left)) !important;
-    padding-right: var(--safe-area-inset-right, env(safe-area-inset-right)) !important;
-}
-
-.vditor--fullscreen {
-    height: calc(100vh - var(--safe-area-inset-top, env(safe-area-inset-top)) - var(--safe-area-inset-bottom, env(safe-area-inset-bottom)) - var(--vditor-toolbar-height)) !important;
 }
