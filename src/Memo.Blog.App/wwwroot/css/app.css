@@ -71,3 +71,8 @@ h1:focus {
     .app-tab::before {
         opacity: 0 !important;
     }
+
+.home-swiper-slide {
+/*    overflow-y: auto;*/
+    height: calc(100vh - 56px - 48px) !important;
+}

@@ -1,7 +1,8 @@
-﻿<MRow Dense>
+﻿<MList>
     @foreach (var moment in Moments)
     {
-        <MCol Cols="12">
+         <MListItem>
+                <MListItemContent>
             <MCard Flat
                    Class="pa-4"
                    Href="@($"/moment/detail/{moment.MomentId}")"
@@ -21,6 +22,7 @@
                     }
                 </div>
             </MCard>
-        </MCol>
+            </MListItemContent>
+        </MListItem>
     }
-</MRow>
+</MList>
