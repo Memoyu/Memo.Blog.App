@@ -73,6 +73,7 @@ h1:focus {
     }
 
 .home-swiper-slide {
-/*    overflow-y: auto;*/
+    overflow-y: auto;
+    touch-action: pan-y;
     height: calc(100vh - 56px - 48px) !important;
 }

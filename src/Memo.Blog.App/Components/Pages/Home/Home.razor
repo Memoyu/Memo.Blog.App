@@ -7,21 +7,15 @@
 
 <MSwiper Index=@tab.ToInt32() IndexChanged="SwiperIndexChanged">
     <MSwiperSlide class="home-swiper-slide">
-        <MContainer Style="overflow-y: auto;" Fluid>
-            <Dashboard />
-        </MContainer>
-    </MSwiperSlide>
-
-    <MSwiperSlide  class="home-swiper-slide">
-        <MContainer Style="overflow-y: auto;" Fluid>
-            <Article />
-        </MContainer>
+        <Dashboard />
     </MSwiperSlide>
 
     <MSwiperSlide class="home-swiper-slide">
-        <MContainer Style="overflow-y: auto;" Fluid>
-            <Moment />
-        </MContainer>
+        <Article />
+    </MSwiperSlide>
+
+    <MSwiperSlide class="home-swiper-slide">
+        <Moment />
     </MSwiperSlide>
 </MSwiper>
 
