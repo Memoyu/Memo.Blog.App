@@ -15,6 +15,11 @@ public class PageArticleResult
     public required CategoryResult Category { get; set; }
 
     /// <summary>
+    /// 文章横幅图
+    /// </summary>
+    public string Banner { get; set; } = string.Empty;
+
+    /// <summary>
     /// 标题
     /// </summary>
     public string Title { get; set; } = string.Empty;

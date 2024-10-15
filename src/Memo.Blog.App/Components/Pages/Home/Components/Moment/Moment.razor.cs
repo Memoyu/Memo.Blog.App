@@ -10,9 +10,9 @@ namespace Memo.Blog.App.Components.Pages.Home.Components.Moment;
 public partial class Moment
 {
     private List<SummaryCardItem> _summaries = [
-      new SummaryCardItem ("动态数", "0"),
-        new SummaryCardItem ("评论数", "0"),
-        new SummaryCardItem ("浏览数", "0"),
+      new SummaryCardItem ("动态", "0"),
+        new SummaryCardItem ("评论", "0"),
+        new SummaryCardItem ("浏览", "0"),
     ];
 
     private List<MomentResult> _moments = [];

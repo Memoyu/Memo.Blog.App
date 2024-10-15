@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Maui;
-using Memo.Blog.App.Common;
 using Memo.Blog.App.Extensions;
 using Microsoft.Extensions.Logging;
 
@@ -21,6 +20,12 @@ namespace Memo.Blog.App
             builder.Services.AddMauiBlazorWebView();
 
 #if DEBUG
+
+#if WINDOWS
+            // windows 下解决Mixed Content问题（）
+            Environment.SetEnvironmentVariable("WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS", "--disable-features=AutoupgradeMixedContent");
+#endif
+
             builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
 #endif

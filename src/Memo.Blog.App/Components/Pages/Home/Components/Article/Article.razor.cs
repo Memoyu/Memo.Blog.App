@@ -11,9 +11,9 @@ public partial class Article
 {
     private List<SummaryCardItem> _summaries =
     [
-        new SummaryCardItem ("文章数", "0"),
-        new SummaryCardItem ("评论数", "0"),
-        new SummaryCardItem ("阅读量", "0"),
+        new SummaryCardItem ("文章", "0"),
+        new SummaryCardItem ("评论", "0"),
+        new SummaryCardItem ("浏览", "0"),
     ];
 
     private List<PageArticleResult> _articles = [];

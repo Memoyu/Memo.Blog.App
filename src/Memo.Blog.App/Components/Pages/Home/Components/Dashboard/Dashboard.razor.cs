@@ -9,9 +9,9 @@ public partial class Dashboard
 {
     private List<SummaryCardItem> _summaries =
     [
-        new SummaryCardItem ("文章数", "0"),
-        new SummaryCardItem ("动态数", "0"),
-        new SummaryCardItem ("友链数", "0"),
+        new SummaryCardItem ("文章", "0"),
+        new SummaryCardItem ("动态", "0"),
+        new SummaryCardItem ("友链", "0"),
         new SummaryCardItem ("UV", "0"),
         new SummaryCardItem ("PV", "0"),
         new SummaryCardItem ("评论", "0"),

@@ -20,6 +20,11 @@ public class MomentResult
     public int Likes { get; set; }
 
     /// <summary>
+    /// 评论条数
+    /// </summary>
+    public int Comments { get; set; }
+
+    /// <summary>
     /// 是否展示
     /// </summary>
     public bool Showable { get; set; }
