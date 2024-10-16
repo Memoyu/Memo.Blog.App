@@ -16,21 +16,26 @@ public partial class Article
         new SummaryCardItem ("浏览", "0"),
     ];
 
+    private bool isInit = false;
     private List<PageArticleResult> _articles = [];
     private int _page = 1;
-    private int _pageSize = 10;
+    private int _pageSize = 15;
     private MInfiniteScroll? _infiniteScroll;
 
     [Inject]
     public ArticleService ArticleService { get; set; } = default!;
 
+    public async Task InitAsync()
+    {
+        isInit = true;
+        if (_infiniteScroll != null)
+        {
+            await _infiniteScroll.ResetAsync();
+        }
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-        {
-            Trace.WriteLine("文章第一次加载");
-            await Task.CompletedTask;
-        }
     }
 
     protected override async Task OnInitializedAsync()
@@ -40,9 +45,13 @@ public partial class Article
 
     private async Task HandleOnLoadAsync(InfiniteScrollLoadEventArgs args)
     {
+        if (!isInit)
+        {
+            args.Status = InfiniteScrollLoadStatus.Empty;
+            return;
+        }
+
         // TODO：获取文章汇总数据
-
-
         var isFirstLoad = _page == 1;
 
         var page = await ArticleService.ArticlePageAsync(new PageArticleQuery
@@ -55,15 +64,15 @@ public partial class Article
         if (isFirstLoad)
         {
             _articles = appendArticles;
-            _page++;
         }
         else
         {
             _articles.AddRange(appendArticles);
         }
 
-        args.Status = appendArticles.Count < page.Total ? InfiniteScrollLoadStatus.Empty : InfiniteScrollLoadStatus.Ok;
+        args.Status = _articles.Count >= page.Total ? InfiniteScrollLoadStatus.Empty : InfiniteScrollLoadStatus.Ok;
     }
+
     private async Task HandleOnRefreshAsync()
     {
         _page = 1;

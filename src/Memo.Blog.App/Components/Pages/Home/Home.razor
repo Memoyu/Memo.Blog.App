@@ -7,15 +7,15 @@
 
 <MSwiper Index=@tab.ToInt32() IndexChanged="SwiperIndexChanged">
     <MSwiperSlide class="home-swiper-slide">
-        <Dashboard />
+        <Dashboard @ref="_dashboardRef" />
     </MSwiperSlide>
 
-    <MSwiperSlide class="home-swiper-slide">
-        <Article />
+    <MSwiperSlide Id="article-swiper-slide" class="home-swiper-slide">
+        <Article @ref="_articleRef" />
     </MSwiperSlide>
 
-    <MSwiperSlide class="home-swiper-slide">
-        <Moment />
+    <MSwiperSlide Id="moment-swiper-slide" class="home-swiper-slide">
+        <Moment @ref="_momentRef" />
     </MSwiperSlide>
 </MSwiper>
 

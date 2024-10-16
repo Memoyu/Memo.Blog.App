@@ -1,4 +1,5 @@
-﻿<MRow Dense Justify="JustifyTypes.Center">
+﻿<div style="width：100%">
+<MRow Dense Justify="JustifyTypes.Center">
     @foreach (var article in Articles)
     {
         <MCol Cols="12">
@@ -7,54 +8,53 @@
                    Class="pa-3"
                    Href="@($"/article/detail/{article.ArticleId}")"
                    data-page-stack-strategy>
-                <div>
-                    <div class="d-flex flex-column">
-                        <div class="h6 text-truncate font-weight-black">
-                            @article.Title
+                <div class="d-flex flex-column">
+                    <div class="h6 text-truncate font-weight-black">
+                        @article.Title
+                    </div>
+                </div>
+                <div class="mt-1 d-flex flex-no-wrap justify-space-between">
+                    <div>
+                        <div class="subtitle-2 text-truncate-l2">
+                            @article.Description
+                        </div>
+                        <div class="mt-1 caption d-flex flex-wrap  align-center">
+                            @if (!string.IsNullOrWhiteSpace(article.Category?.Name))
+                            {
+                                <MChip Outlined Color="green" XSmall Class="px-2"
+                                       Style="min-width: min-content;">
+                                    @article.Category.Name
+                                </MChip>
+                            }
+
+                            @foreach (var tag in article.Tags)
+                            {
+                                <MChip Label Color="primary" XSmall Class="ma-1 px-2"
+                                       Style="min-width: min-content;">
+                                    @tag.Name
+                                </MChip>
+                            }
                         </div>
                     </div>
-                    <div class="mt-1 d-flex flex-no-wrap justify-space-between">
-                        <div>
-                            <div class="subtitle-2 text-truncate-l2">
-                                @article.Description
-                            </div>
-                            <div class="mt-1 caption d-flex flex-wrap  align-center">
-                                @if (!string.IsNullOrWhiteSpace(article.Category?.Name))
-                                {
-                                    <MChip Outlined Color="green" XSmall Class="px-2"
-                                           Style="min-width: min-content;">
-                                        @article.Category.Name
-                                    </MChip>
-                                }
-
-                                @foreach (var tag in article.Tags)
-                                {
-                                    <MChip Label Color="primary" XSmall Class="ma-1 px-2"
-                                           Style="min-width: min-content;">
-                                        @tag.Name
-                                    </MChip>
-                                }
-                            </div>
+                    @if (!string.IsNullOrWhiteSpace(article.Banner))
+                    {
+                        <div class="ma-1" style="width: 140px">
+                            <MImage Eager AspectRatio="16/9d" Width="140" Src="@article.Banner"></MImage>
                         </div>
-                        @if (!string.IsNullOrWhiteSpace(article.Banner))
-                        {
-                            <div class="ma-1" style="width: 140px">
-                                <MImage Eager AspectRatio="16/9d" Width="140" Src="@article.Banner"></MImage>
-                            </div>
-                        }
+                    }
+                </div>
+
+                <div class="mt-3 caption d-flex justify-space-between">
+                    <div class="d-flex align-center">
+                        @($"点赞 {article.Likes} · 评论 {article.Comments} · 浏览 {article.Views}")
                     </div>
 
-                    <div class="mt-3 caption d-flex justify-space-between">
-                        <div class="d-flex align-center">
-                            @($"点赞 {article.Likes} · 评论 {article.Comments} · 浏览 {article.Views}")
-                        </div>
-
-                        <div class=" text--disabled">
-                            @($"上次更新：{article.UpdateTime?.ToString("yyyy-MM-dd HH:mm") ?? string.Empty}")
-                        </div>
+                    <div class=" text--disabled">
+                        @($"上次更新：{article.UpdateTime?.ToString("yyyy-MM-dd HH:mm") ?? string.Empty}")
                     </div>
                 </div>
             </MCard>
         </MCol>
     }
 </MRow> 
+</div>

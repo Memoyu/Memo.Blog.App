@@ -3,8 +3,11 @@ using Memo.Blog.App.Extensions;
 using Memo.Blog.App.Models;
 using Memo.Blog.App.Models.User;
 using Memo.Blog.App.Services.App;
+using System;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Web;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Memo.Blog.App.Services;
 
@@ -35,6 +38,7 @@ public class AppHttpClient
 
     public async Task<TResult?> InternalGetAsync<TResult>(string url, object? req = null, CancellationToken cancellationToken = default)
     {
+        url += GetQueryString(req);
         var response = await _httpClient.GetAsync(url, cancellationToken);
         response.EnsureSuccessStatusCode();
         var json = await response.Content.ReadAsStringAsync(cancellationToken);
@@ -54,6 +58,44 @@ public class AppHttpClient
     {
         return await InternalPostAsync<TResult>(url, req, cancellationToken);
     }
+
+    public string GetQueryString<T>(T? query)
+    {
+        if (query == null) return string.Empty;
+
+        var propertys = query.GetType().GetProperties();
+        if (propertys.Length < 1) return string.Empty;
+
+        var queryCols = HttpUtility.ParseQueryString(string.Empty);
+        foreach (var property in propertys)
+        {
+            var propertyName = property.Name;
+            var propertyValue = property.GetValue(query);
+            if (propertyValue == null) continue;
+
+            if (property.PropertyType.IsArray)
+            {
+                // 如果是数组属性，需要自己构建参数
+                var arrayPropertyValue = (Array)propertyValue;
+                for (int i = 0; i < arrayPropertyValue.Length; i++)
+                {
+                    var arrayItemValue = HttpUtility.UrlEncode(arrayPropertyValue.GetValue(i)?.ToString()) ?? string.Empty;
+                    var arrayPropName = propertyName + $"[{i}]";
+                    queryCols[HttpUtility.UrlEncode(arrayPropName)] = HttpUtility.UrlEncode(arrayItemValue);
+                }
+            }
+            else
+            {
+                var value = propertyValue.ToString() ?? string.Empty;
+                if (string.IsNullOrWhiteSpace(value)) continue;
+                queryCols[HttpUtility.UrlEncode(propertyName)] = HttpUtility.UrlEncode(value);
+            }
+        }
+
+        var queryString = queryCols.ToString();
+        return string.IsNullOrEmpty(queryString) ? "" : ("?" + queryString);
+    }
+
 
     private async Task<TResult?> InternalPostAsync<TResult>(string url, object? req = null, CancellationToken cancellationToken = default)
     {

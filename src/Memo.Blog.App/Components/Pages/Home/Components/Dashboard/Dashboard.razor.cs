@@ -1,7 +1,4 @@
-﻿
-using Masa.Blazor;
-using Memo.Blog.App.Models.App;
-using System.Diagnostics;
+﻿using Memo.Blog.App.Models.App;
 
 namespace Memo.Blog.App.Components.Pages.Home.Components.Dashboard;
 
@@ -21,12 +18,16 @@ public partial class Dashboard
     {
         if (firstRender)
         {
-            Trace.WriteLine("概览第一次加载");
-            await Task.CompletedTask;
+            await HandleOnRefreshAsync();
+            StateHasChanged();
         }
     }
 
     private async Task HandleOnRefreshAsync()
     {
+        // TODO：模拟数据加载
+        await Task.Delay(1000);
+        _summaries[0].Value = "100";
+        _summaries[3].Value = "120";
     }
 }

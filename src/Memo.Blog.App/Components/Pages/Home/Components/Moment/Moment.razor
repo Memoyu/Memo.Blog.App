@@ -1,4 +1,7 @@
-﻿<MPullRefresh Class="ml-2 mr-2 mt-4"
+﻿<MPullRefresh Class="ml-2 mr-2 home--swiper-slide-content"
+              CanReleaseText="下拉刷新"
+              PullingText="刷新中..."
+              SuccessText="刷新成功！"
               OnRefresh="@HandleOnRefreshAsync">
     <div>
         <SummaryCard Items="@_summaries" />
@@ -6,8 +9,10 @@
             <MomentList Moments="@_moments" />
         </div>
     </div>
-    <MInfiniteScroll Parent="@("window")"
+    <MInfiniteScroll Parent="@("#moment-swiper-slide")"
                      OnLoad="@HandleOnLoadAsync"
+                     EmptyText="已经到底了！"
+                     LoadingText="加载中..."
                      @ref="_infiniteScroll">
     </MInfiniteScroll>
 </MPullRefresh>
