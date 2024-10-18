@@ -73,19 +73,18 @@ h1:focus {
     }
 
 .home-swiper-slide {
-    margin-top: 10px;
     overflow-y: auto;
     touch-action: pan-y; /* 容器使用了 overflow-y: auto 后会导致swiper无法滑动问题，增加这个可以解决 */
-    height: calc(100vh - 56px - 48px - 10px) !important;
+    height: calc(100vh - 56px - 48px) !important;
 }
 
-.home--swiper-slide-content {
+.home-swiper-slide-content {
     display: flex;
     flex-flow: column;
     min-height: 100%;
 }
 
-    .home--swiper-slide-content .m-pull-refresh__track {
+    .home-swiper-slide-content .m-pull-refresh__track {
         flex: 1 1 auto;
     }
 

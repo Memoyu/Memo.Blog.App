@@ -1,0 +1,33 @@
+﻿@page "/moment/edit/{id?}"
+
+<PStackPageBarInit>
+    <ActionContent>
+        <MButton Icon="true"
+                 OnClick="()=>{}">
+            <MIcon>mdi-image-outline</MIcon>
+        </MButton>
+
+        <MButton Icon="true"
+                 OnClick="()=>{}">
+            <MIcon>mdi-label-outline</MIcon>
+        </MButton>
+
+        <BottomSheet SheetItems="_shareSheetItems">
+            <ActivatorContent>
+                <MButton Icon @attributes="@context.Attrs">
+                    <MIcon>mdi-share-outline</MIcon>
+                </MButton>
+            </ActivatorContent>
+        </BottomSheet>
+
+        <BottomSheet SheetItems="_configSheetItems">
+            <ActivatorContent>
+                <MButton Icon @attributes="@context.Attrs">
+                    <MIcon>mdi-dots-horizontal</MIcon>
+                </MButton>
+            </ActivatorContent>
+        </BottomSheet>
+    </ActionContent>
+</PStackPageBarInit>
+
+<h3>MomentDetail</h3>

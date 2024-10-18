@@ -30,3 +30,38 @@
     background: inherit;
     border-radius: inherit;
 }
+
+/*解决移动端悬停问题*/
+@media (hover: none) {
+    .theme--light.m-btn:hover::before {
+        opacity: 0;
+    }
+
+    .theme--light.m-btn:focus::before {
+        opacity: 0;
+    }
+
+    .theme--light.m-btn--active:hover::before, .theme--light.m-btn--active::before {
+        opacity: 0;
+    }
+
+    .theme--light.m-btn--active:focus::before {
+        opacity: 0;
+    }
+
+    .theme--dark.m-btn:hover::before {
+        opacity: 0;
+    }
+
+    .theme--dark.m-btn:focus::before {
+        opacity: 0;
+    }
+
+    .theme--dark.m-btn--active:hover::before, .theme--dark.m-btn--active::before {
+        opacity: 0;
+    }
+
+    .theme--dark.m-btn--active:focus::before {
+        opacity: 0;
+    }
+}

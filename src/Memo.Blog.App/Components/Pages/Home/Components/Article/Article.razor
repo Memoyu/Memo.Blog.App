@@ -1,14 +1,14 @@
-﻿<MPullRefresh Class="ml-2 mr-2 home--swiper-slide-content"
+﻿<MPullRefresh Class="home-swiper-slide-content"
               CanReleaseText="下拉刷新"
               PullingText="刷新中..."
               SuccessText="刷新成功！"
               OnRefresh="@HandleOnRefreshAsync">
-    <div>
+
+    <div class="ma-2">
         <SummaryCard Items="@_summaries" />
-        <div class="mt-4">
-            <ArticleList Articles="@_articles" />
-        </div>
+        <ArticleList Articles="@_articles" />
     </div>
+
     <MInfiniteScroll Parent="@("#article-swiper-slide")"
                      OnLoad="@HandleOnLoadAsync"
                      EmptyText="已经到底了！"

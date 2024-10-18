@@ -1,0 +1,31 @@
+﻿<MBottomSheet>
+    <ActivatorContent>
+        @(ComputedActivatorContent(context))
+    </ActivatorContent>
+    <OutcomeContent>
+        <div class="d-flex align-start" style=@(Cancel ? "min-height: 116px" : "min-height: 86px;")>
+            @foreach (var item in SheetItems)
+            {
+                @if (item.Show)
+                {
+                    <div class="d-inline-flex flex-column justify-center mx-4"
+                         @onclick="@item.OnClick">
+                        <MAvatar Color="@item.Color">
+                            <MIcon Dark>@(item.Icon)</MIcon>
+                        </MAvatar>
+                        <span class="caption mt-1 text-center">@(item.Title)</span>
+                    </div>
+                }
+            }
+        </div>
+
+        @if (Cancel)
+        {
+            <MButton Block
+                     OnClick="@context.Close"
+                     Class="text-capitalize">
+                取消
+            </MButton>
+        }    
+    </OutcomeContent>
+</MBottomSheet>

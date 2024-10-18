@@ -6,7 +6,7 @@
                    Color="primary">
     @foreach (var item in navItems)
     {
-        <MButton Href="@item.Path" Value="@item.Path">
+        <MButton Ripple="false" Href="@item.Path" Value="@item.Path">
             <MIcon>
                 @(selected == item.Path ? item.SelectedIcon : item.Icon)
             </MIcon>
