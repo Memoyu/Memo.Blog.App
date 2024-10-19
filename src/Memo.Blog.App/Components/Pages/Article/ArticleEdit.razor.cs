@@ -1,5 +1,7 @@
 ﻿using Masa.Blazor;
 using Masa.Blazor.Presets;
+using Memo.Blog.App.Components.Components.Markdown;
+using Memo.Blog.App.Components.Components.Textarea;
 using Memo.Blog.App.Models.App;
 using Memo.Blog.App.Models.Article;
 using Memo.Blog.App.Services;
@@ -19,11 +21,16 @@ namespace Memo.Blog.App.Components.Pages.Article
         [Inject] IPopupService PopupService { get; set; } = default!;
 
         bool _showSelectTag = false;
+        bool _editText = true;
+        bool _autofocus = false;
 
         List<SheetItem> _shareSheetItems = [];
         List<SheetItem> _configSheetItems = [];
 
-         ArticleResult _article = new();
+        ArticleResult _article = new();
+
+        MarkdownEdit markdownEdit = default!;
+        TextareaEdit textareaEdit = default!;
 
         protected override void OnInitialized()
         {
@@ -33,12 +40,13 @@ namespace Memo.Blog.App.Components.Pages.Article
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
+            await base.OnAfterRenderAsync(firstRender);
+
             if (firstRender)
             {
                 await InitServiceDataAsync();
+                StateHasChanged();
             }
-
-            await base.OnAfterRenderAsync(firstRender);
         }
 
         private void InitBaseData()
@@ -71,6 +79,10 @@ namespace Memo.Blog.App.Components.Pages.Article
         {
             _ = JSRuntime.InvokeVoidAsync(JsInteropConstants.CopyText, NavigationManager.Uri);
             _ = PopupService.EnqueueSnackbarAsync("Link has been copied to clipboard.");
+        }
+
+        private async Task HandleLaunchActivation()
+        {
         }
     }
 }

@@ -59,6 +59,14 @@
     </ItemGroup>
 
     <ItemGroup>
+      <AndroidResource Remove="wwwroot\npm\vditor\dist\**" />
+      <Compile Remove="wwwroot\npm\vditor\dist\**" />
+      <Content Remove="wwwroot\npm\vditor\dist\**" />
+      <EmbeddedResource Remove="wwwroot\npm\vditor\dist\**" />
+      <None Remove="wwwroot\npm\vditor\dist\**" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="CommunityToolkit.Maui" Version="9.0.3" />
         <PackageReference Include="Masa.Blazor" Version="1.6.8" />
         <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.8" />

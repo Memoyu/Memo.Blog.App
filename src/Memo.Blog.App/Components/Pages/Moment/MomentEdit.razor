@@ -27,4 +27,46 @@
     </ActionContent>
 </PStackPageBarInit>
 
+<MContainer Fluid Class="d-flex flex-column">
+    <div>
+        <div class="d-flex align-center flex-wrap text-subtitle-2">
+            <span>
+                <MIcon>mdi-update</MIcon> @_moment.CreateTime.ToString("yyyy-MM-dd HH:mm")
+            </span>
+
+            <MSpacer></MSpacer>
+            <span class="text-subtitle-2">
+                @_moment.Content.Length 字
+            </span>
+        </div>
+    </div>
+
+    <div class="content-input-wrap user-select">
+        @if (_editText)
+        {
+            <MarkdownEdit @ref="markdownEdit"
+                          @bind-Value="_moment.Content"
+                          WrapClass="content-markdown-wrap"
+                          Class="px-3 rounded-lg content-markdown"
+                          Autofocus="_autofocus"
+                          OnAfter="HandleLaunchActivation">
+            </MarkdownEdit>
+        }
+        else
+        {
+            <TextareaEdit @ref="textareaEdit"
+                          @bind-Value="_moment.Content"
+                          Class="rounded-lg"
+                          Autofocus="_autofocus"
+                          OnAfter="HandleLaunchActivation">
+            </TextareaEdit>
+        }
+    </div>
+
+    @if (_editText)
+    {
+        <div class="vditor-toolbar-help"></div>
+    }
+</MContainer>
+
 <ManageTagDialog @bind-Tags="_moment.Tags" @bind-Visible="_showManageTag" />

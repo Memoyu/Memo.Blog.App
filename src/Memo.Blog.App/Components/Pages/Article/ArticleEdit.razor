@@ -31,4 +31,68 @@
     </ActionContent>
 </PStackPageBarInit>
 
-<SelectTagDialog @bind-Tags="_article.Tags" @bind-Category="_article.Category" @bind-Visible="_showSelectTag" />
+<MContainer Fluid Class="d-flex flex-column">
+    <div>
+        <MTextField @bind-Value="@_article.Title"
+                    Class="pa-0 mb-sm-4 user-select font-weight-bold flex-grow-0"
+                    Solo
+                    Flat
+                    Dense
+                    Filled="false"
+                    TValue="string"
+                    Rounded="false"
+                    HideDetails="@("auto")"
+                    spellcheck="false"
+                    maxlength="50"
+                    BackgroundColor="transparent"
+                    Placeholder="文章标题">
+        </MTextField>
+
+
+        <div class="d-flex align-center flex-wrap text-subtitle-2">
+            <span>
+                <MIcon>mdi-update</MIcon> @_article.CreateTime.ToString("yyyy-MM-dd HH:mm")
+            </span>
+
+            <span>
+                <MIcon>mdi-update</MIcon> @_article.UpdateTime?.ToString("yyyy-MM-dd HH:mm")
+            </span>
+
+            <MSpacer></MSpacer>
+            <span class="text-subtitle-2">
+                @_article.WordNumber 字
+            </span>
+        </div>
+    </div>
+
+    <div class="content-input-wrap user-select">
+        @if (_editText)
+        {
+            <MarkdownEdit @ref="markdownEdit"
+                          @bind-Value="_article.Content"
+                          WrapClass="content-markdown-wrap"
+                          Class="px-3 rounded-lg content-markdown"
+                          Autofocus="_autofocus"
+                          OnAfter="HandleLaunchActivation">
+            </MarkdownEdit>
+        }
+        else
+        {
+            <TextareaEdit @ref="textareaEdit"
+                          @bind-Value="_article.Content"
+                          Class="rounded-lg"
+                          Autofocus="_autofocus"
+                          OnAfter="HandleLaunchActivation">
+            </TextareaEdit>
+        }
+    </div>
+
+    @if (_editText)
+    {
+        <div class="vditor-toolbar-help"></div>
+    }
+</MContainer>
+
+<SelectTagDialog @bind-Tags="_article.Tags"
+                 @bind-Category="_article.Category"
+                 @bind-Visible="_showSelectTag" />

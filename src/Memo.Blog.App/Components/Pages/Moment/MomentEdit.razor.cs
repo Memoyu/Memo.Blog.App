@@ -1,5 +1,7 @@
 ﻿using Masa.Blazor;
 using Masa.Blazor.Presets;
+using Memo.Blog.App.Components.Components.Markdown;
+using Memo.Blog.App.Components.Components.Textarea;
 using Memo.Blog.App.Models.App;
 using Memo.Blog.App.Models.Moment;
 using Memo.Blog.App.Services;
@@ -19,11 +21,16 @@ public partial class MomentEdit
     [Inject] IPopupService PopupService { get; set; } = default!;
 
     bool _showManageTag = false;
+    bool _editText = true;
+    bool _autofocus = false;
 
     List<SheetItem> _shareSheetItems = [];
     List<SheetItem> _configSheetItems = [];
 
     MomentResult _moment = new();
+
+    MarkdownEdit markdownEdit = default!;
+    TextareaEdit textareaEdit = default!;
 
     protected override void OnInitialized()
     {
@@ -70,5 +77,9 @@ public partial class MomentEdit
     {
         _ = JSRuntime.InvokeVoidAsync(JsInteropConstants.CopyText, NavigationManager.Uri);
         _ = PopupService.EnqueueSnackbarAsync("Link has been copied to clipboard.");
+    }
+
+    private async Task HandleLaunchActivation()
+    {
     }
 }

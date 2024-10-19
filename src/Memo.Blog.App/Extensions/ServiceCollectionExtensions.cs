@@ -6,6 +6,9 @@ using Masa.Blazor.Presets;
 using Microsoft.AspNetCore.Components.Authorization;
 using Memo.Blog.App.Services.App;
 using Memo.Blog.App.Services;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Memo.Blog.App.Components.Components.Textarea;
+using Memo.Blog.App.Components.Components.Markdown;
 
 namespace Memo.Blog.App.Extensions;
 
@@ -139,6 +142,9 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
+        services.TryAddScoped<MarkdownJsModule>();
+        services.TryAddScoped<TextareaJsModule>();
+
         services.AddHttpClient<AppHttpClient>();
 
         services.AddScoped<UserService>();
