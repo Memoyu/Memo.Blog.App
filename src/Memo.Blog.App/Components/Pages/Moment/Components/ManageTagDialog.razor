@@ -1,0 +1,65 @@
+﻿<MDialogExtension Visible="@Visible"
+                  ContentClass="rounded-lg"
+                  Scrollable="true"
+                  MaxWidth="420"
+                  VisibleChanged="InternalVisibleChanged"
+                  OnBeforeShowContent="BeforeShowContent">
+    <MCard>
+        <MCardTitle Class="font-weight-bold">
+            动态标签
+        </MCardTitle>
+        <MCardText Class="pb-0">
+            <div class="scroll-show" style="max-height:200px;">
+                <MChipGroup Column="true"
+                            Multiple="true">
+                    @foreach (var tag in _internalTags)
+                    {
+                        <MChip @key="tag" Close OnCloseClick="() => HandleTagClose(tag)">
+                            @(tag)
+                        </MChip>
+                    }
+
+                    <MButton Small
+                             Fab
+                             Color="primary"
+                             OnClick="() => _showInput = true">
+                        <MIcon>mdi-plus</MIcon>
+                    </MButton>
+                </MChipGroup>
+            </div>
+
+            @if (_showInput)
+            {
+                <div class="mt-2">
+                    <MTextField @bind-Value="_inputTag"
+                                Dense
+                                Clearable
+                                HideDetails="true"
+                                Placeholder="标签名称"
+                                AppendOuterIcon="mdi-plus"
+                                OnAppendOuterClick="HandleSaveTag"
+                                OnEnter="HandleSaveTag">
+                        <PrependContent>
+                            <MButton Small Icon Color="error" OnClick="() => _showInput = false">
+                                <MIcon>mdi-close</MIcon>
+                            </MButton>
+                        </PrependContent>
+                    </MTextField>
+                </div>
+            }
+        </MCardText>
+        <MCardActions>
+            <MSpacer />
+            <MButton Text="true"
+                     OnClick="HandleCancel">
+                取消
+            </MButton>
+            <MButton Text="true"
+                     Color="primary"
+                     OnClick="HandleSave">
+                保存
+            </MButton>
+        </MCardActions>
+    </MCard>
+</MDialogExtension>
+

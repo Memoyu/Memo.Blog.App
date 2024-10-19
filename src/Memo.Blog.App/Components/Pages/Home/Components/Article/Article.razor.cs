@@ -3,12 +3,13 @@ using Memo.Blog.App.Models.App;
 using Memo.Blog.App.Models.Article;
 using Memo.Blog.App.Services;
 using Microsoft.AspNetCore.Components;
-using System.Diagnostics;
 
 namespace Memo.Blog.App.Components.Pages.Home.Components.Article;
 
 public partial class Article
 {
+    [Inject] public ArticleService ArticleService { get; set; } = default!;
+
     private List<SummaryCardItem> _summaries =
     [
         new SummaryCardItem ("文章", "0"),
@@ -22,8 +23,6 @@ public partial class Article
     private int _pageSize = 15;
     private MInfiniteScroll? _infiniteScroll;
 
-    [Inject]
-    public ArticleService ArticleService { get; set; } = default!;
 
     public async Task InitAsync()
     {

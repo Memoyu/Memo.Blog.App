@@ -8,6 +8,8 @@ namespace Memo.Blog.App.Components.Pages.Home.Components.Moment;
 
 public partial class Moment
 {
+    [Inject] protected MomentService MomentService { get; set; } = default!;
+
     private List<SummaryCardItem> _summaries = [
         new SummaryCardItem ("动态", "0"),
         new SummaryCardItem ("评论", "0"),
@@ -20,8 +22,6 @@ public partial class Moment
     private int _pageSize = 10;
     private MInfiniteScroll? _infiniteScroll;
 
-    [Inject]
-    protected MomentService MomentService { get; set; } = default!;
 
     public async Task InitAsync()
     {

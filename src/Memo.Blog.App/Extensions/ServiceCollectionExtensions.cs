@@ -144,6 +144,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<UserService>();
         services.AddScoped<MomentService>();
         services.AddScoped<ArticleService>();
+        services.AddScoped<CategoryService>();
+        services.AddScoped<TagService>();
 
         return services;
     }

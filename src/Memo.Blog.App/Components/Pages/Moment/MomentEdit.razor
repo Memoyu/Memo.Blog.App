@@ -1,14 +1,11 @@
 ﻿@page "/moment/edit/{id?}"
+@using Memo.Blog.App.Components.Pages.Moment.Components;
 
 <PStackPageBarInit>
     <ActionContent>
-        <MButton Icon="true"
-                 OnClick="()=>{}">
-            <MIcon>mdi-image-outline</MIcon>
-        </MButton>
 
         <MButton Icon="true"
-                 OnClick="()=>{}">
+                 OnClick="()=> _showManageTag = true">
             <MIcon>mdi-label-outline</MIcon>
         </MButton>
 
@@ -30,4 +27,4 @@
     </ActionContent>
 </PStackPageBarInit>
 
-<h3>MomentDetail</h3>
+<ManageTagDialog @bind-Tags="_moment.Tags" @bind-Visible="_showManageTag" />

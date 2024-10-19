@@ -11,9 +11,8 @@ public class MomentService(IPopupService popupService, AppHttpClient appHttpClie
         var data = new PaginationResult<MomentResult>();
         try
         {
-            data = await appHttpClient.GetAsync<PaginationResult<MomentResult>>(
-            "admin/moment/page",
-            query) ?? throw new ApplicationException("获取动态列表异常");
+            data = await appHttpClient.GetAsync<PaginationResult<MomentResult>>("admin/moment/page", query)
+                ?? throw new ApplicationException("获取动态列表异常");
         }
         catch (Exception ex)
         {
@@ -21,5 +20,11 @@ public class MomentService(IPopupService popupService, AppHttpClient appHttpClie
         }
 
         return data;
+    }
+
+    public async Task<MomentResult> MomentGetAsync(string id)
+    {
+        return await appHttpClient.GetAsync<MomentResult>("admin/moment/get", new { MomentId = id })
+            ?? throw new ApplicationException("获取动态详情异常");
     }
 }

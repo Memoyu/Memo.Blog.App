@@ -1,4 +1,34 @@
 ﻿@page "/article/edit/{id?}"
+@using Memo.Blog.App.Components.Pages.Article.Components;
 
-<h3>Article</h3>
+<PStackPageBarInit>
+    <ActionContent>
+        <MButton Icon="true"
+                 OnClick="()=>{}">
+            <MIcon>mdi-image-outline</MIcon>
+        </MButton>
 
+        <MButton Icon="true"
+                 OnClick="()=> _showSelectTag = true">
+            <MIcon>mdi-label-outline</MIcon>
+        </MButton>
+
+        <BottomSheet SheetItems="_shareSheetItems">
+            <ActivatorContent>
+                <MButton Icon @attributes="@context.Attrs">
+                    <MIcon>mdi-share-outline</MIcon>
+                </MButton>
+            </ActivatorContent>
+        </BottomSheet>
+
+        <BottomSheet SheetItems="_configSheetItems">
+            <ActivatorContent>
+                <MButton Icon @attributes="@context.Attrs">
+                    <MIcon>mdi-dots-horizontal</MIcon>
+                </MButton>
+            </ActivatorContent>
+        </BottomSheet>
+    </ActionContent>
+</PStackPageBarInit>
+
+<SelectTagDialog @bind-Tags="_article.Tags" @bind-Category="_article.Category" @bind-Visible="_showSelectTag" />
