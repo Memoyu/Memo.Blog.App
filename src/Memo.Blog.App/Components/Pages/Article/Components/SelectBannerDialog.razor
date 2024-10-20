@@ -34,7 +34,7 @@
         </MCardActions>
     </MCard>
 
-    <MOverlay Value="_preview">
+   @*  <MDialogExtension Visible="_preview" VisibleChanged="InternalVisibleChanged">
         <div style="position: fixed; top: 0; left: 0; right: 0; z-index: 99">
             <MButton Icon
                      Style="float: right"
@@ -48,5 +48,6 @@
                 <img src="@Banner" />
             </div>
         </div>
-    </MOverlay>
+    </MDialogExtension> *@
+    <ImagePreview @bind-Visible="_preview" Src="@Banner" />
 </MDialogExtension>

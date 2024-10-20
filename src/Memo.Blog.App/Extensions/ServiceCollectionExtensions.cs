@@ -9,6 +9,7 @@ using Memo.Blog.App.Services;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Memo.Blog.App.Components.Components.Textarea;
 using Memo.Blog.App.Components.Components.Markdown;
+using Memo.Blog.App.Components.Components.Image;
 
 namespace Memo.Blog.App.Extensions;
 
@@ -136,6 +137,7 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
+        services.TryAddScoped<ImageJsModule>();
         services.TryAddScoped<MarkdownJsModule>();
         services.TryAddScoped<TextareaJsModule>();
 

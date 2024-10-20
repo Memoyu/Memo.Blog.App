@@ -10,8 +10,8 @@ public class TextareaJsModule : JsModuleExtension
     {
     }
 
-    public ValueTask<string?> InsertText(ElementReference elementReference, string value)
+    public ValueTask<string?> InsertText(ElementReference element, string value)
     {
-        return base.InvokeAsync<string?>("insertText", [elementReference, value]);
+        return base.InvokeAsync<string?>("insertText", [element, value]);
     }
 }
