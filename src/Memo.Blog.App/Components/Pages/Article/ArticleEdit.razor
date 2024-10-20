@@ -3,13 +3,11 @@
 
 <PStackPageBarInit>
     <ActionContent>
-        <MButton Icon="true"
-                 OnClick="()=>{}">
+        <MButton Icon OnClick="()=> _showSelectBanner = true">
             <MIcon>mdi-image-outline</MIcon>
         </MButton>
 
-        <MButton Icon="true"
-                 OnClick="()=> _showSelectTag = true">
+        <MButton Icon OnClick="()=> _showSelectTag = true">
             <MIcon>mdi-label-outline</MIcon>
         </MButton>
 
@@ -34,7 +32,7 @@
 <MContainer Fluid Class="d-flex flex-column">
     <div>
         <MTextField @bind-Value="@_article.Title"
-                    Class="pa-0 mb-sm-4 user-select font-weight-bold flex-grow-0"
+                    Class="mb-1 user-select font-weight-black text-h6 article-title"
                     Solo
                     Flat
                     Dense
@@ -48,12 +46,21 @@
                     Placeholder="文章标题">
         </MTextField>
 
+        <MTextarea @bind-Value="@_article.Description"
+                   Class="rounded-lg"
+                   Dense
+                   HideDetails="@("auto")"
+                   Solo
+                   Flat
+                   NoResize
+                   Rows="3"
+                   Counter="500"
+                   maxlength="500"
+                   spellcheck="false"
+                   Placeholder="文章描述">
+        </MTextarea>
 
         <div class="d-flex align-center flex-wrap text-subtitle-2">
-            <span>
-                <MIcon>mdi-update</MIcon> @_article.CreateTime.ToString("yyyy-MM-dd HH:mm")
-            </span>
-
             <span>
                 <MIcon>mdi-update</MIcon> @_article.UpdateTime?.ToString("yyyy-MM-dd HH:mm")
             </span>
@@ -96,3 +103,6 @@
 <SelectTagDialog @bind-Tags="_article.Tags"
                  @bind-Category="_article.Category"
                  @bind-Visible="_showSelectTag" />
+
+<SelectBannerDialog @bind-Banner="_article.Banner"
+                    @bind-Visible="_showSelectBanner" />

@@ -1,9 +1,10 @@
 ﻿<MList Dense Style="background-color: transparent">
     @foreach (var moment in Moments)
     {
-        <MListItem style="padding: 0">
+        <MListItem style="padding: 0" Ripple="false">
             <MListItemContent>
                 <MCard Flat
+                       Ripple="false"
                        Rounded="@("lg")"
                        Href="@($"/moment/edit/{moment.MomentId}")"
                        data-page-stack-strategy>

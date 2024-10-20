@@ -36,12 +36,6 @@ public static class ServiceCollectionExtensions
                     ["Rounded"] = true,
                     ["PersistentPlaceholder"] = true
                 },
-                ["MTextarea"] = new Dictionary<string, object?>()
-                {
-                    ["Filled"] = true,
-                    ["Rounded"] = true,
-                    ["PersistentPlaceholder"] = true
-                },
                 [PopupComponents.SNACKBAR] = new Dictionary<string, object?>()
                 {
                     { nameof(PEnqueuedSnackbars.Text), true },

@@ -1,15 +1,14 @@
 ﻿using Masa.Blazor;
+using Memo.Blog.App.Components.Base;
 using Memo.Blog.App.Models.Article;
 using Memo.Blog.App.Services;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+
 
 namespace Memo.Blog.App.Components.Pages.Article.Components;
 
-public partial class SelectTagDialog
+public partial class SelectTagDialog : DialogComponentBase
 {
-    [Parameter] public virtual bool Visible { get; set; }
-    [Parameter] public EventCallback<bool> VisibleChanged { get; set; }
     [Parameter] public List<TagResult> Tags { get; set; } = [];
     [Parameter] public CategoryResult Category { get; set; } = new();
     [Parameter] public EventCallback<List<TagResult>> TagsChanged { get; set; }
@@ -61,11 +60,6 @@ public partial class SelectTagDialog
         // TODO: 保存标签或分类
     }
 
-    private async Task HandleCancel()
-    {
-        await InternalVisibleChanged(false);
-    }
-
     private async Task HandleSave()
     {
         var tags = new List<TagResult>();
@@ -94,15 +88,5 @@ public partial class SelectTagDialog
         }
 
         await InternalVisibleChanged(false);
-    }
-
-    protected virtual async Task InternalVisibleChanged(bool value)
-    {
-        Visible = value;
-
-        if (VisibleChanged.HasDelegate)
-        {
-            await VisibleChanged.InvokeAsync(value);
-        }
     }
 }

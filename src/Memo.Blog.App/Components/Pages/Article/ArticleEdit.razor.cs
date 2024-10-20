@@ -21,6 +21,7 @@ namespace Memo.Blog.App.Components.Pages.Article
         [Inject] IPopupService PopupService { get; set; } = default!;
 
         bool _showSelectTag = false;
+        bool _showSelectBanner = false;
         bool _editText = true;
         bool _autofocus = false;
 

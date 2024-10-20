@@ -1,0 +1,52 @@
+﻿@inherits DialogComponentBase
+
+<MDialogExtension Visible="@Visible"
+                  ContentClass="rounded-lg"
+                  Scrollable="true"
+                  MaxWidth="420"
+                  VisibleChanged="InternalVisibleChanged"
+                  OnBeforeShowContent="BeforeShowContent">
+    <MCard>
+        <MCardTitle Class="font-weight-bold">
+            头图
+        </MCardTitle>
+        <MCardText Class="pb-0">
+            <div @onclick="() => _preview = true ">
+                <MImage Eager AspectRatio="16/9d" MinWidth="240" Src="@Banner" />
+            </div>
+        </MCardText>
+        <MCardActions>
+            <MButton Text="true"
+                     OnClick="HandleSelectImage">
+                选择图片
+            </MButton>
+
+            <MSpacer />
+            <MButton Text="true"
+                     OnClick="HandleCancel">
+                取消
+            </MButton>
+            <MButton Text="true"
+                     Color="primary"
+                     OnClick="HandleSave">
+                保存
+            </MButton>
+        </MCardActions>
+    </MCard>
+
+    <MOverlay Value="_preview">
+        <div style="position: fixed; top: 0; left: 0; right: 0; z-index: 99">
+            <MButton Icon
+                     Style="float: right"
+                     Color="error"
+                     OnClick="() => _preview = false">
+                <MIcon>mdi-close</MIcon>
+            </MButton>
+        </div>
+        <div class="preview-image-overlay__image__wraper">
+            <div class="preview-image-overlay__image">
+                <img src="@Banner" />
+            </div>
+        </div>
+    </MOverlay>
+</MDialogExtension>
