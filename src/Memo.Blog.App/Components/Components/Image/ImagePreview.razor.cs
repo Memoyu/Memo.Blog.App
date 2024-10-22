@@ -28,14 +28,14 @@ public partial class ImagePreview : DialogComponentBase
     {
         if (!isInitialized)
         {
-            await Module.ImgDragAndDrop(_previewImg);
+            await Module.InitPanZoom(_previewImg);
             isInitialized = true;
         }
     }
 
-    private void HandleReset()
+    private async Task HandleReset()
     {
-        
+        await Module.Reset(_previewImg);
     }
 
     private void HandleDownload()

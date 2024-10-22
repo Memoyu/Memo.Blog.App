@@ -1,5 +1,4 @@
-﻿
-.image-preview-body {
+﻿.image-preview-body {
     position: absolute;
     top: 0;
     right: 0;
@@ -17,17 +16,23 @@
     text-align: center;
 }
 
-    .image-preview-img-wrapper::before {
+    .image-preview-img-wrapper:after {
         content: '';
         display: inline-block;
         height: 100%;
         vertical-align: middle;
     }
 
-    .image-preview-img-wrapper img {
+.image-preview-img {
+    display: inline-block;
+    vertical-align: middle;
+}
+  
+    .image-preview-img img {
         max-width: 100%;
         max-height: 100%;
         vertical-align: middle;
+        transform: scale3d(1,1,1);
         cursor: grab;
         user-select: none;
         pointer-events: auto;
@@ -70,9 +75,9 @@
         background: rgba(0,0,0,.2)
     }
 
-.image-preview-operations-operation:last-of-type {
-    margin-left: 0
-}
+    .image-preview-operations-operation:last-of-type {
+        margin-left: 0
+    }
 
 .image-preview-operations-progress {
     position: absolute;
