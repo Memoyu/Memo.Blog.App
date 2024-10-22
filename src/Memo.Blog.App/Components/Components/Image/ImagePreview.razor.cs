@@ -10,6 +10,7 @@ public partial class ImagePreview : DialogComponentBase
 
     [Inject] ImageJsModule Module { get; set; } = default!;
 
+    bool isInitialized;
     ElementReference _previewImg;
     double _zoomOutTimes = 1;
     int _rotateTimes;
@@ -17,9 +18,23 @@ public partial class ImagePreview : DialogComponentBase
     string _left = "50%";
     string _top = "50%";
 
+    protected override async Task InternalVisibleChanged(bool value)
+    {
+       //  await Module.Destroy(_previewImg);
+
+        await base.InternalVisibleChanged(value);
+    }
+
+
     private async Task BeforeShowContent()
     {
-        await Module.ImgDragAndDrop(_previewImg);
+        // await Module.ImgDragAndDrop(_previewImg);
+
+        if (!isInitialized)
+        {
+            await Module.ImgDragAndDrop(_previewImg);
+            isInitialized = true;
+        }
     }
 
     private void HandleZoomIn()

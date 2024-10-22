@@ -1,35 +1,62 @@
 ﻿@inherits DialogComponentBase
 
 <MDialogExtension Visible="Visible"
+                  Fullscreen="true"
+                  Transition=""
                   OnBeforeShowContent="BeforeShowContent">
-    <div class="image-preview-body">
-        <div class="image-preview-img-wrapper" @onwheel="WeelHandZoom"
-             style="font-size:0; position: relative; height: 100%; width: 100%;">
-            <div>dddw</div>
-            <img id="preview-img" @ref="_previewImg" class="image-preview-img" src="@Src"
-                 style="position: absolute; left: @_left; top: @_top; transform: translate(-50%, -50%) scale3d(@_zoomOutTimes, @_zoomOutTimes, 1) rotate(@(90*_rotateTimes)deg);">
-        </div>
+    @*  <div class="image-preview-body">
+    <div @ref="_previewImg" class="image-preview-img-wrapper" @onwheel="WeelHandZoom"
+    style="font-size:0; position: relative; height: 100%; width: 100%;">
+    <img id="preview-img" class="image-preview-img" src="@Src"
+    style="position: absolute; left: @_left; top: @_top; transform: translate(-50%, -50%) scale3d(@_zoomOutTimes, @_zoomOutTimes, 1) rotate(@(90*_rotateTimes)deg);">
+    </div>
 
-        <div class="image-preview-operations-wrapper">
-            <ul class="image-preview-operations">
-                <li class="image-preview-operations-operation image-preview-operations-operation-zoomOut @(_zoomOutTimes==1?"image-preview-operations-operation-disabled":"")" @onclick="HandleZoomOut" @onclick:stopPropagation>
-                    <MIcon Dark>mdi-magnify-minus-outline</MIcon>
-                </li>
-                <li class="image-preview-operations-operation image-preview-operations-operation-zoomIn" @onclick="HandleZoomIn" @onclick:stopPropagation>
-                    <MIcon Dark>mdi-magnify-plus-outline</MIcon>
-                </li>
-                <li class="image-preview-operations-operation image-preview-operations-operation-rotateLeft" @onclick="HandleRotateLeft" @onclick:stopPropagation>
-                    <MIcon Dark>mdi-file-rotate-left-outline</MIcon>
-                </li>
-                <li class="image-preview-operations-operation image-preview-operations-operation-rotateRight" @onclick="HandleRotateRight" @onclick:stopPropagation>
-                    <MIcon Dark>mdi-file-rotate-right-outline</MIcon>
-                </li>
+    <div class="image-preview-operations-wrapper">
+    <ul class="image-preview-operations">
+    <li class="image-preview-operations-operation image-preview-operations-operation-zoomOut @(_zoomOutTimes==1?"image-preview-operations-operation-disabled":"")" @onclick="HandleZoomOut" @onclick:stopPropagation>
+    <MIcon Dark>mdi-magnify-minus-outline</MIcon>
+    </li>
+    <li class="image-preview-operations-operation image-preview-operations-operation-zoomIn" @onclick="HandleZoomIn" @onclick:stopPropagation>
+    <MIcon Dark>mdi-magnify-plus-outline</MIcon>
+    </li>
+    <li class="image-preview-operations-operation image-preview-operations-operation-rotateLeft" @onclick="HandleRotateLeft" @onclick:stopPropagation>
+    <MIcon Dark>mdi-file-rotate-left-outline</MIcon>
+    </li>
+    <li class="image-preview-operations-operation image-preview-operations-operation-rotateRight" @onclick="HandleRotateRight" @onclick:stopPropagation>
+    <MIcon Dark>mdi-file-rotate-right-outline</MIcon>
+    </li>
 
-                <li class="image-preview-operations-operation image-preview-operations-operation-close" @onclick="() => InternalVisibleChanged(false)" @onclick:stopPropagation>
-                    <MIcon Dark>mdi-close</MIcon>
-                </li>
-            </ul>
+    <li class="image-preview-operations-operation image-preview-operations-operation-close" @onclick="() => InternalVisibleChanged(false)" @onclick:stopPropagation>
+    <MIcon Dark>mdi-close</MIcon>
+    </li>
+    </ul>
+    </div>
+    </div> *@
+    <div class="image-preview-dialog-wraper" style="overflow: inherit !important; position: relative; height: 100vh;">
+        <div @ref="_previewImg" class="image-preview-dialog-image" style="transform-origin: 0% 0%; position: absolute; transform: scale(1, 1) translate(0px, 0px); height: 100vh;">
+            <img src="@Src" />
         </div>
+    </div>
+
+    <div class="image-preview-operations-wrapper">
+        <ul class="image-preview-operations">
+            <li class="image-preview-operations-operation image-preview-operations-operation-zoomOut @(_zoomOutTimes==1?"image-preview-operations-operation-disabled":"")" @onclick="HandleZoomOut" @onclick:stopPropagation>
+                <MIcon Dark>mdi-magnify-minus-outline</MIcon>
+            </li>
+            <li class="image-preview-operations-operation image-preview-operations-operation-zoomIn" @onclick="HandleZoomIn" @onclick:stopPropagation>
+                <MIcon Dark>mdi-magnify-plus-outline</MIcon>
+            </li>
+            <li class="image-preview-operations-operation image-preview-operations-operation-rotateLeft" @onclick="HandleRotateLeft" @onclick:stopPropagation>
+                <MIcon Dark>mdi-file-rotate-left-outline</MIcon>
+            </li>
+            <li class="image-preview-operations-operation image-preview-operations-operation-rotateRight" @onclick="HandleRotateRight" @onclick:stopPropagation>
+                <MIcon Dark>mdi-file-rotate-right-outline</MIcon>
+            </li>
+
+            <li class="image-preview-operations-operation image-preview-operations-operation-close" @onclick="() => InternalVisibleChanged(false)" @onclick:stopPropagation>
+                <MIcon Dark>mdi-close</MIcon>
+            </li>
+        </ul>
     </div>
 
 </MDialogExtension>
