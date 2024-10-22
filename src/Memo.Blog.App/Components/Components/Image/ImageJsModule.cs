@@ -15,9 +15,9 @@ public class ImageJsModule : JsModuleExtension
         await base.InvokeVoidAsync("imgDragAndDrop", element);
     }
 
-    public async Task Destroy(ElementReference element)
+    public async Task Reset(ElementReference element)
     {
-        await base.InvokeVoidAsync("destroy", element);
+        await base.InvokeVoidAsync("reset", element);
     }
 
     public ValueTask<string?> GetStyle(ElementReference element, string styleProp)

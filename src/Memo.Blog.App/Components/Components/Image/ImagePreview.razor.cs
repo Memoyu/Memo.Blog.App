@@ -20,16 +20,12 @@ public partial class ImagePreview : DialogComponentBase
 
     protected override async Task InternalVisibleChanged(bool value)
     {
-       //  await Module.Destroy(_previewImg);
-
+        await Module.Reset(_previewImg);
         await base.InternalVisibleChanged(value);
     }
 
-
     private async Task BeforeShowContent()
     {
-        // await Module.ImgDragAndDrop(_previewImg);
-
         if (!isInitialized)
         {
             await Module.ImgDragAndDrop(_previewImg);
@@ -37,41 +33,13 @@ public partial class ImagePreview : DialogComponentBase
         }
     }
 
-    private void HandleZoomIn()
+    private void HandleReset()
     {
-        _zoomOutTimes++;
+        
     }
 
-    private void HandleZoomOut()
+    private void HandleDownload()
     {
-        if (int.Parse(_zoomOutTimes.ToString()) > 1)
-        {
-            _zoomOutTimes--;
-        }
-    }
-
-    private void HandleRotateRight()
-    {
-        _rotateTimes++;
-    }
-
-    private void HandleRotateLeft()
-    {
-        _rotateTimes--;
-    }
-
-    private async Task WeelHandZoom(WheelEventArgs wheelEventArgs)
-    {
-        _left = await Module.GetStyle(_previewImg, "left") ?? string.Empty;
-        _top = await Module.GetStyle(_previewImg, "top") ?? string.Empty;
-
-        if (wheelEventArgs.DeltaY < 0)
-        {
-            _zoomOutTimes += 0.1;
-        }
-        else if (_zoomOutTimes > 0.5)
-        {
-            _zoomOutTimes -= 0.1;
-        }
+       
     }
 }
