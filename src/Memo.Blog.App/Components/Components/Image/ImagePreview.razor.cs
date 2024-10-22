@@ -1,6 +1,5 @@
 ﻿using Memo.Blog.App.Components.Base;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 
 namespace Memo.Blog.App.Components.Components.Image;
 
@@ -12,11 +11,6 @@ public partial class ImagePreview : DialogComponentBase
 
     bool isInitialized;
     ElementReference _previewImg;
-    double _zoomOutTimes = 1;
-    int _rotateTimes;
-    bool _visible = true;
-    string _left = "50%";
-    string _top = "50%";
 
     protected override async Task InternalVisibleChanged(bool value)
     {
