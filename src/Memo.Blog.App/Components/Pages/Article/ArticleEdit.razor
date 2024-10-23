@@ -30,7 +30,7 @@
 </PStackPageBarInit>
 
 <MContainer Fluid Class="d-flex flex-column">
-    <div>
+    <div class="mb-4">
         <MTextField @bind-Value="@_article.Title"
                     Class="mb-1 user-select font-weight-black text-h6 article-title"
                     Solo
@@ -72,32 +72,13 @@
         </div>
     </div>
 
-    <div class="content-input-wrap user-select">
-        @if (_editText)
-        {
-            <MarkdownEdit @ref="markdownEdit"
-                          @bind-Value="_article.Content"
-                          WrapClass="content-markdown-wrap"
-                          Class="px-3 rounded-lg content-markdown"
-                          Autofocus="_autofocus"
-                          OnAfter="HandleLaunchActivation">
-            </MarkdownEdit>
-        }
-        else
-        {
-            <TextareaEdit @ref="textareaEdit"
-                          @bind-Value="_article.Content"
-                          Class="rounded-lg"
-                          Autofocus="_autofocus"
-                          OnAfter="HandleLaunchActivation">
-            </TextareaEdit>
-        }
-    </div>
-
-    @if (_editText)
-    {
-        <div class="vditor-toolbar-help"></div>
-    }
+    <MarkdownEdit @ref="markdownEdit"
+                  @bind-Value="_article.Content"
+                  WrapClass="content-markdown-wrap"
+                  Class="rounded-lg content-markdown"
+                  Autofocus="_autofocus"
+                  OnAfter="HandleLaunchActivation">
+    </MarkdownEdit>
 </MContainer>
 
 <SelectTagDialog @bind-Tags="_article.Tags"

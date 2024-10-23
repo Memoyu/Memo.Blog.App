@@ -39,16 +39,20 @@ function handleToolbar(domRef) {
         e.preventDefault();
     };
 
-    const toolbarContent = document.createElement("div");
-    toolbarContent.classList.add('vditor-toolbar-content');
-    insertMiddleElement(toolbar, toolbarContent);
-    const items = toolbarContent.querySelectorAll('.vditor-toolbar__item');
-    const visibleItems = Array.from(items).filter(item => getComputedStyle(item).display !== 'none');
-    if (visibleItems.length > 0) {
-        const itemWidth = parseInt(getComputedStyle(visibleItems[0]).width);
-        const vditorToolbarWidth = itemWidth * Math.round(visibleItems.length / 2) + 'px';
-        toolbarContent.style.setProperty('--vditor-toolbar-width', vditorToolbarWidth);
-    }
+    // 需要延时，可能获取的宽度为0
+    setTimeout(function () {
+        const toolbarContent = document.createElement("div");
+        toolbarContent.classList.add('vditor-toolbar-content');
+        insertMiddleElement(toolbar, toolbarContent);
+        const items = toolbarContent.querySelectorAll('.vditor-toolbar__item');
+        const visibleItems = Array.from(items).filter(item => getComputedStyle(item).display !== 'none');
+        if (visibleItems.length > 0) {
+            const itemWidth = parseInt(getComputedStyle(visibleItems[0]).width);
+            const vditorToolbarWidth = itemWidth * Math.round(visibleItems.length / 2) + 'px';
+            toolbarContent.style.setProperty('--vditor-toolbar-width', vditorToolbarWidth);
+        }
+    }, 200);
+
 }
 
 function insertMiddleElement(parent, destination) {
