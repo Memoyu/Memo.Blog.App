@@ -3,14 +3,15 @@
 @layout LoginLayout
 
 <div class="login">
-   @*  <MAvatar Size="72" Class="mt-16"
-             Color="white">
-        <MImage Src="_content/Masa.Blazor.MauiDemo.Rcl/img/masastack.png"
+    <div Style="margin-top: 10%" class="d-flex justify-center">
+        <MImage AspectRatio="16/9d"
+                Width="84"
+                Src="images/logo.png"
                 Contain
-                MaxWidth="64"
-                alt="masastack">
+                Eager
+                alt="memo.blog">
         </MImage>
-    </MAvatar> *@
+    </div>
 
     <MTextField @bind-Value="@_username"
                 HideDetails="true"

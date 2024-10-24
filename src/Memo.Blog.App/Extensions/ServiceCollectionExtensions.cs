@@ -40,6 +40,7 @@ public static class ServiceCollectionExtensions
                 [PopupComponents.SNACKBAR] = new Dictionary<string, object?>()
                 {
                     { nameof(PEnqueuedSnackbars.Text), true },
+                    { nameof(PEnqueuedSnackbars.Closeable), true },
                     { nameof(PEnqueuedSnackbars.Elevation), new StringNumber(0) },
                     { nameof(PEnqueuedSnackbars.Position), SnackPosition.TopCenter },
                 },
