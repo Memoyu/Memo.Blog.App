@@ -76,7 +76,6 @@ public partial class MomentEdit
     private void CopyLink()
     {
         _ = JSRuntime.InvokeVoidAsync(JsInteropConstants.CopyText, NavigationManager.Uri);
-        _ = PopupService.EnqueueSnackbarAsync("Link has been copied to clipboard.");
     }
 
     private async Task HandleLaunchActivation()

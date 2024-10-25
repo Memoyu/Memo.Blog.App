@@ -23,7 +23,7 @@ public class UserService(IPopupService popupService, AppIntegrationService appIn
         }
         catch (Exception ex)
         {
-            await popupService.EnqueueSnackbarAsync(ex.Message, AlertTypes.Error);
+            await popupService.Error(ex.Message);
         }
 
         return claimPrincipal;
@@ -44,7 +44,7 @@ public class UserService(IPopupService popupService, AppIntegrationService appIn
                 return CreateClaimsPrincipalFromToken(jwtToken.AccessToken);
             }
 
-            await popupService.EnqueueSnackbarAsync("登录过期，请重新登录", AlertTypes.Error);
+            await popupService.Error("登录过期，请重新登录");
         }
 
         return null;

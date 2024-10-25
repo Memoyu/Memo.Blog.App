@@ -16,7 +16,7 @@ public class ArticleService(IPopupService popupService, AppHttpClient appHttpCli
         }
         catch (Exception ex)
         {
-            await popupService.EnqueueSnackbarAsync("服务器异常", ex.Message, AlertTypes.Error);
+            await popupService.Error("服务器异常", ex.Message);
         }
 
         return data;

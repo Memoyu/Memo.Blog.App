@@ -4,7 +4,7 @@ using Memo.Blog.App.Extensions;
 
 namespace Memo.Blog.App.Services.App
 {
-    public class AppIntegrationService
+    public partial class AppIntegrationService
     {
         private readonly MasaBlazor _masaBlazor;
         private const string AppThemeKey = "AppTheme";
@@ -41,12 +41,6 @@ namespace Memo.Blog.App.Services.App
             return Task.CompletedTask;
         }
 
-        public Task RemoveCacheAsync(string key)
-        {
-            Preferences.Default.Remove(key);
-            return Task.CompletedTask;
-        }
-
         public Task<T> GetCacheAsync<T>(string key, T defaultValue)
         {
             var type = typeof(T);
@@ -62,6 +56,12 @@ namespace Memo.Blog.App.Services.App
             }
 
             return Task.FromResult(Preferences.Default.Get(key, defaultValue));
+        }
+
+        public Task RemoveCacheAsync(string key)
+        {
+            Preferences.Default.Remove(key);
+            return Task.CompletedTask;
         }
 
         public void SetStatusBar(string argb, int style)

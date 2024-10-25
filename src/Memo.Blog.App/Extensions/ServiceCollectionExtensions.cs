@@ -132,6 +132,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddAppServices(this IServiceCollection services)
     {
         services.AddSingleton<AppIntegrationService>();
+        services.AddSingleton<AppFileService>();
 
         return services;
     }
@@ -144,6 +145,7 @@ public static class ServiceCollectionExtensions
 
         services.AddHttpClient<AppHttpClient>();
 
+        services.AddScoped<FileStorageService>();
         services.AddScoped<UserService>();
         services.AddScoped<MomentService>();
         services.AddScoped<ArticleService>();

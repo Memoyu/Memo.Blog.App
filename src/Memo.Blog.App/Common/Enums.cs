@@ -16,3 +16,16 @@ public enum ArticleStatus
     [Description("下线")]
     Offline = 2,
 }
+
+public enum FileStoragPathType
+{
+    ArticlesBanner,
+
+    MomentContent,
+
+    AboutContent,
+
+    AccountAvatar,
+
+    ConfigBanner
+}

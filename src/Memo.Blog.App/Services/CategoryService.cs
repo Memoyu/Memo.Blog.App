@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Maui.Core;
-using Memo.Blog.App.Models.Article;
+﻿using Memo.Blog.App.Models.Article;
 
 namespace Memo.Blog.App.Services;
 

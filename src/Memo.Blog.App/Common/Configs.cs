@@ -7,4 +7,6 @@ public class Configs
     public static string Base = "http://192.168.20.88";
 
     public static string ApiUrl = $"{Base}:11010/api/";
+
+    public static string ClientSite = "http://blog.memoyu.com/";
 }

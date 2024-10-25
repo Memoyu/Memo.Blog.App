@@ -1,5 +1,4 @@
-﻿using Masa.Blazor;
-using Masa.Blazor.Presets;
+﻿using Masa.Blazor.Presets;
 using Memo.Blog.App.Components.Components.Markdown;
 using Memo.Blog.App.Components.Components.Textarea;
 using Memo.Blog.App.Models.App;
@@ -19,6 +18,7 @@ namespace Memo.Blog.App.Components.Pages.Article
         [Inject] NavigationManager NavigationManager { get; set; } = default!;
         [Inject] IJSRuntime JSRuntime { get; set; } = default!;
         [Inject] IPopupService PopupService { get; set; } = default!;
+        [Inject] public AppIntegrationService AppIntegrationService { get; set; }
 
         bool _showSelectTag = false;
         bool _showSelectBanner = false;
@@ -54,15 +54,15 @@ namespace Memo.Blog.App.Components.Pages.Article
         {
             _shareSheetItems =
             [
-                new(this,"微信",  "$wechat", ShareToWeChat, "#07c160" ),
-                new(this,"复制链接","mdi-link-variant", CopyLink),
+                new(this,"微信",  "$wechat", HandleShareToWeChat, "#07c160" ),
+                new(this,"复制链接","mdi-link-variant", HandleShareByLink),
             ];
 
             _configSheetItems =
             [
-                new(this,"置顶",  "mdi-format-vertical-align-top", ShareToWeChat),
-                new(this,"评论","mdi-comment-check-outline", CopyLink),
-                new(this,"公开","mdi-eye-outline", CopyLink),
+                new(this,"置顶",  "mdi-format-vertical-align-top", HandleShareToWeChat),
+                new(this,"评论","mdi-comment-check-outline", HandleShareByLink),
+                new(this,"公开","mdi-eye-outline", HandleShareByLink),
             ];
         }
 
@@ -71,15 +71,19 @@ namespace Memo.Blog.App.Components.Pages.Article
             _article = await ArticleService.ArticleGetAsync(Id);
         }
 
+        private async Task HandleSaveArticle()
+        {
+            
+        }
 
-        private void ShareToWeChat()
+        private void HandleShareToWeChat()
         {
         }
 
-        private void CopyLink()
+        private async void HandleShareByLink()
         {
-            _ = JSRuntime.InvokeVoidAsync(JsInteropConstants.CopyText, NavigationManager.Uri);
-            _ = PopupService.EnqueueSnackbarAsync("Link has been copied to clipboard.");
+            var link = Configs.ClientSite + Const.CLIENT_SITE_ARTICLE_DETAIL_PATH + Id;
+            await AppIntegrationService.SetClipboardAsync(link);
         }
 
         private async Task HandleLaunchActivation()

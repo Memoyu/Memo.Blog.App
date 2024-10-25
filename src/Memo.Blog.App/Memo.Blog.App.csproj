@@ -25,7 +25,7 @@
         <ApplicationTitle>Memo Blog</ApplicationTitle>
 
         <!-- App Identifier -->
-        <ApplicationId>com.companyname.memo.blog.app</ApplicationId>
+        <ApplicationId>com.memoyu.memo.blog.app</ApplicationId>
 
         <!-- Versions -->
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -85,7 +85,6 @@
 
     <ItemGroup>
       <Folder Include="Resources\Images\" />
-      <Folder Include="Utils\" />
     </ItemGroup>
 
     <ItemGroup>
