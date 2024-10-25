@@ -79,14 +79,14 @@ public class AppHttpClient
                 {
                     var arrayItemValue = HttpUtility.UrlEncode(arrayPropertyValue.GetValue(i)?.ToString()) ?? string.Empty;
                     var arrayPropName = propertyName + $"[{i}]";
-                    queryCols[HttpUtility.UrlEncode(arrayPropName)] = HttpUtility.UrlEncode(arrayItemValue);
+                    queryCols[HttpUtility.UrlEncode(arrayPropName)] = arrayItemValue;
                 }
             }
             else
             {
                 var value = propertyValue.ToString() ?? string.Empty;
                 if (string.IsNullOrWhiteSpace(value)) continue;
-                queryCols[HttpUtility.UrlEncode(propertyName)] = HttpUtility.UrlEncode(value);
+                queryCols[HttpUtility.UrlEncode(propertyName)] = value;
             }
         }
 

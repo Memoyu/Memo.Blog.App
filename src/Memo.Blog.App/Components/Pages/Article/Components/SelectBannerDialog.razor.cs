@@ -1,6 +1,4 @@
 ﻿using Memo.Blog.App.Components.Base;
-using Memo.Blog.App.Models.FileStorage;
-using Memo.Blog.App.Utils;
 using Microsoft.AspNetCore.Components;
 
 namespace Memo.Blog.App.Components.Pages.Article.Components;
@@ -25,8 +23,17 @@ public partial class SelectBannerDialog : DialogComponentBase
         var path = await AppIntegrationService.PickImageAsync();
         if (string.IsNullOrWhiteSpace(path)) return;
 
-        var qiniuPath = PathUtil.BuildFileStoragPath(path, FileStoragPathType.ArticlesBanner);
-        var result = await FileStorageService.QiniuUploadAsync(path, qiniuPath);
+        try
+        {
+            var url = await FileStorageService.QiniuUploadAsync(path, Const.FILE_STORAGE_ARTICLE_BANNER_KEY);
+            Banner = url;
+
+        }
+        catch (Exception ex)
+        {
+            await PopupService.Error(ex.Message);
+        }
+
     }
 
     private async Task HandleSave()

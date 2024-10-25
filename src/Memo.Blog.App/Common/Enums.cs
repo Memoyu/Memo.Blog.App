@@ -17,15 +17,3 @@ public enum ArticleStatus
     Offline = 2,
 }
 
-public enum FileStoragPathType
-{
-    ArticlesBanner,
-
-    MomentContent,
-
-    AboutContent,
-
-    AccountAvatar,
-
-    ConfigBanner
-}
