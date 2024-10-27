@@ -1,12 +1,11 @@
-﻿using Memo.Blog.App.Extensions.Masa;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
 namespace Memo.Blog.App.Components.Components.Image;
 
-public class ImageJsModule : JsModuleExtension
+public class ZoomJsModule : JsModuleExtension
 {
-    public ImageJsModule(IJSRuntime js) : base(js, "js/image-helper.js")
+    public ZoomJsModule(IJSRuntime js) : base(js, "js/zoom-helper.js")
     {
     }
 

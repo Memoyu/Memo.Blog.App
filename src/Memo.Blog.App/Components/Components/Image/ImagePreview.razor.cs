@@ -8,7 +8,7 @@ public partial class ImagePreview : DialogComponentBase
 {
     [Parameter] public string Src { get; set; } = string.Empty;
 
-    [Inject] ImageJsModule Module { get; set; } = default!;
+    [Inject] ZoomJsModule Module { get; set; } = default!;
     [Inject] IPopupService PopupService { get; set; } = default!;
     [Inject] public AppFileService AppFileService { get; set; } = default!;
 
