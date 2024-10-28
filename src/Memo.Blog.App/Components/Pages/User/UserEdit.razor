@@ -5,86 +5,90 @@
 <PStackPageBarInit></PStackPageBarInit>
 
 <div class="pa-4">
-    <MList Class="rounded">
-        <MListItem OnClick="()=> {}">
-            <MListItemContent>头像</MListItemContent>
-            <MListItemAction>
-                <MAvatar Size="48" Color="white">
-                    <MImage Src="@_user.Avatar"
-                            Contain
-                            MaxWidth="30"
-                            alt="user_avatar">
-                    </MImage>
-                </MAvatar>
-                <MIcon>mdi-chevron-right</MIcon>
-            </MListItemAction>
-        </MListItem>
+    <MCard Class="app-list-card"
+           Elevation="0"
+           Rounded="@("lg")">
+        <MList>
+            <MListItem OnClick="()=> {}">
+                <MListItemContent>头像</MListItemContent>
+                <MListItemAction>
+                    <MAvatar Size="48" Color="white">
+                        <MImage Src="@_user.Avatar"
+                                Contain
+                                MaxWidth="30"
+                                alt="user_avatar">
+                        </MImage>
+                    </MAvatar>
+                    <MIcon>mdi-chevron-right</MIcon>
+                </MListItemAction>
+            </MListItem>
 
-        <MListItem OnClick="()=> {}">
-            <MListItemContent>用户名</MListItemContent>
-            <MListItemContent>
-                <MListItemSubtitle Class="text-right">
-                    @_user.Username
-                </MListItemSubtitle>
-            </MListItemContent>
+            <MListItem OnClick="()=> {}">
+                <MListItemContent>用户名</MListItemContent>
+                <MListItemContent>
+                    <MListItemSubtitle Class="text-right">
+                        @_user.Username
+                    </MListItemSubtitle>
+                </MListItemContent>
 
-            <MListItemAction>
-                <MIcon>mdi-chevron-right</MIcon>
-            </MListItemAction>
-        </MListItem>
+                <MListItemAction>
+                    <MIcon>mdi-chevron-right</MIcon>
+                </MListItemAction>
+            </MListItem>
 
-        <MListItem OnClick="()=> {}">
-            <MListItemContent>昵称</MListItemContent>
-            <MListItemContent>
-                <MListItemSubtitle Class="text-right">
-                    @_user.Nickname
-                </MListItemSubtitle>
-            </MListItemContent>
+            <MListItem OnClick="()=> {}">
+                <MListItemContent>昵称</MListItemContent>
+                <MListItemContent>
+                    <MListItemSubtitle Class="text-right">
+                        @_user.Nickname
+                    </MListItemSubtitle>
+                </MListItemContent>
 
-            <MListItemAction>
-                <MIcon>mdi-chevron-right</MIcon>
-            </MListItemAction>
-        </MListItem>
+                <MListItemAction>
+                    <MIcon>mdi-chevron-right</MIcon>
+                </MListItemAction>
+            </MListItem>
 
-        <MListItem OnClick="()=> {}">
-            <MListItemContent>邮箱</MListItemContent>
-            <MListItemContent>
-                <MListItemSubtitle Class="text-right">
-                    @_user.Email
-                </MListItemSubtitle>
-            </MListItemContent>
+            <MListItem OnClick="()=> {}">
+                <MListItemContent>邮箱</MListItemContent>
+                <MListItemContent>
+                    <MListItemSubtitle Class="text-right">
+                        @_user.Email
+                    </MListItemSubtitle>
+                </MListItemContent>
 
-            <MListItemAction>
-                <MIcon>mdi-chevron-right</MIcon>
-            </MListItemAction>
-        </MListItem>
+                <MListItemAction>
+                    <MIcon>mdi-chevron-right</MIcon>
+                </MListItemAction>
+            </MListItem>
 
-        <MListItem OnClick="()=> {}">
-            <MListItemContent>电话</MListItemContent>
-            <MListItemContent>
-                <MListItemSubtitle Class="text-right">
-                    @_user.PhoneNumber
-                </MListItemSubtitle>
-            </MListItemContent>
+            <MListItem OnClick="()=> {}">
+                <MListItemContent>电话</MListItemContent>
+                <MListItemContent>
+                    <MListItemSubtitle Class="text-right">
+                        @_user.PhoneNumber
+                    </MListItemSubtitle>
+                </MListItemContent>
 
-            <MListItemAction>
-                <MIcon>mdi-chevron-right</MIcon>
-            </MListItemAction>
-        </MListItem>
+                <MListItemAction>
+                    <MIcon>mdi-chevron-right</MIcon>
+                </MListItemAction>
+            </MListItem>
 
-        <MListItem OnClick="()=> {}">
-            <MListItemContent>角色</MListItemContent>
-            <MListItemContent>
-                <MListItemSubtitle Class="text-right">
-                    @_user.PhoneNumber
-                </MListItemSubtitle>
-            </MListItemContent>
+            <MListItem OnClick="()=> {}">
+                <MListItemContent>角色</MListItemContent>
+                <MListItemContent>
+                    <MListItemSubtitle Class="text-right">
+                        @_user.PhoneNumber
+                    </MListItemSubtitle>
+                </MListItemContent>
 
-            <MListItemAction>
-                <MIcon>mdi-chevron-right</MIcon>
-            </MListItemAction>
-        </MListItem>
-    </MList>
+                <MListItemAction>
+                    <MIcon>mdi-chevron-right</MIcon>
+                </MListItemAction>
+            </MListItem>
+        </MList>
+    </MCard>
 </div>
 
 <div style="position:fixed; bottom: 0; left: 0; right: 0; padding-bottom: 20px">
@@ -92,7 +96,7 @@
              Block
              Large
              Rounded
-             Ripple = "false"
+             Ripple="false"
              Class="text-capitalize"
              Color="error"
              OnClick="@HandelLogout">

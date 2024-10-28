@@ -7,19 +7,17 @@
          Fixed>
     <ChildContent>
         <MAvatar Size="48" Color="white">
-            <MImage Src="@_user.Avatar"
-                    Contain
-                    MaxWidth="44"
-                    alt="user_avatar">
+            <MImage Src="@_user.Avatar" Width="48"
+                    alt="user-avatar">
             </MImage>
         </MAvatar>
         <span class="subtitle-1 px-2">@_user.Nickname</span>
         <MSpacer />
         <MButton Icon
-                 Href="/user/edit"
-                 data-page-stack-strategy
                  Light="@(MasaBlazor.Theme.Dark)"
-                 Dark="@(!MasaBlazor.Theme.Dark)">
+                 Dark="@(!MasaBlazor.Theme.Dark)"
+                 Href="/user/edit"
+                 data-page-stack-strategy>
             <MIcon>mdi-chevron-right</MIcon>
         </MButton>
     </ChildContent>
