@@ -1,7 +1,4 @@
-﻿using Masa.Blazor;
-using Memo.Blog.App.Common;
-using Memo.Blog.App.Models.User;
-using Memo.Blog.App.Services.App;
+﻿using Memo.Blog.App.Models.User;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -15,11 +12,10 @@ public class UserService(IPopupService popupService, AppIntegrationService appIn
 
         try
         {
-            var token = await appHttpClient.PostAnonymousAsync<TokenGenerateResult>("admin/Tokens/generate", new TokenGenerateRequest(username, password)) ?? throw new ApplicationException("登录出现错误");
-            
-            await appIntegrationService.SetCacheAsync(Const.TOKEN_CACHE_KEY, token);
-
-            claimPrincipal = CreateClaimsPrincipalFromToken(token.AccessToken);
+            var userToken = await appHttpClient.PostAnonymousAsync<TokenGenerateResult>("admin/Tokens/generate", new TokenGenerateRequest(username, password)) 
+                ?? throw new ApplicationException("登录出现错误");        
+            await appIntegrationService.SetCacheAsync(Const.TOKEN_CACHE_KEY, userToken);
+            claimPrincipal = await CreateClaimsPrincipalFromToken(userToken);
         }
         catch (Exception ex)
         {
@@ -36,12 +32,12 @@ public class UserService(IPopupService popupService, AppIntegrationService appIn
 
     public async Task<ClaimsPrincipal?> GetAuthenticatedUserAsync()
     {
-        var jwtToken = await appIntegrationService.GetCacheAsync<TokenGenerateResult?>(Const.TOKEN_CACHE_KEY, null);
-        if (jwtToken is not null)
+        var userToken = await appIntegrationService.GetCacheAsync<TokenGenerateResult?>(Const.TOKEN_CACHE_KEY, null);
+        if (userToken is not null)
         {
-            if (jwtToken.ExpiredAt > DateTime.UtcNow)
+            if (userToken.ExpiredAt > DateTime.UtcNow)
             {
-                return CreateClaimsPrincipalFromToken(jwtToken.AccessToken);
+                return await CreateClaimsPrincipalFromToken(userToken);
             }
 
             await popupService.Error("登录过期，请重新登录");
@@ -50,16 +46,25 @@ public class UserService(IPopupService popupService, AppIntegrationService appIn
         return null;
     }
 
-    private ClaimsPrincipal CreateClaimsPrincipalFromToken(string token)
+    public async Task<UserResult> UserGetAsync()
+    {
+         return await appHttpClient.GetAsync<UserResult>("admin/user/get")
+            ?? throw new ApplicationException("获取用户信息异常");
+    }
+
+    private async Task<ClaimsPrincipal> CreateClaimsPrincipalFromToken(TokenGenerateResult userToken)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var identity = new ClaimsIdentity();
 
-        if (tokenHandler.CanReadToken(token))
+        if (tokenHandler.CanReadToken(userToken.AccessToken))
         {
-            var jwtSecurityToken = tokenHandler.ReadJwtToken(token);
+            var jwtSecurityToken = tokenHandler.ReadJwtToken(userToken.AccessToken);
             identity = new ClaimsIdentity(jwtSecurityToken.Claims, "Bearer");
         }
+
+        var user = await UserGetAsync();
+        appIntegrationService.SetUser(user);
 
         return new ClaimsPrincipal(identity);
     }

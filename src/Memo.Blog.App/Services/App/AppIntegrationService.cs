@@ -1,13 +1,15 @@
 ﻿using CommunityToolkit.Maui.Core;
 using Masa.Blazor;
 using Memo.Blog.App.Extensions;
+using Memo.Blog.App.Models.User;
 
 namespace Memo.Blog.App.Services.App
 {
     public partial class AppIntegrationService
     {
+        private const string _appThemeKey = "AppTheme";
         private readonly MasaBlazor _masaBlazor;
-        private const string AppThemeKey = "AppTheme";
+        private UserResult _user;
 
         public AppIntegrationService(MasaBlazor masaBlazor)
         {
@@ -16,7 +18,7 @@ namespace Memo.Blog.App.Services.App
 
         public Task InitThemeAsync()
         {
-            var result = Preferences.Default.Get<int>(AppThemeKey, -1);
+            var result = Preferences.Default.Get<int>(_appThemeKey, -1);
             var isDark = result < 1
                 ? Microsoft.Maui.Controls.Application.Current?.RequestedTheme == AppTheme.Dark
                 : result == 2;
@@ -72,5 +74,13 @@ namespace Memo.Blog.App.Services.App
                 CommunityToolkit.Maui.Core.Platform.StatusBar.SetStyle((StatusBarStyle)style);
             }
         }
+
+        public void SetUser(UserResult user)
+        {
+            _user = user;
+        }
+
+        public UserResult GetUser() => _user;
+
     }
 }

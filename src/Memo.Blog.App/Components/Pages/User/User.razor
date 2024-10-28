@@ -1,11 +1,34 @@
 ﻿@page "/user"
 
-<h3>MinePage</h3>
-<MButton Block
-         Class="text-capitalize"
-         Rounded
-         Large
-         Color="primary"
-         OnClick="@LogoutAsync">
-    退出登录
-</MButton>
+<PageTitle>User</PageTitle>
+
+<MAppBar Color="primary"
+         Flat
+         Fixed>
+    <ChildContent>
+        <MAvatar Size="48" Color="white">
+            <MImage Src="@_user.Avatar"
+                    Contain
+                    MaxWidth="44"
+                    alt="user_avatar">
+            </MImage>
+        </MAvatar>
+        <span class="subtitle-1 px-2">@_user.Nickname</span>
+        <MSpacer />
+        <MButton Icon
+                 Href="/user/edit"
+                 data-page-stack-strategy
+                 Light="@(MasaBlazor.Theme.Dark)"
+                 Dark="@(!MasaBlazor.Theme.Dark)">
+            <MIcon>mdi-chevron-right</MIcon>
+        </MButton>
+    </ChildContent>
+</MAppBar>
+
+<div class="primary" style="height: 64px;"></div>
+
+<div class="pa-3">
+    <div class="primary"
+         style="width: 100vw; height: 64px; margin-left: -12px; margin-top: -12px; position: absolute;">
+    </div>
+</div>

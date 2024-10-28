@@ -16,12 +16,11 @@ public class AppAuthenticationStateProvider(UserService userService) : Authentic
         return state;
     }
 
-    public async Task Logout()
+    public async Task LogoutAsync()
     {
         _currentUser = new ClaimsPrincipal(new ClaimsIdentity());
         await userService.LogoutAsync();
-        NotifyAuthenticationStateChanged(
-            Task.FromResult(new AuthenticationState(_currentUser)));
+        NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(_currentUser)));
     }
 
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()

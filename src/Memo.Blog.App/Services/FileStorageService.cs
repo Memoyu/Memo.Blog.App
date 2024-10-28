@@ -25,22 +25,20 @@ public class FileStorageService(IPopupService popupService, IHttpClientFactory h
 
         var httpClient = httpClientFactory.CreateClient();
 
-        using (var content = new MultipartFormDataContent())
+        using var content = new MultipartFormDataContent
         {
-            content.Add(new StringContent(qiniuPath), "key");
-            content.Add(new StringContent(tokenResult.Token), "token");
-            content.Add(new StreamContent(stream), "file", Path.GetFileName(qiniuPath));
+            { new StringContent(qiniuPath), "key" },
+            { new StringContent(tokenResult.Token), "token" },
+            { new StreamContent(stream), "file", Path.GetFileName(qiniuPath) }
+        };
 
-            var response = await httpClient.PostAsync("https://up-z2.qiniup.com", content);//post请求
-            response.EnsureSuccessStatusCode();
+        var response = await httpClient.PostAsync("https://up-z2.qiniup.com", content);//post请求
+        response.EnsureSuccessStatusCode();
 
-            string json = await response.Content.ReadAsStringAsync();
-            var result = json.ToDesJson<QiniuUploadResult>() ?? throw new ApplicationException("文件上传七牛云异常！");
+        string json = await response.Content.ReadAsStringAsync();
+        var result = json.ToDesJson<QiniuUploadResult>() ?? throw new ApplicationException("文件上传七牛云异常！");
 
-            // 返回链接
-            return tokenResult.Host + result.Key;
-        }
-
-        throw new Exception();
+        // 返回链接
+        return tokenResult.Host + result.Key;
     }
 }

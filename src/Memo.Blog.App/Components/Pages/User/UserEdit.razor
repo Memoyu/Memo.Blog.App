@@ -1,0 +1,101 @@
+﻿@page "/user/edit"
+
+<PageTitle>UserEdit</PageTitle>
+
+<PStackPageBarInit></PStackPageBarInit>
+
+<div class="pa-4">
+    <MList Class="rounded">
+        <MListItem OnClick="()=> {}">
+            <MListItemContent>头像</MListItemContent>
+            <MListItemAction>
+                <MAvatar Size="48" Color="white">
+                    <MImage Src="@_user.Avatar"
+                            Contain
+                            MaxWidth="30"
+                            alt="user_avatar">
+                    </MImage>
+                </MAvatar>
+                <MIcon>mdi-chevron-right</MIcon>
+            </MListItemAction>
+        </MListItem>
+
+        <MListItem OnClick="()=> {}">
+            <MListItemContent>用户名</MListItemContent>
+            <MListItemContent>
+                <MListItemSubtitle Class="text-right">
+                    @_user.Username
+                </MListItemSubtitle>
+            </MListItemContent>
+
+            <MListItemAction>
+                <MIcon>mdi-chevron-right</MIcon>
+            </MListItemAction>
+        </MListItem>
+
+        <MListItem OnClick="()=> {}">
+            <MListItemContent>昵称</MListItemContent>
+            <MListItemContent>
+                <MListItemSubtitle Class="text-right">
+                    @_user.Nickname
+                </MListItemSubtitle>
+            </MListItemContent>
+
+            <MListItemAction>
+                <MIcon>mdi-chevron-right</MIcon>
+            </MListItemAction>
+        </MListItem>
+
+        <MListItem OnClick="()=> {}">
+            <MListItemContent>邮箱</MListItemContent>
+            <MListItemContent>
+                <MListItemSubtitle Class="text-right">
+                    @_user.Email
+                </MListItemSubtitle>
+            </MListItemContent>
+
+            <MListItemAction>
+                <MIcon>mdi-chevron-right</MIcon>
+            </MListItemAction>
+        </MListItem>
+
+        <MListItem OnClick="()=> {}">
+            <MListItemContent>电话</MListItemContent>
+            <MListItemContent>
+                <MListItemSubtitle Class="text-right">
+                    @_user.PhoneNumber
+                </MListItemSubtitle>
+            </MListItemContent>
+
+            <MListItemAction>
+                <MIcon>mdi-chevron-right</MIcon>
+            </MListItemAction>
+        </MListItem>
+
+        <MListItem OnClick="()=> {}">
+            <MListItemContent>角色</MListItemContent>
+            <MListItemContent>
+                <MListItemSubtitle Class="text-right">
+                    @_user.PhoneNumber
+                </MListItemSubtitle>
+            </MListItemContent>
+
+            <MListItemAction>
+                <MIcon>mdi-chevron-right</MIcon>
+            </MListItemAction>
+        </MListItem>
+    </MList>
+</div>
+
+<div style="position:fixed; bottom: 0; left: 0; right: 0; padding-bottom: 20px">
+    <MButton Text
+             Block
+             Large
+             Rounded
+             Ripple = "false"
+             Class="text-capitalize"
+             Color="error"
+             OnClick="@HandelLogout">
+        退出登录
+    </MButton>
+</div>

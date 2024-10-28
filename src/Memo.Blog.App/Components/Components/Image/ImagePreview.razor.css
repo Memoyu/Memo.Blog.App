@@ -56,10 +56,6 @@
     transition: all .3s
 }
 
-    .image-preview-operations-operation:hover {
-        background: rgba(0,0,0,.2)
-    }
-
     .image-preview-operations-operation:last-of-type {
         margin-left: 0
     }
