@@ -1,0 +1,32 @@
+﻿@page "/settings"
+
+<PageTitle>Settings</PageTitle>
+
+<PStackPageBarInit Title="设置"></PStackPageBarInit>
+
+<div class="pa-4">
+    @foreach (var group in _settings)
+    {
+        <MSubheader>@group.Key</MSubheader>
+        <MCard Class="app-list-card"
+               Elevation="0"
+               Rounded="@("lg")">
+            <MList>
+                @foreach (var item in group.Value)
+                {
+                    <MListItem OnClick="() => HandleSetting(item)">
+                        <MListItemContent>@item.Title</MListItemContent>
+                        <MListItemContent>
+                            <MListItemSubtitle Class="text-right">
+                                @item.Subtitle
+                            </MListItemSubtitle>
+                        </MListItemContent>
+                        <MListItemAction>
+                            <MIcon>mdi-chevron-right</MIcon>
+                        </MListItemAction>
+                    </MListItem>
+                }
+            </MList>
+        </MCard>
+    }
+</div>

@@ -6,20 +6,26 @@
          Flat
          Fixed>
     <ChildContent>
-        <MAvatar Size="48" Color="white">
-            <MImage Src="@_user.Avatar" Width="48"
-                    alt="user-avatar">
-            </MImage>
-        </MAvatar>
-        <span class="subtitle-1 px-2">@_user.Nickname</span>
+        <PPageStackLink Href="/user/edit">
+            <CustomContent Context="push">
+                <div @onclick="push">
+                    <MAvatar Size="48" Color="white">
+                        <MImage Src="@_user.Avatar" Width="48"
+                                alt="user-avatar">
+                        </MImage>
+                    </MAvatar>
+                    <span class="subtitle-1 px-2">@_user.Nickname</span>
+                </div>
+            </CustomContent>
+        </PPageStackLink>
+
         <MSpacer />
-        <MButton Icon
-                 Light="@(MasaBlazor.Theme.Dark)"
-                 Dark="@(!MasaBlazor.Theme.Dark)"
-                 Href="/user/edit"
-                 data-page-stack-strategy>
-            <MIcon>mdi-chevron-right</MIcon>
-        </MButton>
+
+        <PPageStackLink Href="/settings">
+            <MButton Icon>
+                <MIcon>mdi-cog-outline</MIcon>
+            </MButton>
+        </PPageStackLink>
     </ChildContent>
 </MAppBar>
 

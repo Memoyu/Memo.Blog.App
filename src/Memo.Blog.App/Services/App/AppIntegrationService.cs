@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Maui.Core;
-using Masa.Blazor;
 using Memo.Blog.App.Extensions;
 using Memo.Blog.App.Models.User;
+using Application = Microsoft.Maui.Controls.Application;
 
 namespace Memo.Blog.App.Services.App
 {
@@ -20,12 +20,50 @@ namespace Memo.Blog.App.Services.App
         {
             var result = Preferences.Default.Get<int>(_appThemeKey, -1);
             var isDark = result < 1
-                ? Microsoft.Maui.Controls.Application.Current?.RequestedTheme == AppTheme.Dark
+                ? Application.Current?.RequestedTheme == AppTheme.Dark
                 : result == 2;
             _masaBlazor.SetTheme(isDark);
 
             return Task.CompletedTask;
         }
+
+        public Task SetThemeAsync(int theme)
+        {
+            if (Application.Current is null) return Task.CompletedTask;
+
+            Application.Current.UserAppTheme = (AppTheme)theme;
+
+            if (theme == 0)
+            {
+                var appTheme = Application.Current.RequestedTheme;
+                _masaBlazor.SetTheme(appTheme == AppTheme.Dark);
+            }
+            else
+            {
+                _masaBlazor.SetTheme(theme == 2);
+            }
+
+            Preferences.Default.Set(_appThemeKey, theme);
+
+            return Task.CompletedTask;
+        }
+
+        public ValueTask<int> GetThemeAsync()
+        {
+            if (Application.Current is null) return ValueTask.FromResult(-1);
+
+            var result = Preferences.Default.Get<int>(_appThemeKey, -1);
+            return new ValueTask<int>(result == -1
+                ? (int)Application.Current.RequestedTheme
+                : result);
+        }
+
+        public ValueTask<bool> IsThemeOfSystemAsync()
+        {
+            if (Application.Current is null) return ValueTask.FromResult(false);
+            return ValueTask.FromResult(Application.Current.RequestedTheme == AppTheme.Dark);
+        }
+
 
         public Task SetCacheAsync<T>(string key, T value)
         {
