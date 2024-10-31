@@ -17,3 +17,11 @@ public enum ArticleStatus
     Offline = 2,
 }
 
+public enum TodoTaskPriority
+{
+    Default,
+    Low,
+    Medium,
+    High
+}
+

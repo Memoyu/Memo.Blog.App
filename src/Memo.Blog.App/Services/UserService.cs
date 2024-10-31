@@ -35,7 +35,7 @@ public class UserService(IPopupService popupService, AppIntegrationService appIn
         var userToken = await appIntegrationService.GetCacheAsync<TokenGenerateResult?>(Const.TOKEN_CACHE_KEY, null);
         if (userToken is not null)
         {
-            if (userToken.ExpiredAt > DateTime.UtcNow)
+            if (userToken.ExpiredAt > DateTime.Now)
             {
                 return await CreateClaimsPrincipalFromToken(userToken);
             }

@@ -1,5 +1,8 @@
 ﻿@page "/settings/theme-mode"
 @inject AppIntegrationService AppIntegrationService
+@inherits PStackPageBase
+
+<PageTitle>Theme Mode</PageTitle>
 
 <PStackPageBarInit Title="颜色主题"></PStackPageBarInit>
 
@@ -54,43 +57,4 @@
             </MListItem>
         </MListItemGroup>
     </MList>
-}
-
-@code {
-
-    // 0: Auto, 1: Light, 2: Dark
-    private int theme;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            theme = await AppIntegrationService.GetThemeAsync();
-            StateHasChanged();
-        }
-    }
-
-    private async Task AutoChanged(bool val)
-    {
-        if (val)
-        {
-            theme = 0;
-        }
-        else
-        {
-            var isDark = await AppIntegrationService.IsThemeOfSystemAsync();
-            theme = isDark ? 2 : 1;
-        }
-
-        await AppIntegrationService.SetThemeAsync(theme);
-    }
-
-    private void ToggleTheme(StringNumber val)
-    {
-        var value = val.AsT1;
-        theme = value;
-        Console.Out.WriteLine("[DarkMode] Toggle theme: " + value);
-        AppIntegrationService.SetThemeAsync(value);
-    }
-
 }

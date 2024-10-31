@@ -1,8 +1,7 @@
-﻿using Masa.Blazor;
-using Memo.Blog.App.Models.App;
+﻿using Memo.Blog.App.Models.App;
 using Microsoft.AspNetCore.Components;
 
-namespace Memo.Blog.App.Components.Layout;
+namespace Memo.Blog.App.Components.Components;
 
 public partial class BottomSheet
 {

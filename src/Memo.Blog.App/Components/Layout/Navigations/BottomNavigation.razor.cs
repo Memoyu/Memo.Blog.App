@@ -10,9 +10,9 @@ public partial class BottomNavigation
     private string selected = string.Empty;
 
     private List<NavigationItem> navItems = [
-            new( "首页", "mdi-view-dashboard-outline", "mdi-view-dashboard", ""),
-            new( "Todo", "mdi-check", "mdi-check-bold", "todo"),
-            new( "我的",  "mdi-account-outline", "mdi-account", "user"),
+            new( "首页", "mdi-view-dashboard-outline", "mdi-view-dashboard", "/"),
+            new( "Todo", "mdi-check", "mdi-check-bold", "/todo"),
+            new( "我的",  "mdi-account-outline", "mdi-account", "/user"),
     ];
 
     [Inject]

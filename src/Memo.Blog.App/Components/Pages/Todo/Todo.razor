@@ -1,3 +1,169 @@
-﻿@page "/todo"
+﻿@page "/todo/{filter?}"
+@page "/todo/tag/{tag?}"
+@implements IDisposable
 
-<h3>Todo</h3>
+@using Memo.Blog.App.Components.Pages.Todo.Components
+
+<PageTitle>To do</PageTitle>
+
+<MAppBar Fixed
+         Style="z-index: 2;"
+         ElevateOnScroll
+         Class="surface">
+    <MAppBarNavIcon @onclick="@(() => _drawer = !_drawer)"/>
+    <MToolbarTitle Class="pl-0 subtitle-1 text-capitalize">@Title</MToolbarTitle>
+    <MSpacer/>
+    @if (CurrentTag != null)
+    {
+        <MMenu Bottom OffsetY MinWidth="200">
+            <ActivatorContent>
+                <MButton Icon @attributes="@context.Attrs">
+                    <MIcon>mdi-dots-horizontal</MIcon>
+                </MButton>
+            </ActivatorContent>
+            <ChildContent>
+                <MListItem OnClick="@(() => DeleteTag(CurrentTag))">
+                    <MListItemContent>
+                        <MListItemTitle Class="d-flex align-center">
+                            <MIcon Class="mr-2">mdi-delete-forever-outline</MIcon>
+                            Delete tag
+                        </MListItemTitle>
+                    </MListItemContent>
+                </MListItem>
+            </ChildContent>
+        </MMenu>
+    }
+</MAppBar>
+
+<div class="pa-3">
+    <MExpansionPanels Multiple Accordion @bind-Values="_expandedPriority"
+                      Style="padding-top: 56px;">
+        @foreach (var item in _tasks.GroupBy(t => t.Priority).OrderByDescending(t => t.Key))
+        {
+            <MExpansionPanel Value="(int)item.Key" Class="mb-4 rounded-lg">
+                <MExpansionPanelHeader>@item.Key</MExpansionPanelHeader>
+                <MExpansionPanelContent>
+                    <MList Dense Class="py-0">
+                        @foreach (var task in item)
+                        {
+                            <MListItem OnClick="@(() => EditTask(task))" Class="py-2">
+                                <MListItemAction Class="mt-0 align-self-start">
+                                    <MSimpleCheckbox Color="primary"
+                                                     Class="@($"priority--{task.Priority.ToString().ToLowerInvariant()}")"
+                                                     Ripple="false"
+                                                     Value="@task.Completed"
+                                                     ValueChanged="@(() => CompleteTask(task))"/>
+                                </MListItemAction>
+                                <MListItemContent Class="py-0">
+                                    <MListItemTitle>@task.Title</MListItemTitle>
+                                    @if (!string.IsNullOrWhiteSpace(task.Description))
+                                    {
+                                        <MListItemSubtitle>@task.Description</MListItemSubtitle>
+                                    }
+                                    @if (task.TagIds.Length > 0)
+                                    {
+                                        <div class="mt-1">
+                                            @RenderFragments.GenTagChips(_tags, task.TagIds, xSmall: true)
+                                        </div>
+                                    }
+                                    <div class="@(IsExpired(task.DueAt) ? "error--text" : "success--text") text-caption">@GetAliasOfDueAt(task.DueAt)</div>
+                                </MListItemContent>
+                            </MListItem>
+                        }
+                    </MList>
+                </MExpansionPanelContent>
+            </MExpansionPanel>
+        }
+
+        @if (_completedTasks.Count > 0)
+        {
+            <MExpansionPanel Value="-1" Class="mb-4 rounded-lg">
+                <MExpansionPanelHeader>Completed</MExpansionPanelHeader>
+                <MExpansionPanelContent>
+                    <MList Dense Class="py-0">
+                        @foreach (var task in _completedTasks)
+                        {
+                            <MListItem OnClick="@(() => EditTask(task))"
+                                       Color="grey"
+                                       Class="py-2 text-decoration-line-through">
+                                <MListItemAction Class="mr-2 mt-1 align-self-start">
+                                    <MSimpleCheckbox Color="grey"
+                                                     Ripple="false"
+                                                     Value="@task.Completed"
+                                                     ValueChanged="@(() => CompleteTask(task))"/>
+                                </MListItemAction>
+                                <MListItemContent Class="py-0">
+                                    <MListItemTitle>@task.Title</MListItemTitle>
+                                    @if (!string.IsNullOrWhiteSpace(task.Description))
+                                    {
+                                        <MListItemSubtitle>@task.Description</MListItemSubtitle>
+                                    }
+                                    @if (task.TagIds.Length > 0)
+                                    {
+                                        <div class="mt-1">
+                                            @RenderFragments.GenTagChips(_tags, task.TagIds, xSmall: true)
+                                        </div>
+                                    }
+                                    <div class="text-caption">@GetAliasOfDueAt(task.DueAt)</div>
+                                </MListItemContent>
+                            </MListItem>
+                        }
+                    </MList>
+                </MExpansionPanelContent>
+            </MExpansionPanel>
+        }
+    </MExpansionPanels>
+</div>
+
+<MButton Fixed Right Fab Color="primary"
+         Style="bottom: 72px;"
+         OnClick="@(() => _taskSheet.Open())">
+    <MIcon>mdi-plus</MIcon>
+</MButton>
+
+<EditSheet Tags="@_tags"
+           GetAliasOfDueAt="GetAliasOfDueAt"
+           OnAdd="@HandleOnSubmit"
+           OnUpdate="@HandleOnUpdate"
+           OnDelete="@HandleOnDelete"
+           @ref="_taskSheet">
+</EditSheet>
+
+<TodoNav @bind-Show="_drawer"
+         Tags="_tags"
+         OnAddTagClick="ShowAddTagSheet"/>
+
+<MBottomSheet @bind-Value="_tagSheet">
+    <MTextField Value="@_newTag.Name"
+                ValueChanged="OnTagNameChanged"
+                TValue="string"
+                Class="mb-3"
+                Dense
+                HideDetails="true"
+                Placeholder="Name"
+                Autofocus>
+    </MTextField>
+    <MItemGroup Value="@_newTag.Color"
+                ValueChanged="v => _newTag.Color = v?.ToString()"
+                Mandatory
+                Class="mb-3 d-flex justify-space-between"
+                Style="min-height: 36px;">
+        @foreach (var color in colors)
+        {
+            <MItem Value="@color">
+                <MIcon Color="@color"
+                       Large="@context.Active"
+                       OnClick="@context.Toggle">
+                    mdi-circle
+                </MIcon>
+            </MItem>
+        }
+    </MItemGroup>
+    <MButton Color="primary"
+             Block
+             Depressed
+             Disabled="@(string.IsNullOrWhiteSpace(_newTag.Name))"
+             OnClick="@HandleOnAddTag">
+        Add new tag
+    </MButton>
+</MBottomSheet>
