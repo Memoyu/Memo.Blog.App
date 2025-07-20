@@ -9,6 +9,16 @@ public partial class Settings
     [Inject] AppIntegrationService AppIntegrationService { get; set; } = default!;
     [Inject] PageStackNavController NavController { get; set; } = default!;
 
+    protected override void OnPageActivated(object? state)
+    {
+        // `state` 来自上一个页面调用 GoBack 时传递的参数
+    }
+
+    protected override void OnPageDeactivated()
+    {
+    }
+
+
     Dictionary<string, List<SettingItem>> _settings = new()
     {
         {

@@ -10,7 +10,7 @@
             <NotAuthorized>
                 @if (context.User.Identity?.IsAuthenticated is not true)
                 {
-                    <RedirectToLogin/>
+                    <RedirectToLogin />
                 }
                 else
                 {
@@ -22,7 +22,7 @@
     </Found>
 </Router>
 
-@code { 
+@code {
 
     private const string White = "#FFFFFF";
     private const string Primary = "#4F33FF";
@@ -59,6 +59,13 @@
         else if (_path == "" || _path.StartsWith("todo"))
         {
             var color = _dark ? DarkSurface : Surface;
+            if (_statusBarColor == color) return;
+            _statusBarColor = color;
+            style = _dark ? 1 : 2;
+        }
+        else if (_path.StartsWith("settings"))
+        {
+            var color = "#8B008B";
             if (_statusBarColor == color) return;
             _statusBarColor = color;
             style = _dark ? 1 : 2;

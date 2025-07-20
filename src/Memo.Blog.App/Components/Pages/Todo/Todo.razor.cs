@@ -42,8 +42,12 @@ public partial class Todo
     {
         base.OnInitialized();
 
-        _locationChangingRegistration = NavigationManager.RegisterLocationChangingHandler(LocationChangingHandler);
+        _locationChangingRegistration = NavigationManager.RegisterLocationChangingHandler(LocationChangingHandler1);
         //_locationChangingRegistration.Dispose();
+    }
+
+    private async ValueTask LocationChangingHandler1(LocationChangingContext context)
+    {
     }
 
     private async ValueTask LocationChangingHandler(LocationChangingContext context)
@@ -103,7 +107,7 @@ public partial class Todo
         if (!string.IsNullOrWhiteSpace(Tag))
         {
             tasks = new List<TodoTask>();
-                //await ProDatabase.GetTasksAsync(_page, _pageSize, tag: Tag);
+            //await ProDatabase.GetTasksAsync(_page, _pageSize, tag: Tag);
         }
         else
         {
