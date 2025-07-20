@@ -10,7 +10,7 @@
 
 
 ## 简介
-本项目为自用Blog系统的移动管理端，主要初衷在于实现简单版的系统管理，方便管理员维护博客站点，使用[MAUI Blazor](https://github.com/dotnet/maui) 开发；
+本项目为自用Blog系统的移动管理端，主要初衷在于实现简单版的系统管理，方便管理员维护博客站点，使用[tauri + vue](https://github.com/tauri-apps/tauri) 开发；
 
 
 
@@ -50,7 +50,7 @@
 
 
 ## 相关技术
-> MAUI Blazor
+> tauri
 
 
 
