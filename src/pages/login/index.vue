@@ -95,5 +95,8 @@ async function login(values: any) {
 <route lang="json5">
 {
   name: "Login",
+  meta: {
+    title: "登录",
+  },
 }
 </route>
