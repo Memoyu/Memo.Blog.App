@@ -1,1 +1,1 @@
-export const appName = 'memo-blog'
+export const APP_NAME = "memo-blog";

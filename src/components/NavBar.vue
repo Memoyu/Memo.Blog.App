@@ -15,18 +15,17 @@ const title = computed(() => {
   return route.meta.title || "";
 });
 
-const showLeftArrow = computed(
-  () => route.name && routeWhiteList.includes(route.name),
-);
+const show = computed(() => route.name && routeWhiteList.includes(route.name));
 </script>
 
 <template>
   <VanNavBar
+    v-if="!show"
     :title="title"
     :fixed="true"
     clickable
     placeholder
-    :left-arrow="!showLeftArrow"
+    :left-arrow="true"
     @click-left="onBack"
   />
 </template>

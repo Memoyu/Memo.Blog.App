@@ -2,25 +2,27 @@
 import router from "@/router";
 import { useUserStore } from "@/stores";
 
+import Statistics from "./components/Statistics.vue";
+import Ranking from "./components/Ranking.vue";
+
 const userStore = useUserStore();
 const userInfo = computed(() => userStore.userInfo);
-const isLogin = computed(() => !!userInfo.value.userId);
 
 function login() {
-  if (isLogin.value) return;
-
   router.push({ name: "Login", query: { redirect: "Profile" } });
 }
 </script>
 <template>
-  <van-button type="primary" @click="login">登录</van-button>
+  <statistics />
+  <ranking />
 </template>
 
 <route lang="json5">
 {
-  name: "Home",
+  name: "Dashboard",
+  path: "/",
   meta: {
-    title: "首页",
+    title: "概览",
   },
 }
 </route>

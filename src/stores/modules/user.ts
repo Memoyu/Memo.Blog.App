@@ -2,6 +2,7 @@ import { UserInfo, LoginParams } from "@/types/interfaces/user";
 import { defineStore } from "pinia";
 import { clearToken, setToken } from "@/utils/auth";
 import { getUserInfo, login as userLogin } from "@/services/api/user";
+import { STORAGE_USER_KEY } from "../mutation-type";
 
 const InitUserInfo = {
   userId: "",
@@ -13,7 +14,7 @@ const InitUserInfo = {
 };
 
 export const useUserStore = defineStore(
-  "user",
+  STORAGE_USER_KEY,
   () => {
     const userInfo = ref<UserInfo>({ ...InitUserInfo });
 

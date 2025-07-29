@@ -4,6 +4,7 @@ import type { RouteMap } from "vue-router";
 import { useUserStore } from "@/stores";
 
 import logo from "~/images/logo.png";
+import { PageEnum } from "@/common/enums";
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -34,7 +35,7 @@ async function login(values: any) {
     await userStore.login({ ...postData, ...values });
     const { redirect, ...othersQuery } = router.currentRoute.value.query;
     router.push({
-      name: (redirect as keyof RouteMap) || "home",
+      name: (redirect as keyof RouteMap) || PageEnum.HOME_NAME,
       query: {
         ...othersQuery,
       },

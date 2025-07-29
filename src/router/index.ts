@@ -1,4 +1,8 @@
-import { createRouter, createWebHistory } from "vue-router";
+import {
+  createRouter,
+  createWebHistory,
+  NavigationGuardNext,
+} from "vue-router";
 import { handleHotUpdate, routes } from "vue-router/auto-routes";
 
 import NProgress from "nprogress";
@@ -9,8 +13,11 @@ import { useRouteCacheStore, useUserStore } from "@/stores";
 
 import { isLogin } from "@/utils/auth";
 import { setPageTitle } from "@/utils/document";
+import { PageEnum } from "@/common/enums";
 
 NProgress.configure({ showSpinner: true, parent: "#app" });
+
+const whitePathList = [PageEnum.LOGIN.toString()];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_APP_PUBLIC_PATH),
@@ -20,22 +27,38 @@ const router = createRouter({
 // This will update routes at runtime without reloading the page
 if (import.meta.hot) handleHotUpdate(router);
 
-router.beforeEach(async (to: EnhancedRouteLocation) => {
-  NProgress.start();
+router.beforeEach(
+  async (
+    to: EnhancedRouteLocation,
+    from: EnhancedRouteLocation,
+    next: NavigationGuardNext,
+  ) => {
+    NProgress.start();
 
-  const routeCacheStore = useRouteCacheStore();
-  const userStore = useUserStore();
+    const routeCacheStore = useRouteCacheStore();
+    const userStore = useUserStore();
 
-  // Route cache
-  routeCacheStore.addRoute(to);
+    // Route cache
+    routeCacheStore.addRoute(to);
 
-  // Set page title
-  setPageTitle(to.meta.title);
+    // Set page title
+    setPageTitle(to.meta.title);
 
-  if (isLogin() && !userStore.userInfo?.userId) {
-    await userStore.info();
-  }
-});
+    // Whitelist can be directly entered
+    if (whitePathList.includes(to.path as PageEnum)) {
+      next();
+      return;
+    }
+
+    if (!isLogin()) {
+      // redirect login page
+      next(PageEnum.LOGIN);
+      return;
+    }
+
+    next();
+  },
+);
 
 router.afterEach(() => {
   NProgress.done();
