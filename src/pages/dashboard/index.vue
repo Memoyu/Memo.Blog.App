@@ -4,6 +4,7 @@ import { useUserStore } from "@/stores";
 
 import Statistics from "./components/Statistics.vue";
 import Ranking from "./components/Ranking.vue";
+import VisitorMap from "./components/VisitorMap.vue";
 
 const userStore = useUserStore();
 const userInfo = computed(() => userStore.userInfo);
@@ -15,6 +16,7 @@ function login() {
 <template>
   <statistics />
   <ranking />
+  <visitor-map />
 </template>
 
 <route lang="json5">

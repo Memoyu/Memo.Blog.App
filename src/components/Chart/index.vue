@@ -4,6 +4,7 @@ import * as echarts from "echarts";
 import { debounce } from "lodash-es";
 import { addListener, removeListener } from "resize-detector";
 import dark from "./dark";
+import chiangeo from "./china-geo.json";
 
 const props = defineProps({
   option: {
@@ -15,6 +16,7 @@ const props = defineProps({
 });
 
 echarts.registerTheme("dark-chart", dark);
+echarts.registerMap("china", { geoJSON: chiangeo } as any);
 
 const chartDom = ref<HTMLDivElement>();
 let chart: ECharts | null = null;
