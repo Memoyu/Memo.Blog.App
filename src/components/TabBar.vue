@@ -10,13 +10,21 @@ const show = computed(() => route.name && routeWhiteList.includes(route.name));
 <template>
   <van-tabbar v-if="show" v-model="active" route placeholder>
     <van-tabbar-item replace to="/">
-      {{ "概览" }}
       <template #icon>
         <div class="i-carbon:grid" />
       </template>
     </van-tabbar-item>
+    <van-tabbar-item replace to="/article">
+      <template #icon>
+        <div class="i-carbon:blog" />
+      </template>
+    </van-tabbar-item>
+    <van-tabbar-item replace to="/moment">
+      <template #icon>
+        <div class="i-carbon:layers" />
+      </template>
+    </van-tabbar-item>
     <van-tabbar-item replace to="/profile">
-      {{ "我的" }}
       <template #icon>
         <div class="i-carbon:user" />
       </template>

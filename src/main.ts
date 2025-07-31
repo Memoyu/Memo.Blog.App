@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import { createHead } from "@unhead/vue/client";
+import { Lazyload } from "vant";
 
 import router from "@/router";
 import pinia from "@/stores";
@@ -15,8 +16,8 @@ import "@/styles/app.less";
 import "@/styles/var.less";
 
 const app = createApp(App);
-const head = createHead();
 
+const head = createHead();
 app.use(head);
 app.use(router);
 app.use(pinia);

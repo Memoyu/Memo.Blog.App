@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ArticleRankingItem } from "@/types/interfaces/article";
+import dayjs from "dayjs";
+import { Article } from "@/types/interfaces/article";
 
-const ranking = ref<ArticleRankingItem[]>([
+const articles = ref<Article[]>([
   {
     articleId: "8716065430175749",
     title:
@@ -10,6 +11,7 @@ const ranking = ref<ArticleRankingItem[]>([
     comments: 6,
     views: 96,
     likes: 0,
+    updateDateTime: new Date("2025-07-31 19:23:35"),
   },
   {
     articleId: "8715972916150277",
@@ -18,6 +20,7 @@ const ranking = ref<ArticleRankingItem[]>([
     comments: 3,
     views: 67,
     likes: 0,
+    updateDateTime: new Date("2025-07-30 12:22:50"),
   },
   {
     articleId: "9252338862194693",
@@ -26,26 +29,38 @@ const ranking = ref<ArticleRankingItem[]>([
     comments: 0,
     views: 60,
     likes: 0,
+    updateDateTime: new Date("2025-07-31 12:23:30"),
   },
 ]);
 const loading = ref(false);
 const finished = ref(true);
+
+onMounted(() => {
+  console.log("文章");
+});
 </script>
 
 <template>
-  <div class="mt-7">
-    <p class="ranking-tilte">文章排行</p>
+  <div class="article-summary"></div>
+  <div>
+    <van-search placeholder="请输入搜索关键词" />
+  </div>
+  <div>
     <van-list v-model:loading="loading" :finished="finished">
-      <van-cell v-for="item in ranking" :key="item.articleId">
+      <van-cell v-for="item in articles" :key="item.articleId">
         <div class="flex">
           <div class="shrink-0">
-            <van-image width="140" height="60" :src="item.banner" />
+            <van-image width="90" height="80" fit="cover" :src="item.banner" />
           </div>
-          <div class="ml-30 flex flex-col justify-between">
+          <div class="ml-30 flex flex-col w-full">
             <div class="shrink-0">
-              <van-text-ellipsis :content="item.title" class="text-black" />
+              <van-text-ellipsis
+                :content="item.title"
+                class="text-black text-left"
+              />
             </div>
-            <div class="flex space-x-20">
+
+            <div class="mt-15 flex space-x-20">
               <div class="article-num-item">
                 <div class="i-carbon:view" />
                 <p>{{ item.views }}</p>
@@ -59,17 +74,22 @@ const finished = ref(true);
                 <p>{{ item.likes }}</p>
               </div>
             </div>
+            <div class="article-num-item text-left">
+              <div class="i-carbon:update-now" />
+              <div>
+                {{ dayjs(item.updateDateTime).format("YYYY-MM-DD HH:mm") }}
+              </div>
+            </div>
           </div>
         </div>
       </van-cell>
     </van-list>
   </div>
 </template>
-
 <style lang="less" scoped>
-.ranking-tilte {
-  font-size: var(--van-line-height-md);
-  font-weight: 700;
+.article-summary {
+  height: 200px;
+  background-color: var(--van-cell-background);
 }
 
 .article-num-item {

@@ -1,6 +1,22 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import ArticleList from "./components/ArticleList.vue";
+import CategoryList from "./components/CategoryList.vue";
+import TagList from "./components/TagList.vue";
+
+const active = ref(0);
+</script>
 <template>
-  <van-button type="primary">文章</van-button>
+  <van-tabs v-model:active="active" swipeable>
+    <van-tab title="全部">
+      <article-list />
+    </van-tab>
+    <van-tab title="分类">
+      <category-list />
+    </van-tab>
+    <van-tab title="标签">
+      <tag-list />
+    </van-tab>
+  </van-tabs>
 </template>
 
 <route lang="json5">
