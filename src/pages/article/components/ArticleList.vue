@@ -41,7 +41,22 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="article-summary"></div>
+  <div class="article-summary">
+    <van-grid :border="false" :column-num="3">
+      <van-grid-item>
+        <p class="summary-title">文章总数</p>
+        <p class="summary-num">120</p>
+      </van-grid-item>
+      <van-grid-item>
+        <p class="summary-title">评论总数</p>
+        <p class="summary-num">1320</p>
+      </van-grid-item>
+      <van-grid-item>
+        <p class="summary-title">阅读量</p>
+        <p class="summary-num">12022</p>
+      </van-grid-item>
+    </van-grid>
+  </div>
   <div>
     <van-search placeholder="请输入搜索关键词" />
   </div>
@@ -88,8 +103,17 @@ onMounted(() => {
 </template>
 <style lang="less" scoped>
 .article-summary {
-  height: 200px;
+  padding: 20px 10px;
   background-color: var(--van-cell-background);
+
+  .summary-title {
+    color: var(--van-gray-7);
+  }
+  .summary-num {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 700;
+  }
 }
 
 .article-num-item {

@@ -16,3 +16,9 @@ export interface Article {
   views: number;
   updateDateTime: Date;
 }
+
+export interface Tag {
+  categoryId: string;
+  name: string;
+  articles: number;
+}
