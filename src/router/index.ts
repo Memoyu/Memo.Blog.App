@@ -50,11 +50,11 @@ router.beforeEach(
       return;
     }
 
-    if (!isLogin()) {
-      // redirect login page
-      next(PageEnum.LOGIN);
-      return;
-    }
+    // if (!isLogin()) {
+    //   // redirect login page
+    //   next(PageEnum.LOGIN);
+    //   return;
+    // }
 
     next();
   },

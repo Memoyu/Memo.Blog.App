@@ -6,7 +6,7 @@ import TagList from "./components/TagList.vue";
 const active = ref(0);
 </script>
 <template>
-  <van-tabs v-model:active="active" swipeable>
+  <van-tabs v-model:active="active" swipeable sticky>
     <van-tab title="全部">
       <article-list />
     </van-tab>

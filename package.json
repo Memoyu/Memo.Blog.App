@@ -26,6 +26,7 @@
     "resize-detector": "^0.3.0",
     "vant": "^4.9.21",
     "vconsole": "^3.15.1",
+    "vditor": "^3.11.1",
     "vue": "^3.5.13",
     "vue-router": "^4.5.1"
   },

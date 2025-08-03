@@ -59,10 +59,5 @@
 
 
 
-## 感谢授权
-🙏🏻 感谢JetBrains对本项目授予的开发工具开源许可 [JetBrains Open Source  Support](https://www.jetbrains.com/community/opensource/#support)
-
-
-
 ## 开源协议
 MIT License. See [License here](./LICENSE) for details.

@@ -1736,6 +1736,11 @@ devlop@^1.0.0, devlop@^1.1.0:
   dependencies:
     dequal "^2.0.0"
 
+diff-match-patch@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/diff-match-patch/-/diff-match-patch-1.0.5.tgz#abb584d5f10cd1196dfc55aa03701592ae3f7b37"
+  integrity sha512-IayShXAgj/QMXgB0IWmKx+rOPuGMhqm5w6jvFxmVenXKIzRqTAAsbBPT3kWQeGANj3jGgvcvv4yK6SxqYmikgw==
+
 dunder-proto@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmmirror.com/dunder-proto/-/dunder-proto-1.0.1.tgz#d7ae667e1dc83482f8b70fd0f6eefc50da30f58a"
@@ -4022,6 +4027,13 @@ vconsole@^3.15.1:
     copy-text-to-clipboard "^3.0.1"
     core-js "^3.11.0"
     mutation-observer "^1.0.3"
+
+vditor@^3.11.1:
+  version "3.11.1"
+  resolved "https://registry.yarnpkg.com/vditor/-/vditor-3.11.1.tgz#dca4f7b2798cf9333161c2a915be057dbb1d4699"
+  integrity sha512-7rjNSXYVyZG0mVZpUG2tfxwnoNtkcRCnwdSju+Zvpjf/r72iQa6kLpeThFMIKPuQ5CRnQQv6gnR3eNU6UGbC2Q==
+  dependencies:
+    diff-match-patch "^1.0.5"
 
 vite-plugin-vconsole@^2.1.1:
   version "2.1.1"

@@ -44,7 +44,7 @@ export function createVitePlugins(mode: string) {
         resolvers: [VantResolver()],
       }),
 
-      UnoCSS("src/types/uno.config.ts"),
+      UnoCSS(),
 
       createViteVConsole(mode),
     ],

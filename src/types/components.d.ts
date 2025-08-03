@@ -11,6 +11,7 @@ declare module 'vue' {
     Chart: typeof import('./../components/Chart/index.vue')['default']
     GhostButton: typeof import('./../components/GhostButton.vue')['default']
     NavBar: typeof import('./../components/NavBar.vue')['default']
+    Preview: typeof import('./../components/markdown/Preview.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TabBar: typeof import('./../components/TabBar.vue')['default']
@@ -32,6 +33,7 @@ declare module 'vue' {
     VanTabbar: typeof import('vant/es')['Tabbar']
     VanTabbarItem: typeof import('vant/es')['TabbarItem']
     VanTabs: typeof import('vant/es')['Tabs']
+    VanTag: typeof import('vant/es')['Tag']
     VanTextEllipsis: typeof import('vant/es')['TextEllipsis']
   }
 }
