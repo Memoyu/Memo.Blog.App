@@ -1,12 +1,12 @@
-import { createPinia } from 'pinia'
-import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import { createPinia } from "pinia";
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
-import useUserStore from './modules/user'
-import useRouteCacheStore from './modules/routeCache'
+import useAuthTokenStore from "./modules/auth";
+import useUserStore from "./modules/user";
+import useRouteCacheStore from "./modules/routeCache";
 
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 
-const pinia = createPinia()
-pinia.use(piniaPluginPersistedstate)
-
-export { useUserStore,useRouteCacheStore }
-export default pinia
+export { useAuthTokenStore, useUserStore, useRouteCacheStore };
+export default pinia;

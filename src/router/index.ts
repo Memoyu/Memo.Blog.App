@@ -9,9 +9,8 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
 import type { EnhancedRouteLocation } from "./types";
-import { useRouteCacheStore, useUserStore } from "@/stores";
+import { useAuthTokenStore, useRouteCacheStore, useUserStore } from "@/stores";
 
-import { isLogin } from "@/utils/auth";
 import { setPageTitle } from "@/utils/document";
 import { PageEnum } from "@/common/enums";
 
@@ -36,6 +35,7 @@ router.beforeEach(
     NProgress.start();
 
     const routeCacheStore = useRouteCacheStore();
+    const authTokenStore = useAuthTokenStore();
     const userStore = useUserStore();
 
     // Route cache
@@ -50,11 +50,14 @@ router.beforeEach(
       return;
     }
 
-    // if (!isLogin()) {
-    //   // redirect login page
-    //   next(PageEnum.LOGIN);
-    //   return;
-    // }
+    if (!authTokenStore.isLogin()) {
+      // redirect login page
+      next(PageEnum.LOGIN);
+      return;
+    }
+
+    if (authTokenStore.isLogin() && !userStore.userInfo?.userId)
+      await userStore.info();
 
     next();
   },

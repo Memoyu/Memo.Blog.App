@@ -1,6 +1,71 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import router from "@/router";
+import { useUserStore, useAuthTokenStore } from "@/stores";
+
+const authTokenStore = useAuthTokenStore();
+const isLogin = computed(() => authTokenStore.isLogin());
+
+const userStore = useUserStore();
+const userInfo = computed(() => userStore.userInfo);
+
+function login() {
+  if (isLogin) return;
+
+  router.push({ name: "Login", query: { redirect: "Profile" } });
+}
+
+function getUserNickname() {
+  if (!isLogin) return "请登录";
+
+  return userInfo.value.nickname;
+}
+</script>
 <template>
-  <van-button type="primary">个人</van-button>
+  <div>
+    <VanCellGroup :inset="true">
+      <van-cell center is-link @click="login">
+        <template #title>
+          <div class="flex">
+            <van-image
+              :src="userInfo.avatar"
+              round
+              class="shrink-1 h-56 w-56"
+            />
+            <div class="flex flex-col justify-center ml-15">
+              <div class="font-bold">{{ getUserNickname() }}</div>
+              <div class="flex space-x-20">
+                <van-tag v-for="item in userInfo.roles" :key="item">
+                  {{ item }}
+                </van-tag>
+              </div>
+            </div>
+          </div>
+        </template>
+      </van-cell>
+    </VanCellGroup>
+
+    <VanCellGroup :inset="true" class="!mt-16">
+      <!-- <van-cell
+        :title="$t('profile.settings')"
+        icon="setting-o"
+        is-link
+        to="/settings"
+      >
+        <template #icon>
+          <div class="i-carbon:settings text-gray-400 mr-5 self-center" />
+        </template>
+      </van-cell>
+      <van-cell
+        :title="$t('profile.docs')"
+        is-link
+        url="https://vue-zone.github.io/docs/vue3-vant-mobile/"
+      >
+        <template #icon>
+          <div class="i-carbon:doc text-gray-400 mr-5 self-center" />
+        </template>
+      </van-cell> -->
+    </VanCellGroup>
+  </div>
 </template>
 
 <route lang="json5">
