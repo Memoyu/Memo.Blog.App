@@ -1,8 +1,8 @@
-import { UserInfo, LoginParams, AuthToken } from "@/types/interfaces/user";
+import { UserInfo, LoginParams } from "@/types/interfaces/user";
 import { defineStore } from "pinia";
 import { getUserInfo, login as userLogin } from "@/services/api/user";
 import { STORAGE_USER_KEY } from "../mutation-type";
-import useAuthTokenStore from "./auth";
+import { useAuthTokenStore } from "@/stores";
 
 const InitUserInfo = {
   userId: "",

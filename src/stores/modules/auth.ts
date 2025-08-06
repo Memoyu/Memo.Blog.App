@@ -30,6 +30,7 @@ export const useAuthTokenStore = defineStore(
     };
 
     return {
+      auth,
       isLogin,
       setAuth,
       clearAuth,
