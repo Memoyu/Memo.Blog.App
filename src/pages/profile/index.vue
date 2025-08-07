@@ -29,10 +29,10 @@ function getUserNickname() {
             <van-image
               :src="userInfo.avatar"
               round
-              class="shrink-1 h-56 w-56"
+              class="shrink-1 h-70 w-70"
             />
             <div class="flex flex-col justify-center ml-15">
-              <div class="font-bold">{{ getUserNickname() }}</div>
+              <div class="nickname">{{ getUserNickname() }}</div>
               <div class="flex space-x-20">
                 <van-tag v-for="item in userInfo.roles" :key="item">
                   {{ item }}
@@ -67,6 +67,14 @@ function getUserNickname() {
     </VanCellGroup>
   </div>
 </template>
+
+<style lang="less" scoped>
+.nickname {
+  font-size: var(--van-line-height-md);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+</style>
 
 <route lang="json5">
 {
