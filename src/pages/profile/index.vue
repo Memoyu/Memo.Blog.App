@@ -2,6 +2,9 @@
 import router from "@/router";
 import { useUserStore, useAuthTokenStore } from "@/stores";
 
+import Commit from "./components/Commit.vue";
+import FunctionGrid from "./components/FunctionGrid.vue";
+
 const authTokenStore = useAuthTokenStore();
 const isLogin = computed(() => authTokenStore.isLogin());
 
@@ -9,7 +12,10 @@ const userStore = useUserStore();
 const userInfo = computed(() => userStore.userInfo);
 
 function login() {
-  if (isLogin) return;
+  if (isLogin) {
+    router.push({ name: "ProfileEdit" });
+    return;
+  }
 
   router.push({ name: "Login", query: { redirect: "Profile" } });
 }
@@ -43,28 +49,8 @@ function getUserNickname() {
         </template>
       </van-cell>
     </VanCellGroup>
-
-    <VanCellGroup :inset="true" class="!mt-16">
-      <!-- <van-cell
-        :title="$t('profile.settings')"
-        icon="setting-o"
-        is-link
-        to="/settings"
-      >
-        <template #icon>
-          <div class="i-carbon:settings text-gray-400 mr-5 self-center" />
-        </template>
-      </van-cell>
-      <van-cell
-        :title="$t('profile.docs')"
-        is-link
-        url="https://vue-zone.github.io/docs/vue3-vant-mobile/"
-      >
-        <template #icon>
-          <div class="i-carbon:doc text-gray-400 mr-5 self-center" />
-        </template>
-      </van-cell> -->
-    </VanCellGroup>
+    <commit />
+    <function-grid />
   </div>
 </template>
 

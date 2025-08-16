@@ -139,7 +139,6 @@ async function onLoad() {}
       :finished="finished"
       finished-text="没有更多了"
       @load="onLoad"
-      sticky
     >
       <van-cell v-for="(item, index) in moments" :key="item.momentId">
         <div class="timeline-tail" v-show="index < moments.length - 1" />
