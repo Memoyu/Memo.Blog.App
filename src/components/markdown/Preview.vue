@@ -19,7 +19,7 @@ onMounted(() => {
     previewRef.value as HTMLDivElement,
     props.modelValue,
     {
-      cdn: "https://ld246.com/js/lib/vditor",
+      // cdn: "https://ld246.com/js/lib/vditor",
       mode: "light",
       // anchor: 1,
       //   hljs: {

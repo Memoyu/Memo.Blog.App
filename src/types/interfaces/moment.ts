@@ -1,4 +1,13 @@
-export interface Moment {
+import { PaginationRequest } from "./common";
+
+export interface MomentPageRequest extends PaginationRequest {
+  tags?: Array<string>;
+  content?: string;
+  dateBegin?: string;
+  dateEnd?: string;
+}
+
+export interface MomentPageItem {
   momentId: string;
   tags: string[];
   content: string;

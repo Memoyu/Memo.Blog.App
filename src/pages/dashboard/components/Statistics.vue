@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import * as echarts from "echarts";
+import api from "@/services/api";
+import { DashboardStatistics } from "@/types/interfaces/dashboard";
+import { cloneDeep } from "lodash-es";
 
-const lineOption = ref({
+const lineOption = {
   color: ["rgba(166,127,221)"],
   tooltip: {
     trigger: "axis",
@@ -40,17 +43,33 @@ const lineOption = ref({
       emphasis: {
         focus: "series",
       },
-      data: [
-        ["2025-07-23", "5"],
-        ["2025-07-24", "1"],
-        ["2025-07-25", "1"],
-        ["2025-07-26", "3"],
-        ["2025-07-27", "1"],
-        ["2025-07-28", "9"],
-        ["2025-07-29", "2"],
-      ],
+      data: [],
     },
   ],
+};
+
+const stat = ref<DashboardStatistics>();
+const pageVisitorLineOption = ref();
+const uniqueVisitorLineOption = ref();
+const commentLineOption = ref();
+
+onMounted(() => {
+  api.statistics().then((res) => {
+    stat.value = res;
+    // 浏览
+    pageVisitorLineOption.value = cloneDeep(lineOption);
+    pageVisitorLineOption.value.series[0].data =
+      res.pageVisitor.weekPageVisitors.map((u) => [u.name, u.value]);
+    // 访问
+    uniqueVisitorLineOption.value = cloneDeep(lineOption);
+    uniqueVisitorLineOption.value.series[0].data =
+      res.uniqueVisitor.weekUniqueVisitors.map((u) => [u.name, u.value]);
+    // 评论
+    commentLineOption.value = cloneDeep(lineOption);
+    commentLineOption.value.series[0].data = res.comment.weekComments.map(
+      (u) => [u.name, u.value],
+    );
+  });
 });
 </script>
 
@@ -59,17 +78,17 @@ const lineOption = ref({
     <van-grid-item>
       <div class="stat-item space-y-3">
         <div>
-          <p class="stat-num">120</p>
+          <p class="stat-num">{{ stat?.summary.articles }}</p>
           <p class="stat-title">文章总数</p>
         </div>
         <div class="flex justify-between">
           <div class="flex items-end space-x-3">
             <p class="stat-title">动态</p>
-            <p class="stat-num">12</p>
+            <p class="stat-num">{{ stat?.summary.moments }}</p>
           </div>
           <div class="flex items-end space-x-3">
             <p class="stat-title">友链</p>
-            <p class="stat-num">12</p>
+            <p class="stat-num">{{ stat?.summary.friends }}</p>
           </div>
         </div>
       </div>
@@ -77,33 +96,36 @@ const lineOption = ref({
     <van-grid-item>
       <div class="stat-item">
         <div>
-          <p class="stat-num">170</p>
+          <p class="stat-num">{{ stat?.pageVisitor.pageVisitors }}</p>
           <p class="stat-title">浏览总数</p>
         </div>
         <div>
-          <Chart :option="lineOption" :style="{ height: '70px' }" />
+          <Chart :option="pageVisitorLineOption" :style="{ height: '70px' }" />
         </div>
       </div>
     </van-grid-item>
     <van-grid-item>
       <div class="stat-item">
         <div>
-          <p class="stat-num">150</p>
+          <p class="stat-num">{{ stat?.uniqueVisitor.uniqueVisitors }}</p>
           <p class="stat-title">访问总数</p>
         </div>
         <div>
-          <Chart :option="lineOption" :style="{ height: '70px' }" />
+          <Chart
+            :option="uniqueVisitorLineOption"
+            :style="{ height: '70px' }"
+          />
         </div>
       </div>
     </van-grid-item>
     <van-grid-item>
       <div class="stat-item">
         <div>
-          <p class="stat-num">130</p>
+          <p class="stat-num">{{ stat?.comment.comments }}</p>
           <p class="stat-title">评论总数</p>
         </div>
         <div>
-          <Chart :option="lineOption" :style="{ height: '70px' }" />
+          <Chart :option="commentLineOption" :style="{ height: '70px' }" />
         </div>
       </div>
     </van-grid-item>

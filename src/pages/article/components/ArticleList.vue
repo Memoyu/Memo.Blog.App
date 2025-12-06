@@ -1,59 +1,49 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
-import { Article } from "@/types/interfaces/article";
+import api from "@/services/api";
+import { ArticlePageItem, ArticleSummary } from "@/types/interfaces/article";
 
-const articles = ref<Article[]>([
-  {
-    articleId: "8716065430175749",
-    title:
-      "博客站点维护20240508博客站点维护20240508博客站点维护20240508博客站点维护20240508",
-    banner: "http://oss.blog.memoyu.com/articles/banner/-99992b03364.png",
-    comments: 6,
-    views: 96,
-    likes: 0,
-    updateDateTime: new Date("2025-07-31 19:23:35"),
-  },
-  {
-    articleId: "8715972916150277",
-    title: "个人博客站点，启动！",
-    banner: "http://oss.blog.memoyu.com/articles/banner/-999947432de.png",
-    comments: 3,
-    views: 67,
-    likes: 0,
-    updateDateTime: new Date("2025-07-30 12:22:50"),
-  },
-  {
-    articleId: "9252338862194693",
-    title: "博客站点维护20240811",
-    banner: "http://oss.blog.memoyu.com/articles/banner/-9999f113ea6.gif",
-    comments: 0,
-    views: 60,
-    likes: 0,
-    updateDateTime: new Date("2025-07-31 12:23:30"),
-  },
-]);
+const summary = ref<ArticleSummary>();
+const articles = ref<ArticlePageItem[]>([]);
 const loading = ref(false);
 const finished = ref(true);
 
+const searchTitle = ref("");
+const page = ref(1);
+const pageSize = 15;
+
 onMounted(() => {
-  console.log("文章");
+  // 获取汇总数据
+  api.articleSummary().then((res) => {
+    summary.value = res;
+  });
+  // 获取文章列表
+  api
+    .articlePage({
+      title: searchTitle.value,
+      page: page.value,
+      size: pageSize,
+    })
+    .then((res) => {
+      articles.value = res.items;
+    });
 });
 </script>
 
 <template>
-  <div class="article-summary">
+  <div class="art-summary-box">
     <van-grid :border="false" :column-num="3">
       <van-grid-item>
         <p class="summary-title">文章总数</p>
-        <p class="summary-num">120</p>
+        <p class="summary-num">{{ summary?.articles }}</p>
       </van-grid-item>
       <van-grid-item>
         <p class="summary-title">评论总数</p>
-        <p class="summary-num">1320</p>
+        <p class="summary-num">{{ summary?.comments }}</p>
       </van-grid-item>
       <van-grid-item>
         <p class="summary-title">阅读量</p>
-        <p class="summary-num">12022</p>
+        <p class="summary-num">{{ summary?.views }}</p>
       </van-grid-item>
     </van-grid>
   </div>
@@ -62,49 +52,46 @@ onMounted(() => {
   </div>
   <div>
     <van-list v-model:loading="loading" :finished="finished">
-      <van-cell v-for="item in articles" :key="item.articleId">
+      <list-card v-for="item in articles" :key="item.articleId">
         <div class="flex">
-          <div class="shrink-0">
-            <van-image width="90" height="80" fit="cover" :src="item.banner" />
+          <div class="shrink-0 flex items-center">
+            <van-image width="140" height="80" :src="item.banner" />
           </div>
-          <div class="ml-30 flex flex-col w-full">
-            <div class="shrink-0">
-              <van-text-ellipsis
-                :content="item.title"
-                class="text-black text-left"
-              />
+          <div class="ml-15 flex flex-col justify-between">
+            <div>
+              <van-text-ellipsis :content="item.title" class="text-black" />
             </div>
 
-            <div class="mt-15 flex space-x-20">
-              <div class="article-num-item">
+            <div class="art-info-box art-gray-font">
+              <div class="art-info-item">
                 <div class="i-carbon:view" />
                 <p>{{ item.views }}</p>
               </div>
-              <div class="article-num-item">
+              <div class="art-info-item">
                 <div class="i-carbon:chat" />
                 <p>{{ item.comments }}</p>
               </div>
-              <div class="article-num-item">
+              <div class="art-info-item">
                 <div class="i-carbon:thumbs-up" />
                 <p>{{ item.likes }}</p>
               </div>
             </div>
-            <div class="article-num-item text-left">
+            <div class="art-date-box art-gray-font">
               <div class="i-carbon:update-now" />
               <div>
-                {{ dayjs(item.updateDateTime).format("YYYY-MM-DD HH:mm") }}
+                {{ dayjs(item.updateTime).format("YYYY-MM-DD HH:mm") }}
               </div>
             </div>
           </div>
         </div>
-      </van-cell>
+      </list-card>
     </van-list>
   </div>
 </template>
 <style lang="less" scoped>
-.article-summary {
+.art-summary-box {
   padding: 20px 10px;
-  background-color: var(--van-cell-background);
+  background-color: var(--van-background-2);
 
   .summary-title {
     color: var(--van-gray-7);
@@ -116,7 +103,18 @@ onMounted(() => {
   }
 }
 
-.article-num-item {
-  --at-apply: flex items-center space-x-5;
+.art-gray-font {
+  font-size: var(--van-font-size-md);
+  color: var(--van-text-color-2);
+}
+
+.art-info-box {
+  --at-apply: mt-15 flex space-x-20;
+  .art-info-item {
+    --at-apply: flex items-center space-x-5;
+  }
+}
+.art-date-box {
+  --at-apply: mt-5 flex items-center space-x-5;
 }
 </style>

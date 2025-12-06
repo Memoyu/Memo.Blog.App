@@ -1,63 +1,22 @@
 <script setup lang="ts">
-const tags = [
-  {
-    tagId: "10107176496726021",
-    name: "客户端开发",
-    articles: 2,
-  },
-  {
-    tagId: "9242527653363717",
-    name: "Rust笔记",
-    articles: 3,
-  },
-  {
-    tagId: "9051641047547909",
-    name: "杂谈",
-    articles: 2,
-  },
-  {
-    tagId: "8749774816346117",
-    name: "企业微信",
-    articles: 7,
-  },
-  {
-    tagId: "8712401030610949",
-    name: "DevOps",
-    articles: 2,
-  },
-  {
-    tagId: "8712399874686981",
-    name: "运维",
-    articles: 1,
-  },
-  {
-    tagId: "8712398759133189",
-    name: "后端开发",
-    articles: 1,
-  },
-  {
-    tagId: "8712398425227269",
-    name: "博客站点",
-    articles: 8,
-  },
-  {
-    tagId: "8712397694631941",
-    name: "前端开发",
-    articles: 1,
-  },
-  {
-    tagId: "1",
-    name: "未分类",
-    articles: 0,
-  },
-];
+import api from "@/services/api";
+import { ArticleTag } from "@/types/interfaces";
+
+const searchName = ref("");
+const tags = ref<ArticleTag[]>([]);
 
 onMounted(() => {
-  console.log("分类");
+  // 获取标签列表
+  api.articleTags(searchName.value).then((res) => {
+    tags.value = res;
+  });
 });
 </script>
 
 <template>
+  <div>
+    <van-search placeholder="请输入搜索关键词" />
+  </div>
   <van-list>
     <van-cell v-for="item in tags" :key="item.tagId">
       <div class="h-40 flex justify-between items-center text-black text-left">

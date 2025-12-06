@@ -1,6 +1,7 @@
 import { AuthToken } from "@/types/interfaces/user";
 import { defineStore } from "pinia";
 import { STORAGE_AUTH_KEY } from "../mutation-type";
+import api from "@/services/api";
 
 const InitAuth = {
   accessToken: "",
@@ -29,12 +30,23 @@ export const useAuthTokenStore = defineStore(
       return auth.value.accessToken;
     };
 
+    const refreshAuth = async () => {
+      try {
+        const { data } = await api.refreshToken(auth.value.refreshToken);
+        setAuth(data);
+      } catch (error) {
+        clearAuth();
+        throw error;
+      }
+    };
+
     return {
       auth,
       isLogin,
       setAuth,
       clearAuth,
       getToken,
+      refreshAuth,
     };
   },
   {

@@ -1,68 +1,147 @@
+import { PageEnum, ResponseCode } from "@/common/enums";
 import { useAuthTokenStore } from "@/stores";
-import type { AxiosError, InternalAxiosRequestConfig } from "axios";
+import type {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from "axios";
 import axios from "axios";
 import { showNotify } from "vant";
+import router from "@/router";
 
-const authTokenStore = useAuthTokenStore();
+type ResponseResult<T> = {
+  isSuccess: boolean; // 是否成功
+  code: ResponseCode; // 响应编码
+  data?: T; // 响应数据
+  message: string; // 响应消息
+};
 
-// 创建 axios 实例
-const request = axios.create({
-  // API 请求的默认前缀
-  baseURL: import.meta.env.VITE_APP_API_BASE_URL,
-  timeout: 6000, // 请求超时时间
-});
+export class Request {
+  isRefreshing = false;
+  requestQueue: (() => void)[] = [];
 
-export type RequestError = AxiosError<{
-  message?: string;
-  result?: any;
-  errorMessage?: string;
-}>;
+  // axios 实例
+  instance: AxiosInstance;
+  // 基础配置，url和超时时间
+  baseConfig: AxiosRequestConfig = {
+    baseURL: import.meta.env.VITE_APP_API_BASE_URL + "api/admin/",
+    timeout: 10_000,
+  };
 
-// 异常拦截处理器
-function errorHandler(error: RequestError): Promise<any> {
-  if (error.response) {
-    const { data = {}, status, statusText } = error.response;
-    // 403 无权限
-    if (status === 403) {
-      showNotify({
-        type: "danger",
-        message: (data && data.message) || statusText,
-      });
-    }
-    // 401 未登录/未授权
-    if (status === 401 && data.result && data.result.isLogin) {
-      showNotify({
-        type: "danger",
-        message: "Authorization verification failed",
-      });
-      // 如果你需要直接跳转登录页面
-      // location.replace(loginRoutePath)
-    }
+  constructor(config: AxiosRequestConfig) {
+    // 使用axios.create创建axios实例
+    this.instance = axios.create(Object.assign(this.baseConfig, config));
+
+    // 请求拦截器
+    this.instance.interceptors.request.use(
+      (config) => {
+        const token = useAuthTokenStore().getToken();
+        if (token) config.headers.Authorization = `Bearer ${token}`;
+
+        return config;
+      },
+      (error) => {
+        // 对请求错误做些什么
+        return Promise.reject(error);
+      },
+    );
+
+    // 响应拦截器
+    this.instance.interceptors.response.use(
+      (response) => {
+        // 2xx 范围内的状态码都会触发该函数。
+        // 对响应数据做点什么
+        // console.log('响应success', response.data);
+        var res = response.data as ResponseResult<any>;
+        if (res.code != ResponseCode.SUCCESS || !res.data) {
+          showNotify({
+            type: "danger",
+            message: res.message,
+          });
+          throw new Error(res.message);
+        }
+        return res.data;
+      },
+      async (error) => {
+        const { response } = error;
+        // console.log('响应error', error);
+        if (response && response.data) {
+          const { code, message } = response.data;
+          if (code === ResponseCode.TOKEN_EXPIRED) {
+            const authTokenStore = useAuthTokenStore();
+            // token过期，刷新token
+            if (!this.isRefreshing) {
+              this.isRefreshing = true;
+              return new Promise((resolve) => {
+                authTokenStore
+                  .refreshAuth()
+                  .then(() => {
+                    this.requestQueue.forEach((request) => request());
+                    this.requestQueue = []; // 重新请求完清空
+                    resolve(this.instance.request(response.config));
+                  })
+                  .catch((error) => {
+                    console.log("刷新token异常", error);
+                    // 重新登陆
+                    router.replace(PageEnum.LOGIN);
+                  })
+                  .finally(() => {
+                    this.isRefreshing = false;
+                  });
+              });
+            } else {
+              return new Promise((resolve) => {
+                // 用函数形式将 resolve 存入，等待刷新后再执行
+                this.requestQueue.push(() => {
+                  resolve(this.instance.request(response.config));
+                });
+              });
+            }
+          } else if (
+            code === ResponseCode.TOKEN_INVALIDATION ||
+            code === ResponseCode.AUTHENTICATION_FAILURE
+          ) {
+            // token无效，重新登陆
+            router.replace(PageEnum.LOGIN);
+          }
+
+          showNotify({
+            type: "danger",
+            message: message,
+          });
+        }
+
+        showNotify({
+          type: "danger",
+          message: "服务暂不可用，请稍后再试！",
+        });
+        return Promise.reject(error);
+      },
+    );
   }
-  return Promise.reject(error);
+
+  // 定义请求方法
+  public request(config: AxiosRequestConfig): Promise<AxiosResponse> {
+    return this.instance.request(config);
+  }
+
+  public get<T = any>(url: string, config?: AxiosRequestConfig) {
+    return this.instance.get<T, T>(url, config);
+  }
+
+  public post<T = any>(url: string, data?: any, config?: AxiosRequestConfig) {
+    return this.instance.post<T, T>(url, data, config);
+  }
+
+  public put<T = any>(url: string, data?: any, config?: AxiosRequestConfig) {
+    return this.instance.put<T, T>(url, data, config);
+  }
+
+  public delete<T = any>(url: string, config?: AxiosRequestConfig) {
+    return this.instance.delete<T, T>(url, config);
+  }
 }
 
-// 请求拦截器
-function requestHandler(
-  config: InternalAxiosRequestConfig,
-): InternalAxiosRequestConfig | Promise<InternalAxiosRequestConfig> {
-  const token = authTokenStore.getToken();
-  // 如果 token 存在
-  // 让每个请求携带自定义 token, 请根据实际情况修改
-  if (token) config.headers["Authorization"] = token;
-
-  return config;
-}
-
-// Add a request interceptor
-request.interceptors.request.use(requestHandler, errorHandler);
-
-// 响应拦截器
-function responseHandler(response: { data: any }) {
-  return response.data;
-}
-
-// Add a response interceptor
-request.interceptors.response.use(responseHandler, errorHandler);
-
-export default request;
+export default new Request({});

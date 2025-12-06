@@ -20,12 +20,12 @@ watch(
 );
 
 const postData = reactive({
-  email: "",
+  username: "",
   password: "",
 });
 
 const rules = reactive({
-  email: [{ required: true, message: "请输入用户名" }],
+  username: [{ required: true, message: "请输入用户名" }],
   password: [{ required: true, message: "请输入密码" }],
 });
 
@@ -60,9 +60,9 @@ async function login(values: any) {
       >
         <div class="rounded-3xl overflow-hidden">
           <van-field
-            v-model="postData.email"
-            :rules="rules.email"
-            name="email"
+            v-model="postData.username"
+            :rules="rules.username"
+            name="username"
             placeholder="用户名"
           />
         </div>

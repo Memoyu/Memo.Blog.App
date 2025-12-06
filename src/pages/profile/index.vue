@@ -40,8 +40,8 @@ function getUserNickname() {
             <div class="flex flex-col justify-center ml-15">
               <div class="nickname">{{ getUserNickname() }}</div>
               <div class="flex space-x-20">
-                <van-tag v-for="item in userInfo.roles" :key="item">
-                  {{ item }}
+                <van-tag v-for="item in userInfo.roles" :key="item.name">
+                  {{ item.name }}
                 </van-tag>
               </div>
             </div>
