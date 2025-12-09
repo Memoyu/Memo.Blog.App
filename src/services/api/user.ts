@@ -1,4 +1,11 @@
-import { LoginParams, LoginRes, UserInfo } from "@/types/interfaces/user";
+import { PaginationResult } from "@/types/interfaces";
+import {
+  LoginParams,
+  LoginRes,
+  UserInfo,
+  UserPageItem,
+  UserPageRequest,
+} from "@/types/interfaces/user";
 import Request from "@/utils/request";
 
 export default {
@@ -14,5 +21,11 @@ export default {
 
   getUserInfo(id?: string) {
     return Request.get<UserInfo>("user/get", { params: { userId: id } });
+  },
+
+  userPage(request: UserPageRequest) {
+    return Request.get<PaginationResult<UserPageItem>>("user/page", {
+      params: request,
+    });
   },
 };

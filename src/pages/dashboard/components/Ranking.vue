@@ -17,32 +17,32 @@ onMounted(() => {
   <div class="mt-7">
     <p class="ranking-tilte">文章排行</p>
     <van-list v-model:loading="loading" :finished="finished">
-      <van-cell v-for="item in ranking" :key="item.articleId">
+      <list-card v-for="item in ranking" :key="item.articleId">
         <div class="flex">
           <div class="shrink-0 flex items-center">
             <van-image width="140" height="80" :src="item.banner" />
           </div>
-          <div class="ml-30 flex flex-col justify-between">
+          <div class="ml-15 flex flex-col justify-between">
             <div>
               <van-text-ellipsis :content="item.title" class="text-black" />
             </div>
-            <div class="flex space-x-20">
-              <div class="article-num-item">
+            <div class="art-info-box art-gray-font">
+              <div class="art-info-item">
                 <div class="i-carbon:view" />
                 <p>{{ item.views }}</p>
               </div>
-              <div class="article-num-item">
+              <div class="art-info-item">
                 <div class="i-carbon:chat" />
                 <p>{{ item.comments }}</p>
               </div>
-              <div class="article-num-item">
+              <div class="art-info-item">
                 <div class="i-carbon:thumbs-up" />
                 <p>{{ item.likes }}</p>
               </div>
             </div>
           </div>
         </div>
-      </van-cell>
+      </list-card>
     </van-list>
   </div>
 </template>
@@ -53,7 +53,15 @@ onMounted(() => {
   font-weight: 700;
 }
 
-.article-num-item {
-  --at-apply: flex items-center space-x-5;
+.art-gray-font {
+  font-size: var(--van-font-size-md);
+  color: var(--van-text-color-2);
+}
+
+.art-info-box {
+  --at-apply: mt-15 flex space-x-20;
+  .art-info-item {
+    --at-apply: flex items-center space-x-5;
+  }
 }
 </style>

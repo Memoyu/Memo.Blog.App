@@ -20,7 +20,7 @@ const fs = [
   {
     title: "权限&角色",
     icon: "i-carbon:user-role",
-    name: "Permission",
+    name: "Authorize",
   },
   {
     title: "日志",

@@ -1,3 +1,18 @@
+import { PaginationRequest } from "./common";
+
+export enum UserIdentityType {
+  Password = 0,
+  WeiXin = 1,
+  Qq = 2,
+  GitHub = 3,
+  Gitee = 4,
+}
+
+export enum UserRoleType {
+  Create = 0,
+  Init = 1,
+}
+
 export interface UserLogin {
   userId: string;
   username: string;
@@ -14,13 +29,6 @@ export interface UserInfo {
   email: string;
   phoneNumber: string;
   roles: UserRole[];
-}
-
-export interface UserRole {
-  description: string;
-  name: string;
-  roleId: string;
-  type: number;
 }
 
 export interface LoginParams {
@@ -40,4 +48,34 @@ export interface AuthToken {
   accessToken: string; // 访问token
   refreshToken: string; // 刷新token
   expiredAt: number; // token过期时间
+}
+
+export interface UserPageRequest extends PaginationRequest {
+  userId?: string;
+  username?: string;
+  nickname?: string;
+  email?: string;
+  phoneNumber?: string;
+  userIdentityType?: UserIdentityType;
+  roles?: Array<string>;
+}
+
+export interface UserPageItem {
+  userId: string;
+  username: string;
+  nickname: string;
+  avatar: string;
+  email: string;
+  phoneNumber: string;
+  userIdentityType: UserIdentityType;
+  roles: Array<UserRole>;
+  lastLoginTime: Date;
+  createTime: Date;
+}
+
+export interface UserRole {
+  roleId: string; // 角色Id
+  name: string;
+  type: UserRoleType;
+  description: string;
 }

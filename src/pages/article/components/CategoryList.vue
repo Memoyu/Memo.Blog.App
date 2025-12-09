@@ -18,7 +18,7 @@ onMounted(() => {
     <van-search placeholder="请输入搜索关键词" />
   </div>
   <van-list>
-    <van-cell v-for="item in categories" :key="item.categoryId">
+    <list-card v-for="item in categories" :key="item.categoryId">
       <div class="h-40 flex justify-between items-center text-black text-left">
         <div class="flex items-center w-3/4">
           <div class="w-2/4">{{ item.name }}</div>
@@ -32,7 +32,7 @@ onMounted(() => {
           <div class="i-carbon:edit" />
         </div>
       </div>
-    </van-cell>
+    </list-card>
   </van-list>
 </template>
 <style lang="less" scoped>
