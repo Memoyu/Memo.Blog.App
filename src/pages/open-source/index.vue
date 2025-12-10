@@ -59,11 +59,11 @@ function getOpenSources(text: string) {
           <div class="flex space-x-40">
             <div class="info-item">
               <div class="i-carbon:star" />
-              <div>{{ item.star }}</div>
+              <span>{{ item.star }}</span>
             </div>
             <div class="info-item">
               <div class="i-carbon:fork" />
-              <div>{{ item.fork }}</div>
+              <span>{{ item.fork }}</span>
             </div>
           </div>
           <div class="os-date-box">
@@ -103,7 +103,7 @@ function getOpenSources(text: string) {
 }
 
 .os-date-box {
-  --at-apply: mt-5 flex items-center space-x-5;
+  --at-apply: flex items-center space-x-5;
 }
 </style>
 

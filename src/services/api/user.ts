@@ -2,9 +2,12 @@ import { PaginationResult } from "@/types/interfaces";
 import {
   LoginParams,
   LoginRes,
+  PermissionGroup,
   UserInfo,
   UserPageItem,
   UserPageRequest,
+  UserRole,
+  UserRoleWithPermission,
 } from "@/types/interfaces/user";
 import Request from "@/utils/request";
 
@@ -26,6 +29,22 @@ export default {
   userPage(request: UserPageRequest) {
     return Request.get<PaginationResult<UserPageItem>>("user/page", {
       params: request,
+    });
+  },
+
+  roleList(name?: string) {
+    return Request.get<Array<UserRole>>("role/list", { params: { name } });
+  },
+
+  roleGet(id: string) {
+    return Request.get<UserRoleWithPermission>("role/get", {
+      params: { roleId: id },
+    });
+  },
+
+  permissionGroup(name?: string) {
+    return Request.get<Array<PermissionGroup>>("permission/group", {
+      params: { name },
     });
   },
 };

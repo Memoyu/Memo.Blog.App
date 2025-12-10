@@ -79,3 +79,29 @@ export interface UserRole {
   type: UserRoleType;
   description: string;
 }
+
+export interface UserPermission {
+  permissionId: string; // 权限Id
+  module: string;
+  moduleName: string;
+  name: string;
+  signature: string;
+}
+
+export interface UserRoleWithPermission {
+  roleId: string; // 角色Id
+  name: string;
+  type: UserRoleType;
+  description: string;
+  permissions: Array<UserPermission>;
+}
+
+export interface PermissionGroup {
+  module: string;
+  moduleName: string;
+  permissions: Array<PermissionWithCheck>;
+}
+
+export interface PermissionWithCheck extends UserPermission {
+  checked: boolean;
+}
