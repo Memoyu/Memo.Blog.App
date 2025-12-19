@@ -96,12 +96,17 @@ export interface UserRoleWithPermission {
   permissions: Array<UserPermission>;
 }
 
-export interface PermissionGroup {
+export interface PermissionGroupItem {
   module: string;
   moduleName: string;
-  permissions: Array<PermissionWithCheck>;
+  permissions: Array<UserPermission>;
 }
 
-export interface PermissionWithCheck extends UserPermission {
-  checked: boolean;
+export interface PermissionListItem {
+  permissionId: string; // 权限Id
+  module: string;
+  moduleName: string;
+  name: string;
+  signature: string;
+  roles: Array<UserRole>;
 }

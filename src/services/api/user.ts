@@ -2,7 +2,8 @@ import { PaginationResult } from "@/types/interfaces";
 import {
   LoginParams,
   LoginRes,
-  PermissionGroup,
+  PermissionGroupItem,
+  PermissionListItem,
   UserInfo,
   UserPageItem,
   UserPageRequest,
@@ -43,8 +44,14 @@ export default {
   },
 
   permissionGroup(name?: string) {
-    return Request.get<Array<PermissionGroup>>("permission/group", {
+    return Request.get<Array<PermissionGroupItem>>("permission/group", {
       params: { name },
+    });
+  },
+
+  permissionList(name?: string, signature?: string) {
+    return Request.get<Array<PermissionListItem>>("permission/list", {
+      params: { name, signature },
     });
   },
 };

@@ -16,7 +16,7 @@ const perGroups = ref<TreeSelectItem[]>([]);
 const perLoading = ref(false);
 
 onMounted(() => {
-  // 获取友链列表
+  // 获取角色列表
   getRoles("");
 });
 function onSearch(text: string) {
@@ -63,7 +63,7 @@ function onClickPerNav(id: string) {
     @search="onSearch"
   />
   <van-collapse v-model="activeName" accordion @change="onChangeRole">
-    <van-collapse-item v-for="item in roles" :name="item.roleId">
+    <van-collapse-item v-for="item in roles" :key="item.roleId">
       <template #title>
         <div class="flex">
           <div class="mr-20">{{ item.name }}</div>
@@ -78,6 +78,10 @@ function onClickPerNav(id: string) {
           :items="perGroups"
           @click-nav="onClickPerNav"
         />
+        <div class="mt-10 space-x-40">
+          <van-button type="primary" plain size="small">保存</van-button>
+          <van-button type="danger" plain size="small">删除</van-button>
+        </div>
       </div>
     </van-collapse-item>
   </van-collapse>
