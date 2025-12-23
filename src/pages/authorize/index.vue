@@ -5,7 +5,7 @@ import Permission from "./components/Permission.vue";
 const active = ref(0);
 </script>
 <template>
-  <van-tabs v-model:active="active" sticky>
+  <van-tabs v-model:active="active" sticky offset-top="46">
     <van-tab title="角色">
       <role />
     </van-tab>

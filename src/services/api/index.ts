@@ -4,6 +4,7 @@ import article from "./article";
 import moment from "./moment";
 import friend from "./friend";
 import openSource from "./open-source";
+import logging from "./logging";
 
 export default {
   ...user,
@@ -12,4 +13,5 @@ export default {
   ...moment,
   ...friend,
   ...openSource,
+  ...logging,
 };

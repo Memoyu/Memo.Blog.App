@@ -33,6 +33,8 @@ declare module 'vue-router/auto-routes' {
     '/dashboard/components/VisitorMap': RouteRecordInfo<'/dashboard/components/VisitorMap', '/dashboard/components/VisitorMap', Record<never, never>, Record<never, never>>,
     'FriendlyLink': RouteRecordInfo<'FriendlyLink', '/friendly-link', Record<never, never>, Record<never, never>>,
     'Logging': RouteRecordInfo<'Logging', '/logging', Record<never, never>, Record<never, never>>,
+    '/logging/components/System': RouteRecordInfo<'/logging/components/System', '/logging/components/System', Record<never, never>, Record<never, never>>,
+    '/logging/components/Visit': RouteRecordInfo<'/logging/components/Visit', '/logging/components/Visit', Record<never, never>, Record<never, never>>,
     'Login': RouteRecordInfo<'Login', '/login', Record<never, never>, Record<never, never>>,
     'Moment': RouteRecordInfo<'Moment', '/moment', Record<never, never>, Record<never, never>>,
     '/moment/components/Aggregation': RouteRecordInfo<'/moment/components/Aggregation', '/moment/components/Aggregation', Record<never, never>, Record<never, never>>,
