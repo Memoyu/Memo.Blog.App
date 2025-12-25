@@ -2,20 +2,24 @@
 import api from "@/services/api";
 import { SystemLogLevel, SystemLogPageItem } from "@/types/interfaces";
 import dayjs from "dayjs";
-import { showToast } from "vant";
 
 const page = ref(1);
-const totalItme = ref(1);
+const totalItme = ref(0);
 const pageSize = 15;
 
 const dateValue = ref(0);
-const dateOption = [
+const dateOption = ref([
   { text: "全部", value: 0 },
   { text: "近7天", value: 1 },
   { text: "近30天", value: 2 },
   { text: "近90天", value: 3 },
   { text: "自定义", value: 4 },
-];
+]);
+const showPicker = ref(false);
+const selectedDateRange = ref<[][]>([[], []]);
+const minDate = new Date(2020, 0, 1);
+const maxDate = new Date(2025, 5, 1);
+
 const value = ref(0);
 const option = [
   { text: "全部", value: 0 },
@@ -33,6 +37,29 @@ const search = ref("");
 onMounted(() => {
   getLogs();
 });
+
+function onDateChange(val: number) {
+  console.log(val);
+  if (val === 4) {
+    showPicker.value = true;
+  } else {
+    dateOption.value[4].text = "自定义";
+  }
+}
+
+function onDatePickerBtnClick(e: any, isCancel: boolean) {
+  showPicker.value = false;
+  // console.log(e);
+  if (isCancel) return;
+  var { startDate } = e[0];
+  var { endDate } = e[1];
+
+  selectedDateRange.value = [startDate, endDate];
+  // console.log("选中", selectedDateRange);
+  dateOption.value[4].text = `${dayjs(startDate).format(
+    "YYYY-MM-DD",
+  )} 至 ${dayjs(endDate).format("YYYY-MM-DD")}`;
+}
 
 function getLogs() {
   api
@@ -64,6 +91,7 @@ function onSearch(text: string) {}
       v-model="dateValue"
       :activated="dateValue !== 0"
       :options="dateOption"
+      @change="onDateChange"
       light
     />
     <van-dropdown-item
@@ -93,18 +121,32 @@ function onSearch(text: string) {}
     /> -->
   </van-dropdown-menu>
   <van-list>
-    <list-card class="sys-log-item" v-for="item in logs" :key="item.id">
-      <div>
+    <list-card v-for="item in logs" :key="item.id">
+      <div class="sys-log-item">
         <div class="flex justify-between">
-          <div>{{ SystemLogLevel[item.level] }}</div>
+          <div class="sys-log-level">{{ SystemLogLevel[item.level] }}</div>
           <div>{{ dayjs(item.time).format("YYYY-MM-DD HH:mm") }}</div>
         </div>
-        <div>请求路径： {{ item.requestPath }}</div>
+        <div class="flex">
+          <div>请求：</div>
+          <van-text-ellipsis class="sys-log-text" :content="item.requestPath" />
+        </div>
         <div>
-          <div>内容</div>
+          <div>日志：</div>
           <van-text-ellipsis
+            class="sys-log-text"
             rows="3"
             :content="item.message"
+            expand-text="展开"
+            collapse-text="收起"
+          />
+        </div>
+        <div v-if="item.exMessage.length > 0">
+          <div>异常：</div>
+          <van-text-ellipsis
+            class="sys-log-text"
+            rows="3"
+            :content="item.exMessage"
             expand-text="展开"
             collapse-text="收起"
           />
@@ -113,6 +155,7 @@ function onSearch(text: string) {}
     </list-card>
   </van-list>
   <van-pagination
+    v-if="totalItme > 0"
     v-model="page"
     :total-items="totalItme"
     :show-page-size="5"
@@ -127,9 +170,38 @@ function onSearch(text: string) {}
     </template>
     <template #page="{ text }">{{ text }}</template>
   </van-pagination>
+  <van-popup v-model:show="showPicker" round position="bottom">
+    <van-picker-group
+      title="预约日期"
+      :tabs="['开始日期', '结束日期']"
+      @confirm="(e) => onDatePickerBtnClick(e, false)"
+      @cancel="(e) => onDatePickerBtnClick(e, true)"
+    >
+      <van-date-picker
+        v-model="selectedDateRange[0]"
+        :min-date="minDate"
+        :max-date="maxDate"
+      />
+      <van-date-picker
+        v-model="selectedDateRange[1]"
+        :min-date="minDate"
+        :max-date="maxDate"
+      />
+    </van-picker-group>
+  </van-popup>
 </template>
 
 <style lang="less" scoped>
 .sys-log-item {
+  padding: 10px;
+}
+
+.sys-log-level {
+  font-weight: bold;
+}
+
+.sys-log-text {
+  font-size: var(--van-font-size-md);
+  color: var(--van-text-color-2);
 }
 </style>

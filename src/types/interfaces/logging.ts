@@ -48,7 +48,7 @@ export interface VisitLogPageRequest extends PaginationRequest {
   visitorId?: string; // 访客Id
   behavior?: VisitLogBehavior;
   behaviorName?: string;
-  visitedId: number; // 被访问信息Id（文章Id、动态Id等）
+  visitedId?: number; // 被访问信息Id（文章Id、动态Id等）
   path?: string;
   ip?: string;
   country?: string;
@@ -66,6 +66,7 @@ export interface VisitLogPageItem {
   visitId: string; // 访问日志Id
   visitorId: string; // 访客Id
   behavior: VisitLogBehavior;
+  behaviorName: string;
   path: string;
   visited: LoggerVisitedItem; // 被访问信息Id（文章Id、动态Id等）
   ip: string;

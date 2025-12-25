@@ -5,7 +5,7 @@ import Timeline from "./components/Timeline.vue";
 const active = ref(0);
 </script>
 <template>
-  <van-tabs v-model:active="active" sticky offset-top="46">
+  <van-tabs v-model:active="active" sticky>
     <van-tab title="动态">
       <timeline />
     </van-tab>
