@@ -35,6 +35,12 @@ onMounted(() => {
       </template>
     </van-cell>
   </van-cell-group>
+  <div class="flex justify-center mt-60">
+    <van-button block type="primary" round>保存</van-button>
+  </div>
+  <div class="flex justify-center mt-10">
+    <van-button block type="danger" round>退出登录</van-button>
+  </div>
 </template>
 
 <style lang="less" scoped></style>

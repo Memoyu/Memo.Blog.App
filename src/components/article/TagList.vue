@@ -18,7 +18,7 @@ onMounted(() => {
     <van-search placeholder="请输入搜索关键词" />
   </div>
   <van-list>
-    <list-card v-for="item in tags" :key="item.tagId">
+    <list-card class="tag-item" v-for="item in tags" :key="item.tagId">
       <div class="h-40 flex justify-between items-center text-black text-left">
         <div class="flex items-center w-3/4">
           <div class="w-2/4">{{ item.name }}</div>
@@ -28,7 +28,7 @@ onMounted(() => {
           </div>
         </div>
 
-        <div class="category-edit">
+        <div class="tag-edit">
           <div class="i-carbon:edit" />
         </div>
       </div>
@@ -36,7 +36,10 @@ onMounted(() => {
   </van-list>
 </template>
 <style lang="less" scoped>
-.category-edit {
+.tag-item {
+  background: var(--van-background-2);
+}
+.tag-edit {
   padding: 8px;
   border-radius: 50px;
   background-color: var(--van-background);

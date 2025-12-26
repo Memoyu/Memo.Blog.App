@@ -40,7 +40,7 @@ function getUsers(text: string) {
   />
   <div>
     <van-list v-model:loading="loading" :finished="finished">
-      <list-card v-for="item in users" :key="item.userId">
+      <list-card class="user-item" v-for="item in users" :key="item.userId">
         <div class="flex">
           <div class="shrink-0 flex items-center">
             <van-image round cover width="80" height="80" :src="item.avatar" />
@@ -79,6 +79,9 @@ function getUsers(text: string) {
 </template>
 
 <style lang="less" scoped>
+.user-item {
+  background: var(--van-background-2);
+}
 .ur-name-box {
   display: flex;
   align-items: baseline;

@@ -2,9 +2,6 @@
 import router from "@/router";
 import { useUserStore, useAuthTokenStore } from "@/stores";
 
-import Commit from "./components/Commit.vue";
-import FunctionGrid from "./components/FunctionGrid.vue";
-
 const authTokenStore = useAuthTokenStore();
 const isLogin = computed(() => authTokenStore.isLogin());
 

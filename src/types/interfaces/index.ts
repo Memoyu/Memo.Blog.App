@@ -5,3 +5,4 @@ export * from "./moment";
 export * from "./user";
 export * from "./friend";
 export * from "./logging";
+export * from "./config";

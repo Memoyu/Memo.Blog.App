@@ -17,14 +17,18 @@ onMounted(() => {
   <div class="mt-7">
     <p class="ranking-tilte">文章排行</p>
     <van-list v-model:loading="loading" :finished="finished">
-      <list-card v-for="item in ranking" :key="item.articleId">
+      <list-card
+        class="ranking-item"
+        v-for="item in ranking"
+        :key="item.articleId"
+      >
         <div class="flex">
           <div class="shrink-0 flex items-center">
             <van-image width="140" height="80" :src="item.banner" />
           </div>
           <div class="ml-15 flex flex-col justify-between">
             <div>
-              <van-text-ellipsis :content="item.title" class="text-black" />
+              <van-text-ellipsis :content="item.title" />
             </div>
             <div class="art-info-box art-gray-font">
               <div class="art-info-item">
@@ -48,6 +52,10 @@ onMounted(() => {
 </template>
 
 <style lang="less" scoped>
+.ranking-item {
+  background: var(--van-background-2);
+}
+
 .ranking-tilte {
   font-size: var(--van-line-height-md);
   font-weight: 700;

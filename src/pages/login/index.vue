@@ -10,15 +10,6 @@ const router = useRouter();
 const userStore = useUserStore();
 const loading = ref(false);
 
-const dark = ref<boolean>(isDark.value);
-
-watch(
-  () => isDark.value,
-  (newMode) => {
-    dark.value = newMode;
-  },
-);
-
 const postData = reactive({
   username: "",
   password: "",
@@ -34,6 +25,7 @@ async function login(values: any) {
     loading.value = true;
     await userStore.login({ ...postData, ...values });
     const { redirect, ...othersQuery } = router.currentRoute.value.query;
+
     router.push({
       name: (redirect as keyof RouteMap) || PageEnum.HOME_NAME,
       query: {

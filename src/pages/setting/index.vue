@@ -1,7 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const themeShow = ref(false);
+</script>
 
 <template>
-  <div>设置</div>
+  <van-cell-group inset>
+    <van-cell is-link title="深色模式" size="large" @click="themeShow = true" />
+  </van-cell-group>
+
+  <theme v-model:show="themeShow" />
 </template>
 
 <style lang="less" scoped></style>

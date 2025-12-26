@@ -46,7 +46,7 @@ function getPermissions(text?: string) {
       </template>
       <van-list>
         <list-card
-          class="friend-item"
+          class="per-item"
           v-for="per in items"
           :key="per.permissionId"
         >
@@ -73,6 +73,9 @@ function getPermissions(text?: string) {
 </template>
 
 <style lang="less" scoped>
+.per-item {
+  background: var(--van-background-2);
+}
 .per-name {
   color: var(--van-text-color);
   font-weight: var(--van-font-bold);

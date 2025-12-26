@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import Role from "./components/Role.vue";
-import Permission from "./components/Permission.vue";
-
 const active = ref(0);
 </script>
 <template>

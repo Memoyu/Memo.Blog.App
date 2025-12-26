@@ -1,20 +1,25 @@
 <script setup lang="ts">
-import { useRouteCacheStore } from '@/stores'
+import { useRouteCacheStore } from "@/stores";
 
-const routeCacheStore = useRouteCacheStore()
+const routeCacheStore = useRouteCacheStore();
 
 const keepAliveRouteNames = computed(() => {
-  return routeCacheStore.routeCaches
-})
+  return routeCacheStore.routeCaches;
+});
 
 const mode = computed(() => {
-  return isDark.value ? 'dark' : 'light'
-})
+  return isDark.value ? "dark" : "light";
+});
 
+onMounted(() => {
+  initThemeMode();
+});
+
+function initThemeMode() {}
 </script>
 
 <template>
-    <van-config-provider :theme="mode">
+  <van-config-provider :theme="mode">
     <nav-bar />
     <router-view v-slot="{ Component }">
       <section class="app-wrapper">

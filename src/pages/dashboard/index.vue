@@ -2,10 +2,6 @@
 import router from "@/router";
 import { useUserStore } from "@/stores";
 
-import Statistics from "./components/Statistics.vue";
-import Ranking from "./components/Ranking.vue";
-import VisitorMap from "./components/VisitorMap.vue";
-
 const userStore = useUserStore();
 const userInfo = computed(() => userStore.userInfo);
 

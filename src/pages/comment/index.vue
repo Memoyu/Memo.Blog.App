@@ -34,7 +34,6 @@ const notifies = [
   },
 ];
 </script>
-
 <template>
   <van-list sticky>
     <van-cell v-for="item in notifies" :key="item.messageId">
@@ -45,20 +44,11 @@ const notifies = [
   </van-list>
 </template>
 
-<style lang="less" scoped>
-:deep(.van-cell) {
-  padding: 0;
-  background-color: unset;
-  // overflow: unset;
+<route lang="json5">
+{
+  name: "Comment",
+  meta: {
+    title: "评论&赞",
+  },
 }
-
-:deep(.van-cell:after) {
-  // border-bottom: none;
-}
-:deep(.van-cell__value) {
-  padding: 0 0 28px;
-  // overflow: unset;
-  text-align: left;
-  color: var(--van-cell-text-color);
-}
-</style>
+</route>

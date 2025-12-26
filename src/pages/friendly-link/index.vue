@@ -79,6 +79,7 @@ function getFriends(text: string) {
 
 <style lang="less" scoped>
 .friend-item {
+  background: var(--van-background-2);
 }
 .fr-nickname {
   font-weight: 700;

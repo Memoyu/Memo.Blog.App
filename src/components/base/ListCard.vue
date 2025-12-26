@@ -6,7 +6,7 @@
 .list-card-box {
   position: relative;
   padding: var(--van-cell-vertical-padding) var(--van-cell-horizontal-padding);
-  background: var(--van-background-2);
+  // background: var(--van-background-2);
 
   &::after {
     position: absolute;

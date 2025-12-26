@@ -23,6 +23,11 @@ const fs = [
     name: "Authorize",
   },
   {
+    title: "评论&赞",
+    icon: "i-carbon:document",
+    name: "Comment",
+  },
+  {
     title: "日志",
     icon: "i-carbon:document",
     name: "Logging",

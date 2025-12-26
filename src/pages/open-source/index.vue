@@ -36,7 +36,7 @@ function getOpenSources(text: string) {
   />
   <div>
     <van-list v-model:loading="loading" :finished="finished">
-      <list-card v-for="item in sources" :key="item.projectId">
+      <list-card class="os-item" v-for="item in sources" :key="item.projectId">
         <div class="flex">
           <div class="shrink-0 flex items-center">
             <van-image
@@ -79,6 +79,10 @@ function getOpenSources(text: string) {
 </template>
 
 <style lang="less" scoped>
+.os-item {
+  background: var(--van-background-2);
+}
+
 .os-title {
   font-weight: 700;
   margin-bottom: 10px;

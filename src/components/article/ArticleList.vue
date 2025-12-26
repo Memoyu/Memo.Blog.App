@@ -52,14 +52,18 @@ onMounted(() => {
   </div>
   <div>
     <van-list v-model:loading="loading" :finished="finished">
-      <list-card v-for="item in articles" :key="item.articleId">
+      <list-card
+        class="art-item"
+        v-for="item in articles"
+        :key="item.articleId"
+      >
         <div class="flex">
           <div class="shrink-0 flex items-center">
             <van-image width="140" height="80" :src="item.banner" />
           </div>
           <div class="ml-15 flex flex-col justify-between">
             <div>
-              <van-text-ellipsis :content="item.title" class="text-black" />
+              <van-text-ellipsis :content="item.title" />
             </div>
 
             <div class="art-info-box art-gray-font">
@@ -101,6 +105,10 @@ onMounted(() => {
     line-height: 28px;
     font-weight: 700;
   }
+}
+
+.art-item {
+  background: var(--van-background-2);
 }
 
 .art-gray-font {

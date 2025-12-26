@@ -121,36 +121,34 @@ function onSearch(text: string) {}
     /> -->
   </van-dropdown-menu>
   <van-list>
-    <list-card v-for="item in logs" :key="item.id">
-      <div class="sys-log-item">
-        <div class="flex justify-between">
-          <div class="sys-log-level">{{ SystemLogLevel[item.level] }}</div>
-          <div>{{ dayjs(item.time).format("YYYY-MM-DD HH:mm") }}</div>
-        </div>
-        <div class="flex">
-          <div>请求：</div>
-          <van-text-ellipsis class="sys-log-text" :content="item.requestPath" />
-        </div>
-        <div>
-          <div>日志：</div>
-          <van-text-ellipsis
-            class="sys-log-text"
-            rows="3"
-            :content="item.message"
-            expand-text="展开"
-            collapse-text="收起"
-          />
-        </div>
-        <div v-if="item.exMessage.length > 0">
-          <div>异常：</div>
-          <van-text-ellipsis
-            class="sys-log-text"
-            rows="3"
-            :content="item.exMessage"
-            expand-text="展开"
-            collapse-text="收起"
-          />
-        </div>
+    <list-card class="sys-log-item" v-for="item in logs" :key="item.id">
+      <div class="flex justify-between">
+        <div class="sys-log-level">{{ SystemLogLevel[item.level] }}</div>
+        <div>{{ dayjs(item.time).format("YYYY-MM-DD HH:mm") }}</div>
+      </div>
+      <div class="flex">
+        <div>请求：</div>
+        <van-text-ellipsis class="sys-log-text" :content="item.requestPath" />
+      </div>
+      <div>
+        <div>日志：</div>
+        <van-text-ellipsis
+          class="sys-log-text"
+          rows="3"
+          :content="item.message"
+          expand-text="展开"
+          collapse-text="收起"
+        />
+      </div>
+      <div v-if="item.exMessage.length > 0">
+        <div>异常：</div>
+        <van-text-ellipsis
+          class="sys-log-text"
+          rows="3"
+          :content="item.exMessage"
+          expand-text="展开"
+          collapse-text="收起"
+        />
       </div>
     </list-card>
   </van-list>
@@ -193,7 +191,7 @@ function onSearch(text: string) {}
 
 <style lang="less" scoped>
 .sys-log-item {
-  padding: 10px;
+  background: var(--van-background-2);
 }
 
 .sys-log-level {

@@ -14,13 +14,17 @@ const props = defineProps({
   },
 });
 
+const mode = computed(() => {
+  return isDark.value ? "dark" : "light";
+});
+
 onMounted(() => {
   vditor.value = Vditor.preview(
     previewRef.value as HTMLDivElement,
     props.modelValue,
     {
       // cdn: "https://ld246.com/js/lib/vditor",
-      mode: "light",
+      mode: mode.value,
       // anchor: 1,
       //   hljs: {
       //     lineNumber: true,
@@ -31,7 +35,7 @@ onMounted(() => {
         macros: {},
       },
       theme: {
-        current: "light",
+        current: mode.value,
       },
       //lazyLoadImage: "//unpkg.com/vditor/dist/images/img-loading.svg",
       //   renderers: {

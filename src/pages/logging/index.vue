@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import System from "./components/System.vue";
-import Visit from "./components/Visit.vue";
-
 const active = ref(0);
 </script>
 
