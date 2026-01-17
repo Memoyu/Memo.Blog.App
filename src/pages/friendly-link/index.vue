@@ -34,6 +34,7 @@ function getFriends(text: string) {
 </script>
 
 <template>
+  <nav-bar />
   <van-search
     v-model="search"
     placeholder="请输入搜索关键词"
@@ -59,7 +60,7 @@ function getFriends(text: string) {
         <div class="fr-bottom-box">
           <div class="flex space-x-40">
             <div class="info-item">
-              <div class="i-carbon:view" />
+              <div class="i-carbon-view" />
               <div>{{ item.views }}</div>
             </div>
             <div class="info-item">

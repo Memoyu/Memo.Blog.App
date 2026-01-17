@@ -29,6 +29,7 @@ function getOpenSources(text: string) {
 </script>
 
 <template>
+  <nav-bar />
   <van-search
     v-model="search"
     placeholder="请输入搜索关键词"
@@ -58,16 +59,16 @@ function getOpenSources(text: string) {
         <div class="os-bottom-box os-gray-font">
           <div class="flex space-x-40">
             <div class="info-item">
-              <div class="i-carbon:star" />
+              <div class="i-carbon-star" />
               <span>{{ item.star }}</span>
             </div>
             <div class="info-item">
-              <div class="i-carbon:fork" />
+              <div class="i-carbon-fork" />
               <span>{{ item.fork }}</span>
             </div>
           </div>
           <div class="os-date-box">
-            <div class="i-carbon:time" />
+            <div class="i-carbon-time" />
             <div>
               {{ dayjs(item.createTime).format("YYYY-MM-DD HH:mm") }}
             </div>

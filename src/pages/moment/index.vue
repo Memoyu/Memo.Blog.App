@@ -1,4 +1,8 @@
 <script setup lang="ts">
+defineOptions({
+  name: "Moment",
+});
+
 const active = ref(0);
 const gap = ref({ x: 30, y: 80 });
 
@@ -27,6 +31,7 @@ function onAddClick() {
   name: "Moment",
   meta: {
     title: "动态",
+    keepAlive: true,
   },
 }
 </route>

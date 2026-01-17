@@ -52,12 +52,8 @@ onMounted(() => {
   </div>
   <div>
     <van-list v-model:loading="loading" :finished="finished">
-      <list-card
-        class="art-item"
-        v-for="item in articles"
-        :key="item.articleId"
-      >
-        <div class="flex">
+      <list-card class="art-item" v-for="item in articles">
+        <div class="flex" :key="item.articleId">
           <div class="shrink-0 flex items-center">
             <van-image width="140" height="80" :src="item.banner" />
           </div>
@@ -68,20 +64,21 @@ onMounted(() => {
 
             <div class="art-info-box art-gray-font">
               <div class="art-info-item">
-                <div class="i-carbon:view" />
+                <div class="i-carbon-view" />
                 <p>{{ item.views }}</p>
               </div>
               <div class="art-info-item">
-                <div class="i-carbon:chat" />
+                <div class="i-carbon-chat" />
                 <p>{{ item.comments }}</p>
               </div>
               <div class="art-info-item">
-                <div class="i-carbon:thumbs-up" />
+                <div class="i-carbon-thumbs-up" />
                 <p>{{ item.likes }}</p>
               </div>
             </div>
             <div class="art-date-box art-gray-font">
-              <div class="i-carbon:update-now" />
+              <div class="i-carbon-time" />
+
               <div>
                 {{ dayjs(item.updateTime).format("YYYY-MM-DD HH:mm") }}
               </div>

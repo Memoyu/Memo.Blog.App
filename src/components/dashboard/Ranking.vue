@@ -32,15 +32,15 @@ onMounted(() => {
             </div>
             <div class="art-info-box art-gray-font">
               <div class="art-info-item">
-                <div class="i-carbon:view" />
+                <div class="i-carbon-view" />
                 <p>{{ item.views }}</p>
               </div>
               <div class="art-info-item">
-                <div class="i-carbon:chat" />
+                <div class="i-carbon-chat" />
                 <p>{{ item.comments }}</p>
               </div>
               <div class="art-info-item">
-                <div class="i-carbon:thumbs-up" />
+                <div class="i-carbon-thumbs-up" />
                 <p>{{ item.likes }}</p>
               </div>
             </div>

@@ -4,42 +4,42 @@ import router from "@/router";
 const fs = [
   {
     title: "友链",
-    icon: "i-carbon:direct-link",
+    icon: "i-carbon-direct-link",
     name: "FriendlyLink",
   },
   {
     title: "开源",
-    icon: "i-carbon:ibm-watson-openscale",
+    icon: "i-carbon-ibm-watson-openscale",
     name: "OpenSource",
   },
   {
     title: "用户",
-    icon: "i-carbon:user-multiple",
+    icon: "i-carbon-user-multiple",
     name: "User",
   },
   {
     title: "权限&角色",
-    icon: "i-carbon:user-role",
+    icon: "i-carbon-user-role",
     name: "Authorize",
   },
   {
     title: "评论&赞",
-    icon: "i-carbon:document",
+    icon: "i-carbon-chat",
     name: "Comment",
   },
   {
     title: "日志",
-    icon: "i-carbon:document",
+    icon: "i-carbon-document",
     name: "Logging",
   },
   {
     title: "系统配置",
-    icon: "i-carbon:settings-view",
+    icon: "i-carbon-settings-view",
     name: "Config",
   },
   {
     title: "设置",
-    icon: "i-carbon:settings",
+    icon: "i-carbon-settings",
     name: "Setting",
   },
 ];
@@ -58,7 +58,7 @@ function toPage(name: any) {
       @click="() => toPage(f.name)"
     >
       <div class="flex items-center">
-        <div :class="f.icon" style="font-size: 18px" />
+        <div :class="f.icon" :size="19" />
         <div class="func-title">{{ f.title }}</div>
       </div>
     </div>

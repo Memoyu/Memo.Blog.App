@@ -20,6 +20,7 @@ declare module 'vue-router/auto-routes' {
   export interface RouteNamedMap {
     '404': RouteRecordInfo<'404', '/:all(.*)', { all: ParamValue<true> }, { all: ParamValue<false> }>,
     'Article': RouteRecordInfo<'Article', '/article', Record<never, never>, Record<never, never>>,
+    'ArticleEdit': RouteRecordInfo<'ArticleEdit', '/article/edit', Record<never, never>, Record<never, never>>,
     'Authorize': RouteRecordInfo<'Authorize', '/authorize', Record<never, never>, Record<never, never>>,
     'Comment': RouteRecordInfo<'Comment', '/comment', Record<never, never>, Record<never, never>>,
     'Config': RouteRecordInfo<'Config', '/config', Record<never, never>, Record<never, never>>,
@@ -28,6 +29,9 @@ declare module 'vue-router/auto-routes' {
     'Logging': RouteRecordInfo<'Logging', '/logging', Record<never, never>, Record<never, never>>,
     'Login': RouteRecordInfo<'Login', '/login', Record<never, never>, Record<never, never>>,
     'Moment': RouteRecordInfo<'Moment', '/moment', Record<never, never>, Record<never, never>>,
+    'MomentEdit': RouteRecordInfo<'MomentEdit', '/moment/edit', Record<never, never>, Record<never, never>>,
+    'NoteEdit': RouteRecordInfo<'NoteEdit', '/note/edit', Record<never, never>, Record<never, never>>,
+    'NotePreview': RouteRecordInfo<'NotePreview', '/note/preview', Record<never, never>, Record<never, never>>,
     'OpenSource': RouteRecordInfo<'OpenSource', '/open-source', Record<never, never>, Record<never, never>>,
     'Profile': RouteRecordInfo<'Profile', '/profile', Record<never, never>, Record<never, never>>,
     'ProfileEdit': RouteRecordInfo<'ProfileEdit', '/profile/edit', Record<never, never>, Record<never, never>>,

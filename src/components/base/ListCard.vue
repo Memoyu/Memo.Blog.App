@@ -5,7 +5,7 @@
 <style lang="less" scoped>
 .list-card-box {
   position: relative;
-  padding: var(--van-cell-vertical-padding) var(--van-cell-horizontal-padding);
+  padding: 10px var(--van-padding-md);
   // background: var(--van-background-2);
 
   &::after {
@@ -16,7 +16,7 @@
     right: var(--van-padding-md);
     bottom: 0;
     left: var(--van-padding-md);
-    border-bottom: 1px solid var(--van-cell-border-color);
+    border-bottom: 1px solid var(--van-border-color);
   }
 }
 </style>

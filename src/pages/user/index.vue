@@ -33,6 +33,7 @@ function getUsers(text: string) {
 </script>
 
 <template>
+  <nav-bar />
   <van-search
     v-model="search"
     placeholder="请输入搜索关键词"
@@ -57,11 +58,11 @@ function getUsers(text: string) {
             </div>
             <div class="ur-info-box">
               <div class="ur-info-item">
-                <div class="i-carbon:email" />
+                <div class="i-carbon-email" />
                 <van-text-ellipsis class="ur-email" :content="item.email" />
               </div>
               <div class="ur-info-item">
-                <div class="i-carbon:phone" />
+                <div class="i-carbon-phone" />
                 <van-text-ellipsis
                   class="ur-phone-number"
                   :content="item.phoneNumber"

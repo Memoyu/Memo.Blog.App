@@ -2,6 +2,10 @@
 import router from "@/router";
 import { useUserStore, useAuthTokenStore } from "@/stores";
 
+defineOptions({
+  name: "Profile",
+});
+
 const authTokenStore = useAuthTokenStore();
 const isLogin = computed(() => authTokenStore.isLogin());
 
@@ -64,6 +68,7 @@ function getUserNickname() {
   name: "Profile",
   meta: {
     title: "个人",
+    keepAlive: true,
   },
 }
 </route>

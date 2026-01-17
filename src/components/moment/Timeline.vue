@@ -53,12 +53,12 @@ onMounted(() => {
                 {{ dayjs(item.createTime).format("YYYY-MM-DD HH:mm") }}
               </div>
               <van-tag type="primary">
-                {{ dateDiff(new Date(item.createTime)) }}
+                {{ dateDiff(item.createTime) }}
               </van-tag>
             </div>
           </div>
           <div class="content-markdown">
-            <preview v-model="item.content" />
+            <md-preview :content="item.content" />
           </div>
 
           <div class="content-extra">
@@ -69,11 +69,11 @@ onMounted(() => {
             </div>
             <div class="sumarry-list">
               <div class="sumarry-item">
-                <div class="i-carbon:chat" />
+                <div class="i-carbon-chat" />
                 <p>{{ item.comments }}</p>
               </div>
               <div class="sumarry-item">
-                <div class="i-carbon:thumbs-up" />
+                <div class="i-carbon-thumbs-up" />
                 <p>{{ item.likes }}</p>
               </div>
             </div>

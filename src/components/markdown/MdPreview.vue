@@ -2,34 +2,27 @@
 import Vditor from "vditor";
 import "vditor/dist/index.css";
 
-const vditor = ref();
 const previewRef = ref<HTMLDivElement>();
+const outlineRef = ref<Element>();
 
-const emit = defineEmits(["update:modelValue"]);
-
-const props = defineProps({
-  modelValue: {
-    type: String,
-    default: "",
-  },
-});
+const content = defineModel<string>("content");
+const showOutline = defineModel<boolean>("showOutline");
 
 const mode = computed(() => {
   return isDark.value ? "dark" : "light";
 });
 
-onMounted(() => {
-  vditor.value = Vditor.preview(
-    previewRef.value as HTMLDivElement,
-    props.modelValue,
-    {
+watch(
+  () => content.value,
+  (text) => {
+    Vditor.preview(previewRef.value as HTMLDivElement, text ?? "", {
       // cdn: "https://ld246.com/js/lib/vditor",
       mode: mode.value,
-      // anchor: 1,
-      //   hljs: {
-      //     lineNumber: true,
-      //     style: "github",
-      //   },
+      anchor: 1,
+      hljs: {
+        lineNumber: true,
+        style: "github",
+      },
       math: {
         inlineDigit: true,
         macros: {},
@@ -54,19 +47,67 @@ onMounted(() => {
       //       }
       //     },
       //   },
-    },
-  );
-});
+    });
+  },
+);
+
+function onOutlineOpened() {
+  const previewElem = previewRef.value as HTMLDivElement;
+  var outlineElem = outlineRef.value as HTMLDivElement;
+  Vditor.outlineRender(previewElem, outlineElem);
+  if (outlineElem.innerText.trim() !== "") {
+    outlineElem.style.display = "block";
+    initOutline(outlineElem);
+  }
+}
+
+const initOutline = (outlineElem: HTMLElement) => {
+  outlineElem.firstElementChild!.addEventListener("click", (event: Event) => {
+    let target = event.target as HTMLElement;
+    if (!target.classList.contains("vditor-outline__action")) {
+      // console.log("点击节点");
+      showOutline.value = false;
+    }
+  });
+};
 </script>
 
 <template>
-  <div class="vditor-preview-container">
-    <div ref="previewRef"></div>
+  <div>
+    <div class="vditor-preview-container">
+      <div ref="previewRef"></div>
+    </div>
+    <van-popup
+      v-model:show="showOutline"
+      round
+      position="bottom"
+      :style="{ height: '40%' }"
+      @opened="onOutlineOpened"
+    >
+      <div class="vditor-outline-container">
+        <div class="vditor-outline-title">大纲</div>
+        <div ref="outlineRef"></div>
+      </div>
+    </van-popup>
   </div>
 </template>
 
 <style lang="less" scoped>
+:deep(.vditor-outline__action) {
+  height: 14px;
+  width: 14px;
+}
+
 .vditor-preview-container {
   padding: 8px;
+}
+
+.vditor-outline-container {
+  margin: 10px 0;
+}
+
+.vditor-outline-title {
+  font-size: var(--van-font-size-lg);
+  --at-apply: flex justify-center font-bold;
 }
 </style>

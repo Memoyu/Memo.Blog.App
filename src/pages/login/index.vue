@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 import type { RouteMap } from "vue-router";
-import { useUserStore } from "@/stores";
+import { useRouteCacheStore, useUserStore } from "@/stores";
 
 import logo from "~/images/logo.png";
 import { PageEnum } from "@/common/enums";
 
 const router = useRouter();
 const userStore = useUserStore();
+const routeCacheStore = useRouteCacheStore();
+
 const loading = ref(false);
 
 const postData = reactive({
@@ -18,6 +20,10 @@ const postData = reactive({
 const rules = reactive({
   username: [{ required: true, message: "请输入用户名" }],
   password: [{ required: true, message: "请输入密码" }],
+});
+
+onMounted(() => {
+  routeCacheStore.clear();
 });
 
 async function login(values: any) {

@@ -1,4 +1,8 @@
 <script setup lang="ts">
+defineOptions({
+  name: "Article",
+});
+
 const active = ref(0);
 </script>
 <template>
@@ -20,6 +24,7 @@ const active = ref(0);
   name: "Article",
   meta: {
     title: "文章",
+    keepAlive: true,
   },
 }
 </route>

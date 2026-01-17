@@ -27,13 +27,12 @@ onMounted(() => {
         <div class="flex items-center w-3/4">
           <div class="w-2/4">{{ item.name }}</div>
           <div class="flex items-center space-x-7">
-            <!-- <div class="i-carbon:property-relationship" /> -->
             <p>{{ item.articles }}</p>
           </div>
         </div>
 
         <div class="category-edit">
-          <div class="i-carbon:edit" />
+          <div class="i-carbon-edit" />
         </div>
       </div>
     </list-card>

@@ -3,6 +3,7 @@ const themeShow = ref(false);
 </script>
 
 <template>
+  <nav-bar />
   <van-cell-group inset>
     <van-cell is-link title="深色模式" size="large" @click="themeShow = true" />
   </van-cell-group>

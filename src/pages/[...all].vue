@@ -8,6 +8,7 @@ function onBack() {
 </script>
 
 <template>
+  <nav-bar />
   <div text="center gray-300 dark:gray-200">
     <van-empty image="error" description="页面不存在" />
 

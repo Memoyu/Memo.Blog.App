@@ -6,6 +6,7 @@ import friend from "./friend";
 import openSource from "./open-source";
 import logging from "./logging";
 import config from "./config";
+import note from "./note";
 
 export default {
   ...user,
@@ -16,4 +17,5 @@ export default {
   ...openSource,
   ...logging,
   ...config,
+  ...note,
 };

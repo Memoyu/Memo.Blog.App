@@ -1,14 +1,9 @@
 <script setup lang="ts">
-import router from "@/router";
-import { useUserStore } from "@/stores";
-
-const userStore = useUserStore();
-const userInfo = computed(() => userStore.userInfo);
-
-function login() {
-  router.push({ name: "Login", query: { redirect: "Profile" } });
-}
+defineOptions({
+  name: "Dashboard",
+});
 </script>
+
 <template>
   <statistics />
   <ranking />
@@ -21,6 +16,7 @@ function login() {
   path: "/",
   meta: {
     title: "概览",
+    keepAlive: true,
   },
 }
 </route>

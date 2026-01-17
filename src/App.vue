@@ -20,7 +20,6 @@ function initThemeMode() {}
 
 <template>
   <van-config-provider :theme="mode">
-    <nav-bar />
     <router-view v-slot="{ Component }">
       <section class="app-wrapper">
         <keep-alive :include="keepAliveRouteNames">

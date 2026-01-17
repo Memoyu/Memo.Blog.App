@@ -35,6 +35,7 @@ const notifies = [
 ];
 </script>
 <template>
+  <nav-bar />
   <van-list sticky>
     <van-cell v-for="item in notifies" :key="item.messageId">
       <div class="notify">

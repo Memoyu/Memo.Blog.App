@@ -1,31 +1,43 @@
 <script setup lang="ts">
-import { routeWhiteList } from "@/common/configs/routes";
-
 const route = useRoute();
 const router = useRouter();
+
+const props = defineProps({
+  title: {
+    type: String,
+  },
+});
 
 function onBack() {
   if (window.history.state.back) history.back();
   else router.replace("/");
 }
 
-const title = computed(() => {
-  if (!route.meta) return "";
-
-  return route.meta.title || "";
+const navTitle = computed(() => {
+  if (!props.title) return route.meta ? route.meta.title : "";
+  return props.title;
 });
-
-const show = computed(() => route.name && routeWhiteList.includes(route.name));
 </script>
 
 <template>
   <VanNavBar
-    v-if="!show"
-    :title="title"
     :fixed="true"
     clickable
     placeholder
     :left-arrow="true"
     @click-left="onBack"
-  />
+  >
+    <template #title>
+      <van-text-ellipsis class="nav-bar-title" :content="navTitle" />
+    </template>
+    <template #right>
+      <slot name="right"></slot>
+    </template>
+  </VanNavBar>
 </template>
+
+<style scoped lang="less">
+.nav-bar-title {
+  width: 150px;
+}
+</style>
