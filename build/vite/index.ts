@@ -7,6 +7,8 @@ import { VantResolver } from "unplugin-vue-components/resolvers";
 import VueRouter from "unplugin-vue-router/vite";
 import UnoCSS from "unocss/vite";
 import { createViteVConsole } from "./vconsole";
+import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
+import path from "path";
 
 export function createVitePlugins(mode: string) {
   return [
@@ -47,6 +49,11 @@ export function createVitePlugins(mode: string) {
       UnoCSS(),
 
       createViteVConsole(mode),
+
+      createSvgIconsPlugin({
+        iconDirs: [path.resolve(process.cwd(), "src/assets/icons/svg")],
+        symbolId: "icon-[name]",
+      }),
     ],
   ];
 }

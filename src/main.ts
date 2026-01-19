@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import { createHead } from "@unhead/vue/client";
-import { Lazyload } from "vant";
+import "virtual:svg-icons-register";
 
 import router from "@/router";
 import pinia from "@/stores";

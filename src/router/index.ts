@@ -32,7 +32,7 @@ router.beforeEach(
     from: EnhancedRouteLocation,
     next: NavigationGuardNext,
   ) => {
-    NProgress.start();
+    // NProgress.start();
 
     const routeCacheStore = useRouteCacheStore();
     const authTokenStore = useAuthTokenStore();
@@ -64,7 +64,7 @@ router.beforeEach(
 );
 
 router.afterEach(() => {
-  NProgress.done();
+  // NProgress.done();
 });
 
 export default router;

@@ -5,8 +5,9 @@ import "vditor/dist/index.css";
 const editorRef = ref();
 const outlineRef = ref<Element>();
 
-const content = defineModel<string>("content", { default: "" });
+const content = defineModel<string>("content");
 const showOutline = defineModel<boolean>("showOutline");
+const loading = defineModel<boolean>("loading");
 
 const theme = computed(() => {
   return isDark.value ? "dark" : "classic";
@@ -17,7 +18,10 @@ const mode = computed(() => {
 });
 
 onMounted(() => {
-  editorRef.value = new Vditor("vditor-editor", {
+  console.log("editor");
+  loading.value = true;
+  const vditor = new Vditor("vditor-editor", {
+    placeholder: "请输入正文",
     toolbarConfig: {
       pin: true,
     },
@@ -25,7 +29,6 @@ onMounted(() => {
     cache: {
       enable: false,
     },
-    height: window.innerHeight - 160,
     toolbar: [
       "headings",
       "bold",
@@ -52,18 +55,29 @@ onMounted(() => {
         tipPosition: "n",
         tip: "添加图片",
         className: "",
-        icon: '<svg><use xlink:href="#vditor-icon-image"></use></svg>',
+        icon: '<svg><use xlink:href="#icon-image"></use></svg>',
       },
       "undo",
       "redo",
       "fullscreen",
     ],
     after() {
-      editorRef.value.setValue(content.value);
-      editorRef.value.setTheme(theme.value, mode.value, "github");
+      vditor.setValue(content.value ?? "");
+      vditor.setTheme(theme.value, mode.value, "github");
+      editorRef.value = vditor;
+      loading.value = false;
     },
   });
 });
+
+watch(
+  () => content.value,
+  (newValue) => {
+    if (loading.value) return;
+    editorRef.value.setValue(newValue);
+    loading.value = false;
+  },
+);
 
 function onOutlineOpened() {
   const editorElem = document.querySelector(".vditor-ir")
@@ -91,7 +105,7 @@ const initOutline = (outlineElem: HTMLElement) => {
 <template>
   <div>
     <div class="vditor-editor-container">
-      <div id="vditor-editor" ref="editorRef"></div>
+      <div id="vditor-editor"></div>
     </div>
     <van-popup
       v-model:show="showOutline"
@@ -128,6 +142,7 @@ const initOutline = (outlineElem: HTMLElement) => {
 
 :deep(.vditor-reset) {
   background-color: transparent !important;
+  padding: 0 !important;
 }
 
 .vditor-editor-container {

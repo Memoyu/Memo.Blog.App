@@ -77,7 +77,7 @@ function onNoteEditClick() {
 }
 
 function onOutlineClick() {
-  // console.log("笔记目录");
+  // console.log("笔记分组");
   showOutline.value = true;
 }
 </script>
@@ -85,7 +85,7 @@ function onOutlineClick() {
 <template>
   <nav-bar :title="note?.title">
     <template #right>
-      <van-icon name="search" />
+      <van-icon class="i-carbon-list" />
     </template>
   </nav-bar>
   <div>
@@ -111,7 +111,7 @@ function onOutlineClick() {
         <div class="preview-title">{{ note?.title }}</div>
         <div class="preview-author">
           <div>{{ note?.author.nickname }}</div>
-          <div>{{ note?.catalog.title }}</div>
+          <div>{{ note?.group.title }}</div>
           <div>
             {{ dateFormat(note?.updateTime) }}
           </div>
@@ -131,9 +131,9 @@ function onOutlineClick() {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 99;
 }
 .menu-box {
+  z-index: 99;
   height: 60px;
   overflow: hidden;
   background: var(--van-background-2);
@@ -169,8 +169,9 @@ function onOutlineClick() {
 .preview-header {
 }
 .preview-title {
-  font-size: 19px;
-  font-weight: var(--van-font-bold);
+  font-size: 1.75em;
+  font-weight: 600;
+  line-height: 1.25;
 }
 
 .preview-author {

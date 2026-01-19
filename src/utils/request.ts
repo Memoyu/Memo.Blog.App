@@ -8,7 +8,7 @@ import type {
   InternalAxiosRequestConfig,
 } from "axios";
 import axios from "axios";
-import { showNotify } from "vant";
+import { showFailToast } from "vant";
 import router from "@/router";
 
 type ResponseResult<T> = {
@@ -56,10 +56,7 @@ export class Request {
         // console.log('响应success', response.data);
         var res = response.data as ResponseResult<any>;
         if (res.code != ResponseCode.SUCCESS || !res.data) {
-          showNotify({
-            type: "danger",
-            message: res.message,
-          });
+          showFailToast(res.message);
           throw new Error(res.message);
         }
         return res.data;
@@ -107,16 +104,10 @@ export class Request {
             router.replace(PageEnum.LOGIN);
           }
 
-          showNotify({
-            type: "danger",
-            message: message,
-          });
+          showFailToast(message);
         }
 
-        showNotify({
-          type: "danger",
-          message: "服务暂不可用，请稍后再试！",
-        });
+        showFailToast("服务暂不可用，请稍后再试！");
         return Promise.reject(error);
       },
     );

@@ -19,7 +19,7 @@ const show = computed(() => route.name && routeWhiteList.includes(route.name));
         <div class="i-carbon:blog" />
       </template>
     </van-tabbar-item>
-    <van-tabbar-item replace to="/moment">
+    <van-tabbar-item replace to="/daily">
       <template #icon>
         <div class="i-carbon:layers" />
       </template>

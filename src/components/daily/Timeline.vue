@@ -7,11 +7,16 @@ import { MomentPageItem } from "@/types/interfaces";
 const loading = ref(false);
 const finished = ref(true);
 
+const showOutline = ref(false);
 const searchContent = ref("");
 const page = ref(1);
 const pageSize = 15;
 
 const moments = ref<Array<MomentPageItem>>([]);
+
+defineExpose({
+  addClick,
+});
 
 onMounted(() => {
   // 获取动态列表
@@ -25,6 +30,10 @@ onMounted(() => {
       moments.value = res.items;
     });
 });
+
+function addClick() {
+  console.log("新增动态");
+}
 </script>
 
 <template>

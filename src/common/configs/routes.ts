@@ -2,6 +2,6 @@
 export const routeWhiteList: readonly string[] = [
   "Dashboard", // 首页
   "Article", // 文章
-  "Moment", // 动态
+  "Daily", // 动态
   "Profile", // 个人中心
 ];
