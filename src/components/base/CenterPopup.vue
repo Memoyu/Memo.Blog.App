@@ -16,6 +16,14 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  width: {
+    type: String,
+    default: "70%",
+  },
+  height: {
+    type: String,
+    default: "auto",
+  },
 });
 const emit = defineEmits(["confirm", "cancel"]);
 const show = defineModel<boolean>();
@@ -26,32 +34,32 @@ const show = defineModel<boolean>();
     v-model:show="show"
     :close-on-click-overlay="coco"
     round
-    style="padding: 15px; width: 70%"
+    :style="{ padding: '15px', width, height }"
   >
+    <div v-if="props.title.length > 1" class="c-pop-top">
+      {{ props.title }}
+    </div>
     <div class="c-pop-content">
-      <div v-if="props.title.length > 1" class="c-pop-top">
-        {{ props.title }}
-      </div>
       <slot></slot>
-      <div class="c-pop-bottom">
-        <div class="c-pop-bottom-group">
-          <van-button
-            v-if="props.showCancel"
-            :class="{ 'van-hairline--righ': props.showConfirm }"
-            class="van-hairline--top"
-            block
-            @click="emit('cancel')"
-            >取消</van-button
-          >
-          <van-button
-            v-if="props.showConfirm"
-            :class="{ 'van-hairline--left': props.showCancel }"
-            class="van-hairline--top"
-            block
-            @click="emit('confirm')"
-            >确定</van-button
-          >
-        </div>
+    </div>
+    <div class="c-pop-bottom">
+      <div class="c-pop-bottom-group">
+        <van-button
+          v-if="props.showCancel"
+          :class="{ 'van-hairline--righ': props.showConfirm }"
+          class="van-hairline--top"
+          block
+          @click="emit('cancel')"
+          >取消</van-button
+        >
+        <van-button
+          v-if="props.showConfirm"
+          :class="{ 'van-hairline--left': props.showCancel }"
+          class="van-hairline--top"
+          block
+          @click="emit('confirm')"
+          >确定</van-button
+        >
       </div>
     </div>
   </van-popup>

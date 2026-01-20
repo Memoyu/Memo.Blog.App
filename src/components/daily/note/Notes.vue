@@ -5,13 +5,17 @@ import router from "@/router";
 import { showToast } from "vant";
 
 const defPopupGrids = [
-  { title: "新建笔记", icon: "i-carbon-document-blank", action: addNote },
+  {
+    title: "新建笔记",
+    icon: "i-carbon-document-blank",
+    action: onAddNoteClick,
+  },
   {
     title: "新建分组",
     icon: "i-carbon-document-multiple-01",
-    action: addGroup,
+    action: onAddGroupClick,
   },
-  { title: "编辑笔记", icon: "i-carbon-edit", action: editNote },
+  { title: "编辑笔记", icon: "i-carbon-edit", action: onEditNoteClick },
 ];
 
 const loading = ref(false);
@@ -21,6 +25,7 @@ const showSet = ref(false);
 const showSetCell = ref(false);
 const showEditTitle = ref(false);
 const isRename = ref(false);
+const showSelectGroup = ref(false);
 
 const search = ref("");
 const catalogs = ref<any>({});
@@ -36,11 +41,15 @@ defineExpose({
 });
 
 onMounted(() => {
+  getCatalogList();
+});
+
+function getCatalogList() {
   // 获取笔记目录列表
   api.catalogList().then((res) => {
     catalogs.value = res;
   });
-});
+}
 
 function isGroup(type?: number) {
   return type === 0;
@@ -69,7 +78,7 @@ function onCatalogHistoryClick(index: number, item: NoteCatalogItem) {
   catalogHistory.value = catalogHistory.value.slice(0, index + 1);
 }
 
-function onNoteGroupClick(item: NoteCatalogItem) {
+function onCatalogClick(item: NoteCatalogItem) {
   if (!isGroup(item.type)) {
     // 是笔记时，跳转笔记页面
     router.push({ name: "NotePreview", query: { id: item.id } });
@@ -99,7 +108,7 @@ function addClick() {
   popupGrids.value = defPopupGrids.slice(0, 2);
 }
 
-function addNote() {
+function onAddNoteClick() {
   // console.log("新增笔记");
   showSet.value = false;
   // console.log(setCatalogItem.value);
@@ -116,14 +125,14 @@ function addNote() {
   });
 }
 
-function addGroup() {
+function onAddGroupClick() {
   // console.log("新增分组");
   showSet.value = false;
   showEditTitle.value = true;
   isRename.value = false;
 }
 
-function confirmEditTitleClick() {
+function onConfirmEditTitleClick() {
   if (!inputTitle.value || inputTitle.value.length < 1) {
     showToast("标题不能为空");
     return;
@@ -133,21 +142,34 @@ function confirmEditTitleClick() {
   showEditTitle.value = false;
   if (isRename.value) {
     // 重命名
+    if (!setCatalogItem.value) return;
     api
       .titleUpdate({
-        Id: setCatalogItem.value?.id ?? "",
-        type: setCatalogItem.value?.type ?? 0,
+        Id: setCatalogItem.value.id,
+        type: setCatalogItem.value.type,
         title: inputTitle.value,
       })
       .then(() => {
         setCatalogItem.value!.title = inputTitle.value;
+        inputTitle.value = "";
         showToast("修改成功");
       });
   } else {
+    // 新建
+    api
+      .createGroup({
+        title: inputTitle.value,
+        parentId: currentCatalog.value?.id,
+      })
+      .then(() => {
+        inputTitle.value = "";
+        getCatalogList();
+        showToast("创建成功");
+      });
   }
 }
 
-function editNote() {
+function onEditNoteClick() {
   showSet.value = false;
   if (!setCatalogItem.value) return;
   router.push({ name: "NoteEdit", query: { id: setCatalogItem.value.id } });
@@ -159,13 +181,34 @@ function onRenameTitleClick() {
   showEditTitle.value = true;
   inputTitle.value = setCatalogItem.value?.title ?? "";
 }
+
+function onChangeGroupClick() {
+  showSet.value = false;
+  showSelectGroup.value = true;
+}
+
+function onSelectedGroupClick(selected?: NoteCatalogItem) {
+  console.log("选中分组", selected);
+  if (!setCatalogItem.value) return;
+  api
+    .groupUpdate({
+      Id: setCatalogItem.value.id,
+      type: setCatalogItem.value.type,
+      groupId: selected?.id,
+    })
+    .then(() => {
+      // 重新加载分组
+      getCatalogList();
+      showToast("移动分组成功");
+    });
+}
 </script>
 
 <template>
   <div class="flex items-center my-15">
     <van-icon name="arrow-left" size="25" class="pr-8" @click="onBackClick" />
     <div class="breadcrumb-item mr-12" @click="onRootClick">Root</div>
-    <div class="breadcrumb-box flex items-center overflow-scroll">
+    <div class="flex items-center overflow-scroll">
       <div class="flex" v-for="(item, index) in catalogHistory">
         <div
           class="breadcrumb-item whitespace-nowrap"
@@ -185,7 +228,7 @@ function onRenameTitleClick() {
       <van-row
         gutter="10"
         class="catalog-box"
-        @click="() => onNoteGroupClick(item)"
+        @click="() => onCatalogClick(item)"
       >
         <van-col span="2" v-if="isGroup(item.type)">
           <div
@@ -230,6 +273,11 @@ function onRenameTitleClick() {
           <van-icon name="more-o" />
         </template>
       </van-cell>
+      <van-cell title="移动到其他分组" @click="onChangeGroupClick">
+        <template #right-icon>
+          <van-icon name="exchange" />
+        </template>
+      </van-cell>
       <van-cell title="删除" :title-style="{ color: 'red' }">
         <template #right-icon>
           <van-icon name="delete-o" color="red" />
@@ -242,7 +290,7 @@ function onRenameTitleClick() {
     v-model="showEditTitle"
     :coco="false"
     :title="isRename ? '重命名' : '新建分组'"
-    @confirm="confirmEditTitleClick"
+    @confirm="onConfirmEditTitleClick"
     @cancel="showEditTitle = false"
   >
     <van-field
@@ -254,6 +302,12 @@ function onRenameTitleClick() {
       "
     />
   </center-popup>
+
+  <selec-notet-group
+    v-model="showSelectGroup"
+    @confirm="onSelectedGroupClick"
+    @cancel="showEditTitle = false"
+  />
 </template>
 
 <style lang="less" scoped>

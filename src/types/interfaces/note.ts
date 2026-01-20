@@ -1,3 +1,7 @@
+export interface NoteCatalogRequest {
+  onlyGroup?: boolean;
+}
+
 export interface NoteCatalogItem {
   type: number; // 分组类型 group: 0, note: 1
   id: string; // 分组id
@@ -30,4 +34,28 @@ export interface NoteUpdateTitleRequest {
   Id: string;
   type: number;
   title: string;
+}
+
+export interface NoteUpdateGroupRequest {
+  Id: string;
+  type: number;
+  groupId?: string;
+}
+
+export interface NoteUpdateRequest {
+  noteId: string; // 笔记id
+  groupId?: string; // 笔记分组Id
+  title: string; // 笔记标题
+  content: string; // 笔记内容
+}
+
+export interface CreateNoteGroupRequest {
+  parentId?: string;
+  title: string;
+}
+
+export interface CreateNoteRequest {
+  groupId?: string;
+  title: string; // 笔记标题
+  content: string; // 笔记内容
 }
