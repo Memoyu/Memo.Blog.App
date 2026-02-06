@@ -55,7 +55,7 @@ export class Request {
         // 对响应数据做点什么
         // console.log('响应success', response.data);
         var res = response.data as ResponseResult<any>;
-        if (res.code != ResponseCode.SUCCESS || !res.data) {
+        if (res.code != ResponseCode.SUCCESS) {
           showFailToast(res.message);
           throw new Error(res.message);
         }

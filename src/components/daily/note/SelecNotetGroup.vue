@@ -75,19 +75,22 @@ function onCatalogClick(item: NoteCatalogItem) {
     width="90%"
   >
     <div class="relative overflow-y-scroll" style="height: 300px">
-      <div class="select-breadcrumb-box">
+      <div class="select-breadcrumb-container">
         <div class="select-selected-catalog">
-          {{ currentCatalog?.title ?? "" }}
+          {{ currentCatalog?.title ?? "根目录" }}
         </div>
-        <div class="select-breadcrumb">
+        <div class="select-breadcrumb-box">
           <van-icon
             name="arrow-left"
-            size="25"
-            class="pr-8"
+            size="18"
+            class="select-breadcrumb-item-back"
             @click="onBackClick"
           />
-          <div class="select-breadcrumb-item mr-12" @click="onRootClick">
-            Root
+          <div
+            class="select-breadcrumb-item select-breadcrumb-item-root"
+            @click="onRootClick"
+          >
+            \
           </div>
           <div class="flex items-center overflow-scroll">
             <div class="flex" v-for="(item, index) in catalogHistory">
@@ -135,7 +138,7 @@ function onCatalogClick(item: NoteCatalogItem) {
 </template>
 
 <style lang="less" scoped>
-.select-breadcrumb-box {
+.select-breadcrumb-container {
   position: sticky;
   top: 0;
   z-index: 3;
@@ -155,13 +158,25 @@ function onCatalogClick(item: NoteCatalogItem) {
   margin-bottom: 13px;
 }
 
-.select-breadcrumb {
-  --at-apply: flex items-center;
+.select-breadcrumb-box {
+  --at-apply: flex items-cente;
 }
-
 .select-breadcrumb-item {
   color: var(--van-primary-color);
 }
+.select-breadcrumb-item-back {
+  padding: 4px;
+  border-radius: 50%;
+  background: var(--van-background);
+  margin-right: 6px;
+}
+.select-breadcrumb-item-root {
+  padding: 0 12px;
+  border-radius: 8px;
+  background: var(--van-background);
+  margin-right: 6px;
+}
+
 .select-catalog-box {
   align-items: center;
 }

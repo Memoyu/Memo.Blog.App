@@ -57,5 +57,5 @@ export interface CreateNoteGroupRequest {
 export interface CreateNoteRequest {
   groupId?: string;
   title: string; // 笔记标题
-  content: string; // 笔记内容
+  content?: string; // 笔记内容
 }

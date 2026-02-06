@@ -88,8 +88,7 @@ function onCatalogClick(item: NoteCatalogItem) {
   catalogHistory.value.push(item);
 }
 
-function onNoteGroupSetClick(e: MouseEvent, item: NoteCatalogItem) {
-  e.stopPropagation();
+function onNoteGroupSetClick(item: NoteCatalogItem) {
   setCatalogItem.value = item;
   showSet.value = true;
   showSetCell.value = true;
@@ -157,7 +156,7 @@ function onConfirmEditTitleClick() {
   } else {
     // 新建
     api
-      .createGroup({
+      .groupCreate({
         title: inputTitle.value,
         parentId: currentCatalog.value?.id,
       })
@@ -187,8 +186,8 @@ function onChangeGroupClick() {
   showSelectGroup.value = true;
 }
 
-function onSelectedGroupClick(selected?: NoteCatalogItem) {
-  console.log("选中分组", selected);
+function onConfirmSelectedGroupClick(selected?: NoteCatalogItem) {
+  // console.log("选中分组", selected);
   if (!setCatalogItem.value) return;
   api
     .groupUpdate({
@@ -200,14 +199,22 @@ function onSelectedGroupClick(selected?: NoteCatalogItem) {
       // 重新加载分组
       getCatalogList();
       showToast("移动分组成功");
+      showSelectGroup.value = false;
     });
 }
 </script>
 
 <template>
-  <div class="flex items-center my-15">
-    <van-icon name="arrow-left" size="25" class="pr-8" @click="onBackClick" />
-    <div class="breadcrumb-item mr-12" @click="onRootClick">Root</div>
+  <div class="breadcrumb-box">
+    <van-icon
+      name="arrow-left"
+      size="18"
+      class="breadcrumb-item-back"
+      @click="onBackClick"
+    />
+    <div class="breadcrumb-item breadcrumb-item-root" @click="onRootClick">
+      /
+    </div>
     <div class="flex items-center overflow-scroll">
       <div class="flex" v-for="(item, index) in catalogHistory">
         <div
@@ -245,7 +252,7 @@ function onSelectedGroupClick(selected?: NoteCatalogItem) {
             <div v-if="isGroup(item.type)" class="catalog-count">
               {{ item.count }}
             </div>
-            <div @click="(e) => onNoteGroupSetClick(e, item)">
+            <div @click.stop="onNoteGroupSetClick(item)">
               <van-icon name="ellipsis" size="25" />
             </div>
           </div>
@@ -305,7 +312,7 @@ function onSelectedGroupClick(selected?: NoteCatalogItem) {
 
   <selec-notet-group
     v-model="showSelectGroup"
-    @confirm="onSelectedGroupClick"
+    @confirm="onConfirmSelectedGroupClick"
     @cancel="showEditTitle = false"
   />
 </template>
@@ -314,10 +321,25 @@ function onSelectedGroupClick(selected?: NoteCatalogItem) {
 :deep(.van-cell) {
   background: var(--van-background);
 }
-
+.breadcrumb-box {
+  --at-apply: flex items-center mt-16 mb-5;
+}
 .breadcrumb-item {
   color: var(--van-primary-color);
 }
+.breadcrumb-item-back {
+  padding: 4px;
+  border-radius: 50%;
+  background: var(--van-background-2);
+  margin-right: 6px;
+}
+.breadcrumb-item-root {
+  padding: 0 12px;
+  border-radius: 8px;
+  background: var(--van-background-2);
+  margin-right: 6px;
+}
+
 .catalog-box {
   align-items: center;
 }

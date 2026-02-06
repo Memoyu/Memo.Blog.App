@@ -10,11 +10,11 @@ import {
 import Request from "@/utils/request";
 
 export default {
-  createGroup(req: CreateNoteGroupRequest) {
+  groupCreate(req: CreateNoteGroupRequest) {
     return Request.post<string>("note/create/group", req);
   },
 
-  createNote(req: CreateNoteRequest) {
+  noteCreate(req: CreateNoteRequest) {
     return Request.post<string>("note/create", req);
   },
   noteUpdate(req: NoteUpdateRequest) {

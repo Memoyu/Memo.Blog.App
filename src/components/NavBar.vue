@@ -53,7 +53,9 @@ function getNavTitle() {
       <van-text-ellipsis class="nav-bar-title" :content="navTitle" />
     </template>
     <template #right>
-      <slot name="right"></slot>
+      <div class="nav-bar-right">
+        <slot name="right"></slot>
+      </div>
     </template>
   </van-nav-bar>
 </template>
@@ -61,5 +63,16 @@ function getNavTitle() {
 <style scoped lang="less">
 .nav-bar-title {
   width: 150px;
+}
+
+:deep(.van-nav-bar__right) {
+  padding: 0;
+}
+
+.nav-bar-right {
+  :deep(.van-icon) {
+    font-size: 16px;
+    padding: 0 var(--van-padding-md);
+  }
 }
 </style>

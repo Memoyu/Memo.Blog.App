@@ -85,7 +85,7 @@ function onOutlineClick() {
 <template>
   <nav-bar :title="note?.title">
     <template #right>
-      <van-icon class="i-carbon-list" />
+      <van-icon name="ellipsis" />
     </template>
   </nav-bar>
   <div>
@@ -111,7 +111,7 @@ function onOutlineClick() {
         <div class="preview-title">{{ note?.title }}</div>
         <div class="preview-author">
           <div>{{ note?.author.nickname }}</div>
-          <div>{{ note?.group.title }}</div>
+          <div v-if="note?.group">{{ note?.group.title }}</div>
           <div>
             {{ dateFormat(note?.updateTime) }}
           </div>
@@ -126,20 +126,17 @@ function onOutlineClick() {
 
 <style lang="less" scoped>
 .menu-container {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  z-index: 999;
+  --at-apply: fixed bottom-60 right-0;
 }
 .menu-box {
-  z-index: 99;
   height: 60px;
   overflow: hidden;
   background: var(--van-background-2);
   border-radius: 30px 0px 0px 30px;
-  --at-apply: absolute bottom-60 right-0 flex justify-center items-center;
   transition: all 0.3s;
+  box-shadow: 0px 0px 30px 0px var(--van-border-color);
+  --at-apply: flex justify-center items-center;
 }
 .menu-left {
   height: 100%;

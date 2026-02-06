@@ -2,12 +2,16 @@
 import Vditor from "vditor";
 import "vditor/dist/index.css";
 
-const editorRef = ref();
+const vditor = ref();
 const outlineRef = ref<Element>();
 
 const content = defineModel<string>("content");
 const showOutline = defineModel<boolean>("showOutline");
 const loading = defineModel<boolean>("loading");
+
+defineExpose({
+  getContent,
+});
 
 const theme = computed(() => {
   return isDark.value ? "dark" : "classic";
@@ -18,9 +22,9 @@ const mode = computed(() => {
 });
 
 onMounted(() => {
-  console.log("editor");
+  // console.log("editor");
   loading.value = true;
-  const vditor = new Vditor("vditor-editor", {
+  const vr = new Vditor("vditor-editor", {
     placeholder: "请输入正文",
     toolbarConfig: {
       pin: true,
@@ -59,13 +63,13 @@ onMounted(() => {
       },
       "undo",
       "redo",
-      "fullscreen",
     ],
     after() {
-      vditor.setValue(content.value ?? "");
-      vditor.setTheme(theme.value, mode.value, "github");
-      editorRef.value = vditor;
+      vr.setValue(content.value ?? "");
+      vr.setTheme(theme.value, mode.value, "github");
+      vditor.value = vr;
       loading.value = false;
+      //console.log("render after");
     },
   });
 });
@@ -73,18 +77,16 @@ onMounted(() => {
 watch(
   () => content.value,
   (newValue) => {
-    if (loading.value) return;
-    editorRef.value.setValue(newValue);
-    loading.value = false;
+    if (!vditor.value) return;
+    vditor.value.setValue(newValue ?? "");
   },
 );
 
 function onOutlineOpened() {
-  const editorElem = document.querySelector(".vditor-ir")
-    ?.firstElementChild as HTMLDivElement;
   var outlineElem = outlineRef.value as HTMLDivElement;
-
-  Vditor.outlineRender(editorElem, outlineElem);
+  const vr = vditor.value.vditor;
+  // console.log(vditor, vditor[vditor.currentMode].element);
+  Vditor.outlineRender(vr[vr.currentMode].element, outlineElem, vr);
   if (outlineElem.innerText.trim() !== "") {
     outlineElem.style.display = "block";
     initOutline(outlineElem);
@@ -100,6 +102,11 @@ const initOutline = (outlineElem: HTMLElement) => {
     }
   });
 };
+
+function getContent() {
+  if (!vditor.value) return "";
+  return vditor.value.getValue();
+}
 </script>
 
 <template>
@@ -116,7 +123,7 @@ const initOutline = (outlineElem: HTMLElement) => {
     >
       <div class="vditor-outline-container">
         <div class="vditor-outline-title">大纲</div>
-        <div ref="outlineRef" />
+        <div class="vditor-outline" ref="outlineRef"></div>
       </div>
     </van-popup>
   </div>
@@ -143,6 +150,10 @@ const initOutline = (outlineElem: HTMLElement) => {
 :deep(.vditor-reset) {
   background-color: transparent !important;
   padding: 0 !important;
+}
+
+:deep(.vditor-toolbar__item) {
+  padding: 0 6px;
 }
 
 .vditor-editor-container {
